@@ -24,8 +24,8 @@ import java.util.Arrays;
 @Aspect
 @Component
 @EnableAspectJAutoProxy
-public class HttpApectJ {
-    private final static Logger logger = LoggerFactory.getLogger(HttpApectJ.class);
+public class HttpApectJs {
+    private final static Logger logger = LoggerFactory.getLogger(HttpApectJs.class);
 
     @Pointcut("execution(public * com.ctg.aatime.web.controller..*.*(..))")
     public void webLog() {

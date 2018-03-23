@@ -50,7 +50,7 @@ public class WxLoginController {
     @Autowired
     private UserService userService;
 
-    private WxServiceImpl service;
+    private WxServiceImpl service = new WxServiceImpl();
     @ApiOperation(value = "微信小程序登录接口", notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true, type = "String"),
@@ -61,7 +61,7 @@ public class WxLoginController {
     public ResponseResult loginWeiXin(@RequestParam("username") String username, @RequestParam("avatar") String avatar,
                                       @RequestParam("code") String code, HttpServletResponse response) {
         //TODO 待重构
-        Map<String, Object> map = service.get(code);
+        Map<String, Object> map = service.getSessionInfo(code);
         if (map.containsKey("errcode")) {
             String errcode = (String) map.get("errcode");
             logger.info("微信返回的错误码{}", errcode);

@@ -13,11 +13,9 @@ import java.util.Map;
  * @author pjmike
  * @create 2018-03-22 15:35
  */
-@ConfigurationProperties(prefix = "wx")
 public class WxServiceImpl implements WxService {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public String getAccessToken() {
@@ -28,9 +26,8 @@ public class WxServiceImpl implements WxService {
         String access_token = (String) result.get("access_token");
         return access_token;
     }
-
     @Override
-    public Map<String, Object> get(String jsCode) {
+    public Map<String, Object> getSessionInfo(String jsCode) {
         //参数设置
         Map<String, String> params = WxProperties.SESSION_INFO;
         params.put("jsCode", jsCode);

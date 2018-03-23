@@ -9,6 +9,11 @@ import java.util.List;
  * @create 2018-03-23 16:42
  */
 public interface TimeDao {
-
+    /**
+     * 插入时间段
+     *
+     * @param times
+     * @return
+     */
     int insertTimeList(List<Time> times);
 }

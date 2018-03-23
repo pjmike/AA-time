@@ -21,11 +21,11 @@ public class Time {
     /**
      * 时间段的开始时间
      */
-    private long start_time;
+    private long startTime;
     /**
      * 时间段的结束时间
      */
-    private long end_time;
+    private long endTime;
     /**
      * 时间段的权重值
      */

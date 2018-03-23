@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,13 +21,12 @@ import java.util.Map;
  */
 public class WxQrCodeServiceImpl implements WxQrCodeService{
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
     @Value(("${Image.savePath}"))
     private String ImageSavePath;
     @Value("{Image.url}")
     private String ImageUrl;
-    private WxServiceImpl service;
+    private WxServiceImpl service = new WxServiceImpl();
     private String imageName = "code.jpg";
     @Override
     public String createQrCodeImgUrl() {

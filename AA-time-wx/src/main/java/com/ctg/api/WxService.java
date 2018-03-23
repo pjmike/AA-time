@@ -11,10 +11,16 @@ import java.util.Map;
 public interface WxService {
 
     /**
-     * 获取access_token
+     * 获取access_token信息
      * @return
      */
     String getAccessToken();
 
-    Map<String,Object> get(String jsCode);
+    /**
+     * 获取session_info信息
+     *
+     * @param jsCode
+     * @return
+     */
+    Map<String,Object> getSessionInfo(String jsCode);
 }
