@@ -60,7 +60,7 @@ public class WxLoginController {
     @PostMapping("/login")
     public ResponseResult loginWeiXin(@RequestParam("username") String username, @RequestParam("avatar") String avatar,
                                       @RequestParam("code") String code, HttpServletResponse response) {
-
+        //TODO 待重构
         Map<String, Object> map = service.get(code);
         if (map.containsKey("errcode")) {
             String errcode = (String) map.get("errcode");
