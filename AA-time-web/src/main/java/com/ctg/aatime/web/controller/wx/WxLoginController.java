@@ -1,5 +1,6 @@
 package com.ctg.aatime.web.controller.wx;
 
+import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.domain.User;
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.service.UserService;
@@ -85,6 +86,6 @@ public class WxLoginController {
         valueOperations.set(key, value.toString(), EXP_TIMES, TimeUnit.SECONDS);
         //将key放入请求头里传给前端进行本地保存
         response.setHeader("3rd_session", key);
-        return new ResponseResult(0, "登录成功", null);
+        return FormatResponseUtil.formatResponse();
     }
 }

@@ -19,6 +19,10 @@ public class Time {
      */
     private int eventId;
     /**
+     * 用户id
+     */
+    private int uid;
+    /**
      * 时间段的开始时间
      */
     private long startTime;

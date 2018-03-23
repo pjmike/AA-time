@@ -25,7 +25,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //TODO 待重构
-        if (StringUtils.equals(request.getServletPath(), "/login")) {
+        if (StringUtils.equals(request.getServletPath(), "/index")) {
             String key = request.getHeader("3rd_session");
             //在redis去找值
             long nowExpireTime = redisTemplate.getExpire(key);
