@@ -5,6 +5,7 @@ import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurationSupport;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 /**
  * 1.   websocket 配置类
@@ -15,7 +16,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
  */
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport {
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     /**
      * 首先要连接stomp端点
      *
@@ -37,9 +38,9 @@ public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport 
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        super.configureMessageBroker(registry);
-        //设置目的地前缀
+        //设置消息代理,以/topic,/queue为前缀
         registry.enableSimpleBroker("/topic", "/queue");
+//        registry.enableStompBrokerRelay("/topic", "queue");
         //设置应用程序前缀，前端发起的请求会自动添加/app
         registry.setApplicationDestinationPrefixes("/app");
     }
