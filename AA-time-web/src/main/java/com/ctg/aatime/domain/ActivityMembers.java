@@ -27,9 +27,9 @@ public class ActivityMembers {
      */
     private String username;
     /**
-     * 成员活动中的昵称
+     * 成员活动中的备注
      */
-    private String alias;
+    private String notes;
     /**
      * 成员的头像
      */

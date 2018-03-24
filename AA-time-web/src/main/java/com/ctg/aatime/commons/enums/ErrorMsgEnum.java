@@ -8,6 +8,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public enum ErrorMsgEnum {
+    //TODO 待重构
     SEVER_TIMEOUT("服务器连接超时"),
     WEIXIN_SERVER_FAIL("微信服务器连接失败"),
     SEVER_FAIL("code无效,连接失败"),

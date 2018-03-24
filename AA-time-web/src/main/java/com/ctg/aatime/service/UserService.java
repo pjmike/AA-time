@@ -7,5 +7,5 @@ import com.ctg.aatime.domain.User;
  * @create 2018-03-16 14:42
  */
 public interface UserService {
-    int insertUser(User user);
+    User insertUser(User user);
 }
