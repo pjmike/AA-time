@@ -1,21 +1,21 @@
 package com.ctg.aatime.commons.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.AbstractMessageBrokerConfiguration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurationSupport;
 
 /**
- * websocket 配置类
+ * 1.   websocket 配置类
+ * 2.   @EnableWebSocketMessageBroker注解用于开启使用STOMP协议来传输基于代理（MessageBroker）的消息
  *
  * @author pjmike
  * @create 2018-03-24 11:57
  */
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport{
+public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport {
     /**
      * 首先要连接stomp端点
      *
@@ -24,11 +24,15 @@ public class WebSocketConfig extends WebSocketMessageBrokerConfigurationSupport{
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
         //注册一个STOMP的endpoint端点，并指定使用SockJS协议,前端通过这个端点与服务器建立websocket连接
-        stompEndpointRegistry.addEndpoint("/endpoint").withSockJS();
+        stompEndpointRegistry.addEndpoint("/ws")
+                //解决跨域问题
+                .setAllowedOrigins("*")
+                .withSockJS();
     }
 
     /**
      * MessageBrokerRegistry,配置消息代理
+     *
      * @param registry
      */
     @Override

@@ -2,17 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4362b40e-b529-4fec-a441-9c95fb0f5aad" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_websocket_2_0_0_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_messaging_5_0_4_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_websocket_5_0_4_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ServerResponseMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/MessageTypeEnum.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/AA-time-web.iml" afterPath="$PROJECT_DIR$/AA-time-web/AA-time-web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/pom.xml" afterPath="$PROJECT_DIR$/AA-time-web/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ServerResponseMessage.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ServerResponseMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/TimeUtil.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/TimeUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJs.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxQrCodeController.java" afterPath="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxQrCodeController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,24 +41,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WxLoginController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WxLoginController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
-              <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+              <caret line="33" column="6" lean-forward="false" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WsController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java">
+      <file leaf-file-name="ActivityServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="216">
+              <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,17 +65,7 @@
         <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxQrCodeController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
-              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AA-time-web/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+              <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -83,8 +74,8 @@
       <file leaf-file-name="WebSocketConfig.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="30" column="7" lean-forward="false" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
+            <state relative-caret-position="984">
+              <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientRequestMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java">
+      <file leaf-file-name="ActivityMembersService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+            <state relative-caret-position="336">
+              <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -112,32 +103,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpUserRegistry.class" pinned="false" current-in-tab="false">
-        <entry file="jar://D:/maven/maven.m2/repository/org/springframework/spring-messaging/5.0.4.RELEASE/spring-messaging-5.0.4.RELEASE.jar!/org/springframework/messaging/simp/user/SimpUserRegistry.class">
+      <file leaf-file-name="MyWebMvcConfiguration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/MyWebMvcConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="216">
+              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractMessageBrokerConfiguration.class" pinned="false" current-in-tab="false">
-        <entry file="jar://D:/maven/maven.m2/repository/org/springframework/spring-messaging/5.0.4.RELEASE/spring-messaging-5.0.4.RELEASE.jar!/org/springframework/messaging/simp/config/AbstractMessageBrokerConfiguration.class">
+      <file leaf-file-name="ActivityMemberServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="52" column="22" lean-forward="false" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
+            <state relative-caret-position="140">
+              <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractWebSocketMessageBrokerConfigurer.class" pinned="false" current-in-tab="false">
-        <entry file="jar://D:/maven/maven.m2/repository/org/springframework/spring-websocket/5.0.4.RELEASE/spring-websocket-5.0.4.RELEASE.jar!/org/springframework/web/socket/config/annotation/AbstractWebSocketMessageBrokerConfigurer.class">
+      <file leaf-file-name="HttpApectJs.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="16" column="22" lean-forward="false" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="240">
+              <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+              <folding>
+                <element signature="e#3011#3012#0" expanded="true" />
+                <element signature="e#3069#3070#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -165,16 +171,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/MyWebMvcConfiguration.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJ.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/AA-time-wx/pom.xml" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/EventPlace.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/resources/application-dev.properties" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/resources/mapper/ActivityMapper.xml" />
         <option value="$PROJECT_DIR$/AA-time-web/src/test/java/com/ctg/aatime/dao/ActivityDaoTest.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityService.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/test/java/com/ctg/aatime/service/impl/ActivityServiceImplTest.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/dao/ActivityDao.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/ResponseResult.java" />
@@ -184,7 +186,6 @@
         <option value="$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/config/WxProperties.java" />
         <option value="$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/api/WxQrCodeService.java" />
         <option value="$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/config/RestTemplateConfig.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJs.java" />
         <option value="$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/api/impl/WxQrCodeServiceImpl.java" />
         <option value="$PROJECT_DIR$/AA-time-wx/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/config/ImageProperties.java" />
@@ -197,25 +198,30 @@
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/Time.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/ErrorMsgEnum.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/UserService.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/User.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/TimeUtil.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/test/java/com/ctg/aatime/dao/TimeDaoTest.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/resources/mapper/TimeMapper.xml" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/dao/ActivityMembersDao.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/ActivityMembers.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/resources/mapper/ActivityMembersMapper.xml" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/test/java/com/ctg/aatime/dao/ActivityMembersDaoTest.java" />
         <option value="$PROJECT_DIR$/AA-time-web/pom.xml" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/ServerResponseMessage.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java" />
-        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxQrCodeController.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/MessageType.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ChatMessage.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/TimeUtil.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/MessageTypeEnum.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ServerResponseMessage.java" />
         <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJs.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxQrCodeController.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java" />
+        <option value="$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -318,11 +324,6 @@
             <path>
               <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
               <item name="AA-time" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AA-time" type="462c0819:PsiDirectoryNode" />
               <item name="AA-time-web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -406,7 +407,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="aatime" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="commons" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
@@ -417,17 +419,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="aatime" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AA-time" type="462c0819:PsiDirectoryNode" />
-              <item name="AA-time-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="aatime" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
@@ -438,6 +429,17 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="aatime" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AA-time" type="462c0819:PsiDirectoryNode" />
+              <item name="AA-time-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aatime" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="aop" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
@@ -473,6 +475,17 @@
               <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="controller" type="462c0819:PsiDirectoryNode" />
               <item name="wx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AA-time" type="462c0819:PsiDirectoryNode" />
+              <item name="AA-time-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aatime" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="interceptor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AA-time" type="b2602c69:ProjectViewProjectNode" />
@@ -894,7 +907,7 @@
       <workItem from="1521788988830" duration="10530000" />
       <workItem from="1521805630864" duration="11258000" />
       <workItem from="1521853668619" duration="10320000" />
-      <workItem from="1521865738621" duration="75000" />
+      <workItem from="1521865738621" duration="8913000" />
     </task>
     <servers />
   </component>
@@ -931,7 +944,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40992000" />
+    <option name="totallyTimeSpent" value="49830000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
@@ -951,7 +964,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37025797" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3088012" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852808" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -985,76 +998,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/MyWebMvcConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/Bean/WxCodeColorLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="13" column="29" lean-forward="false" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/config/WxProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-648">
-          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/config/ImageProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="14" lean-forward="false" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/utils/GsonUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/utils/ImgUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="65" lean-forward="false" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/interceptor/Interceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="27" column="64" lean-forward="false" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-wx/src/main/java/com/ctg/config/WxQrCodeProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/exception/WeiXinException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1062,31 +1005,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/FormatResponseUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-906">
-          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1098,31 +1023,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/ResponseResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/ResponseStatusEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/ErrorMsgEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/Time.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
           <caret line="36" column="1" lean-forward="false" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,13 +1036,6 @@
         <state relative-caret-position="144">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -1156,17 +1054,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/EventPlace.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1175,10 +1067,10 @@
         <state relative-caret-position="216">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <marker date="1521857216765" expanded="true" signature="444:460" ph="INSERT INTO time... " />
-            <marker date="1521857216765" expanded="true" signature="444:492" ph="INSERT INTO time... " />
-            <marker date="1521857216765" expanded="true" signature="444:517" ph="INSERT INTO time... " />
-            <marker date="1521857216765" expanded="true" signature="965:1029" ph="(##{item.even... " />
+            <marker date="1521866030904" expanded="true" signature="444:460" ph="INSERT INTO time... " />
+            <marker date="1521866030904" expanded="true" signature="444:492" ph="INSERT INTO time... " />
+            <marker date="1521866030904" expanded="true" signature="444:517" ph="INSERT INTO time... " />
+            <marker date="1521866030904" expanded="true" signature="965:1029" ph="(##{item.even... " />
           </folding>
         </state>
       </provider>
@@ -1205,6 +1097,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
           <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1212,6 +1105,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-360">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1231,31 +1125,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="18" column="39" lean-forward="false" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AA-time-web/src/test/java/com/ctg/aatime/dao/TimeDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
           <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1276,9 +1150,9 @@
         <state relative-caret-position="24">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
-            <marker date="1521861420050" expanded="true" signature="343:362" ph="INSERT INTO members... " />
-            <marker date="1521861420050" expanded="true" signature="343:394" ph="INSERT INTO members... " />
-            <marker date="1521861420050" expanded="true" signature="343:421" ph="INSERT INTO members... " />
+            <marker date="1521866030900" expanded="true" signature="343:362" ph="INSERT INTO members... " />
+            <marker date="1521866030900" expanded="true" signature="343:394" ph="INSERT INTO members... " />
+            <marker date="1521866030900" expanded="true" signature="343:421" ph="INSERT INTO members... " />
           </folding>
         </state>
       </provider>
@@ -1288,13 +1162,6 @@
         <state relative-caret-position="428">
           <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/TimeUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3384">
-          <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1330,38 +1197,207 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java">
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/ServerResponseMessage.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/src.zip!/java/awt/TrayIcon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="30" column="7" lean-forward="false" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
+        <state relative-caret-position="1271">
+          <caret line="619" column="16" lean-forward="false" selection-start-line="619" selection-start-column="16" selection-end-line="619" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ChatMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/ErrorMsgEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/domain/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/swagger/SwaggerConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/interceptor/Interceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="36" column="24" lean-forward="false" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/MessageType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/FormatResponseUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-906">
+          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/ResponseResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/utils/TimeUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1996">
+          <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/RestTemplateConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/ResponseStatusEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="13" column="11" lean-forward="false" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/enums/MessageTypeEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="32" column="7" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/bean/ClientRequestMessage.java">
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        <state relative-caret-position="96">
+          <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/ServerResponseMessage.java" />
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="3" lean-forward="true" selection-start-line="12" selection-start-column="15" selection-end-line="13" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/aop/HttpApectJs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+          <folding>
+            <element signature="e#3011#3012#0" expanded="true" />
+            <element signature="e#3069#3070#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/ActivityMembersService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxQrCodeController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java">
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        <state relative-caret-position="216">
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/ActivityMemberServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/service/impl/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="14" column="6" lean-forward="false" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/WebSocketConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="984">
+          <caret line="41" column="35" lean-forward="false" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1373,13 +1409,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/ws/WsController.java">
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/commons/config/MyWebMvcConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AA-time-web/src/main/java/com/ctg/aatime/web/controller/wx/WxLoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="33" column="6" lean-forward="false" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

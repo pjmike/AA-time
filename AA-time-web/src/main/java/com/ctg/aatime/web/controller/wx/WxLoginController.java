@@ -9,6 +9,7 @@ import com.ctg.api.impl.WxServiceImpl;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @create 2018-03-13 19:14
  */
 @RestController
+@Slf4j
 public class WxLoginController {
     /**
      * 微信服务器返回的用户唯一id
@@ -47,7 +49,6 @@ public class WxLoginController {
      */
     private static final long EXP_TIMES = 60 * 60 * 24 * 15;
 
-    private static Logger logger = LoggerFactory.getLogger(WxLoginController.class);
     @Autowired
     private UserService userService;
 
@@ -65,10 +66,10 @@ public class WxLoginController {
         Map<String, Object> map = service.getSessionInfo(code);
         if (map.containsKey("errcode")) {
             String errcode = (String) map.get("errcode");
-            logger.info("微信返回的错误码{}", errcode);
+            log.info("微信返回的错误码{}", errcode);
             return new ResponseResult(1, ErrorMsgEnum.SEVER_FAIL.getMsg(), null);
         } else if (map.containsKey("session_key")) {
-            logger.info("调用微信服务器成功");
+            log.info("调用微信服务器成功");
             openid = (String) map.get("openid");
             session_key = (String) map.get("session_key");
             //先判断用户数据里是否含有openid，如果没有再插入

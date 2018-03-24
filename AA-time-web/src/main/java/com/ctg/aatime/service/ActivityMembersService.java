@@ -12,5 +12,5 @@ public interface ActivityMembersService {
      * @param members
      * @return
      */
-    int insertActivityMember(ActivityMembers members);
+    ActivityMembers insertActivityMember(ActivityMembers members);
 }

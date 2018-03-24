@@ -17,8 +17,10 @@ public class WsController {
 
     @Autowired
     private SimpMessagingTemplate template;
-
-    @MessageMapping("/notice")
+    /**
+     * TODO 待重构
+     */
+    @MessageMapping("/welcome")
     public void sendMessageToAll(ServerResponseMessage message) {
         template.convertAndSend("/topic/notice",message.getResponseMessage());
     }

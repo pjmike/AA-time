@@ -10,5 +10,8 @@ import lombok.Data;
  */
 @Data
 public class ClientRequestMessage {
-    private String name;
+    /**
+     * 消息内容
+     */
+    private String content;
 }
