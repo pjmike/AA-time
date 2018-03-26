@@ -20,7 +20,7 @@ public class WxQrCodeController {
     private WxQrCodeServiceImpl service = new WxQrCodeServiceImpl();
     @GetMapping(value = "/code")
     public ResponseResult createCode() {
-        //TODO 待重构
+        //TODO 重构
         String ImageUrl = service.createQrCodeImgUrl();
         return FormatResponseUtil.formatResponse(ImageUrl);
     }
