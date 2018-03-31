@@ -1,13 +1,6 @@
 # Built application files and Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
+AA-time-wx/target
+AA-time-web/target
 
 # Compiled class files
 *.class
@@ -17,6 +10,8 @@ buildNumber.properties
 
 # About IntelliJ
 *.iml
+AA-time-wx/AA-time-wx.iml
+AA-time-web/AA-time-web.iml
 /.idea/
 /out/
 
