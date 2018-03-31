@@ -1,5 +1,5 @@
 # Built application files and Maven
-target
+target/
 
 # Compiled class files
 *.class

@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.ctg.aatime.dao.TimeDaoTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in com.ctg.aatime.dao.TimeDaoTest
-initializationError(com.ctg.aatime.dao.TimeDaoTest)  Time elapsed: 0 s  <<< ERROR!
-java.lang.Exception: No runnable methods
-
