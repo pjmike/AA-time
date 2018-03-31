@@ -8,12 +8,22 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 public enum ErrorMsgEnum {
-    //TODO 待重构
-    SEVER_TIMEOUT("服务器连接超时"),
-    WEIXIN_SERVER_FAIL("微信服务器连接失败"),
-    SEVER_FAIL("code无效,连接失败"),
-    REDIS_VALUEISNULL("value值为错误"),
-    REDIS_EXPIRE("登录态过期");
+    /**
+     * 服务器连接超时
+     */
+    INNER_SEVER_TIMEOUT("服务器连接超时"),
+    /**
+     * 服务器连接失败
+     */
+    SERVER_FAIL_CONNECT("服务器连接失败"),
+    /**
+     * session_key过期
+     */
+    REDIS_EXPIRE("session_key过期"),
+    /**
+     * redis值不存在
+     */
+    REDIS_VALUE_NULL("redis值不存在");
     @Getter
     private String msg;
 }

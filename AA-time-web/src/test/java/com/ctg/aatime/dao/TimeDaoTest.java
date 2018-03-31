@@ -1,3 +1,4 @@
+/*
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.Time;
@@ -22,7 +23,8 @@ public class TimeDaoTest {
     @Autowired
     private TimeDao timeDao;
 
-    @Test
+*/
+/*    @Test
     @Rollback
     public void insertTimeList() throws Exception {
         List<Time> times = new ArrayList<>();
@@ -33,6 +35,7 @@ public class TimeDaoTest {
             times.add(time);
         }
         timeDao.insertTimeList(times);
-    }
+    }*//*
 
-}
+
+}*/

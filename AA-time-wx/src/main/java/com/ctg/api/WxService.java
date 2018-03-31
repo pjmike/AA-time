@@ -23,4 +23,6 @@ public interface WxService {
      * @return
      */
     Map<String,Object> getSessionInfo(String jsCode);
+
+    Map<String, Object> getUserInfo(String data, String key, String iv, String encodingFormat) throws Exception;
 }

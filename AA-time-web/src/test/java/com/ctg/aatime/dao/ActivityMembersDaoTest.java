@@ -1,3 +1,4 @@
+/*
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.ActivityMembers;
@@ -17,7 +18,8 @@ public class ActivityMembersDaoTest {
     @Autowired
     private ActivityMembersDao activityMembersDao;
     private Logger logger = LoggerFactory.getLogger(ActivityMembersDaoTest.class);
-    @Test
+  */
+/*  @Test
     public void insertActivityMembers() throws Exception {
         ActivityMembers activityMembers = new ActivityMembers();
         activityMembers.setUsername("pjmike");
@@ -25,6 +27,7 @@ public class ActivityMembersDaoTest {
         activityMembers.setUid(2);
         System.out.println(activityMembers);
         activityMembersDao.insertActivityMembers(activityMembers);
-    }
+    }*//*
 
-}
+
+}*/

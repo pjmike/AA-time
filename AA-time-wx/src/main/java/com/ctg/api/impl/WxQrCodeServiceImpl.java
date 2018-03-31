@@ -35,8 +35,8 @@ public class WxQrCodeServiceImpl implements WxQrCodeService{
         //获取二维码的地址
         String url = WxProperties.CODEURL + access_token;
         HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(WxQrCodeProperties.QRCODEPARMS);
-        ResponseEntity<byte[]> responseEntity =  restTemplate.exchange(url, HttpMethod.POST, httpEntity, byte[].class);
-        InputStream inputStream = new ByteArrayInputStream(responseEntity.getBody());
+        byte[] bytes = restTemplate.postForObject(url, httpEntity, byte[].class);
+        InputStream inputStream = new ByteArrayInputStream(bytes);
         ImgUtils.saveToImgByInputStream(inputStream, ImageSavePath, imageName);
         return ImageUrl+imageName;
     }

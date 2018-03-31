@@ -34,7 +34,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
             } else {
                 String openidAndKey = (String) redisTemplate.opsForValue().get(key);
                 if (StringUtils.isBlank(openidAndKey)) {
-                    throw new LoginException(ErrorMsgEnum.REDIS_VALUEISNULL.getMsg());
+                    throw new LoginException(ErrorMsgEnum.REDIS_VALUE_NULL.getMsg());
                 }
                 return true;
             }

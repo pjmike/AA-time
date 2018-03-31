@@ -1,6 +1,5 @@
 package com.ctg.aatime.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**

@@ -2,9 +2,10 @@ package com.ctg.api.impl;
 
 import com.ctg.api.WxService;
 import com.ctg.config.WxProperties;
+import com.ctg.utils.AesCbcUtil;
+import com.ctg.utils.GsonUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -34,5 +35,14 @@ public class WxServiceImpl implements WxService {
         Map<String, Object> result = restTemplate.getForObject(WxProperties.URL2SESSION, Map.class, params);
         //返回map结果
         return result;
+    }
+
+    @Override
+    public Map<String, Object> getUserInfo(String data, String key, String iv, String encodingFormat) throws Exception {
+        //encryptedData加密数据进行AES解密
+        String result = AesCbcUtil.decrypt(data, key, iv, encodingFormat);
+        //将解密后的string字符串利用gson工具类转换为Map
+        Map<String, Object> map = GsonUtils.getGsonData(result);
+        return map;
     }
 }

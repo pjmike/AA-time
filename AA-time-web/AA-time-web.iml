@@ -17,6 +17,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="AA-time-wx" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.58" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-websocket:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.0.0.RELEASE" level="project" />
@@ -42,12 +43,18 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.retry:spring-retry:1.2.2.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.4" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.10" level="project" />
+    <orderEntry type="library" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.0.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.5.28" level="project" />

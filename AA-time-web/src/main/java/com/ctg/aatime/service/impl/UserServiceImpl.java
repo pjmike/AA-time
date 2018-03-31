@@ -21,4 +21,9 @@ public class UserServiceImpl implements UserService{
         userDao.insertUser(user);
         return user;
     }
+
+    @Override
+    public User findUserByOpenId(String openid) {
+        return userDao.selectUserByOpenId(openid);
+    }
 }

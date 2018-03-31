@@ -6,4 +6,7 @@
     <insert id="insertUser" parameterType="user" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO user(username,avatar,openid) VALUES (#{username},#{avatar},#{openid})
     </insert>
+    <select id="selectUserByOpenId" parameterType="String" resultType="user">
+        SELECT * FROM user WHERE openid = #{openid}
+    </select>
 </mapper>

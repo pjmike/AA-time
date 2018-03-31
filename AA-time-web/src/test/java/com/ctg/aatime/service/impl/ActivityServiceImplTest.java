@@ -1,3 +1,4 @@
+/*
 package com.ctg.aatime.service.impl;
 
 import com.ctg.aatime.domain.Activity;
@@ -18,7 +19,8 @@ import static org.junit.Assert.*;
 public class ActivityServiceImplTest {
     @Autowired
     private ActivityService activityService;
-    @Rollback
+  */
+/*  @Rollback
     @Test
     public void createActivity() throws Exception {
         Activity activity = new Activity();
@@ -27,10 +29,15 @@ public class ActivityServiceImplTest {
         activity.setEventTag("开会");
         Activity result = activityService.createActivity(activity);
         System.out.println(result);
-        /**
+        *//*
+*/
+/**
          * 结果:
          * Activity(eventId=5, eventName=demo活动, eventBrief=demo活动简介, eventTag=开会, eventPlace=null, members=0, uid=null, username=null, avatar=null, startTime=0, endTime=0, statisticTime=0)
-         */
-    }
+         *//*
+*/
+/*
+    }*//*
 
-}
+
+}*/

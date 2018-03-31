@@ -1,3 +1,4 @@
+/*
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.Activity;
@@ -20,16 +21,19 @@ public class ActivityDaoTest {
     private ActivityDao activityDao;
 
     private Logger logger = LoggerFactory.getLogger(ActivityDaoTest.class);
-    @Rollback
+ */
+/*   @Rollback
     @Test
     public void createActivity() throws Exception {
         Activity activity = new Activity();
         activity.setEventName("demo活动");
         activity.setEventBrief("demo活动简介");
         activity.setEventTag("开会");
+        activity.setUid(2);
         int count = activityDao.createActivity(activity);
         logger.info("count : " + count);
         logger.info("activity id :"+activity.getEventId());
     }
+*//*
 
-}
+}*/

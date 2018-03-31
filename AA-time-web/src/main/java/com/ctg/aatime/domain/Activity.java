@@ -13,7 +13,7 @@ public class Activity {
     /**
      * 活动Id
      */
-    private String eventId;
+    private int eventId;
     /**
      * 活动名称
      */
@@ -37,7 +37,7 @@ public class Activity {
     /**
      * 活动发起人id
      */
-    private String uid;
+    private int uid;
     /**
      * 发起人名字
      */

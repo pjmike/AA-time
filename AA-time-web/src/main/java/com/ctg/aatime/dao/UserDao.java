@@ -8,12 +8,18 @@ import com.ctg.aatime.domain.User;
  */
 public interface UserDao {
     /**
-     * 插入用户
+     * insert user
      *
-     * @param user
+     * @param user user class
      * @return
      */
     int insertUser(User user);
 
-    User findUserByopenId(String OpenId);
+    /**
+     * select user by id
+     *
+     * @param OpenId
+     * @return
+     */
+    User selectUserByOpenId(String OpenId);
 }
