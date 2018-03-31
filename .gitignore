@@ -1,6 +1,5 @@
 # Built application files and Maven
-AA-time-wx/target
-AA-time-web/target
+target
 
 # Compiled class files
 *.class
@@ -10,8 +9,6 @@ AA-time-web/target
 
 # About IntelliJ
 *.iml
-AA-time-wx/AA-time-wx.iml
-AA-time-web/AA-time-web.iml
 /.idea/
 /out/
 
