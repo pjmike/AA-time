@@ -56,7 +56,7 @@ public class FormatResponseUtil {
      * @return
      */
     public static <T> ResponseResult formatResponseDomain(T t) {
-        ResponseResult baseResult = new ResponseResult(0,"请求成功",t);
+        ResponseResult baseResult = new ResponseResult(ResponseStatusEnum.SUCCESS.getCode(),"请求成功",t);
         return baseResult;
     }
     /**
@@ -67,5 +67,15 @@ public class FormatResponseUtil {
      */
     public static ResponseResult error(ErrorMsgEnum errorMsgEnum) {
         return new ResponseResult(ResponseStatusEnum.FAILED.getCode(), errorMsgEnum.getMsg());
+    }
+
+    /**
+     * 请求失败，返回异常信息
+     *
+     * @param exception
+     * @return
+     */
+    public static ResponseResult error(String exception) {
+        return new ResponseResult(ResponseStatusEnum.FAILED.getCode(), exception);
     }
 }
