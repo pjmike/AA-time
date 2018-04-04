@@ -2,6 +2,8 @@ package com.ctg.aatime.service;
 
 import com.ctg.aatime.domain.Activity;
 
+import java.util.List;
+
 /**
  * 活动业务
  *
@@ -16,4 +18,6 @@ public interface ActivityService {
      * @return
      */
     Activity createActivity(Activity activity);
+
+    List<Activity> selectActivitiesById(int id);
 }
