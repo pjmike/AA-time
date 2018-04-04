@@ -1,4 +1,3 @@
-/*
 package com.ctg.aatime.service.impl;
 
 import com.ctg.aatime.domain.Activity;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,25 +17,19 @@ import static org.junit.Assert.*;
 public class ActivityServiceImplTest {
     @Autowired
     private ActivityService activityService;
-  */
-/*  @Rollback
+
+    @Rollback(value = false)
     @Test
     public void createActivity() throws Exception {
         Activity activity = new Activity();
         activity.setEventName("demo活动");
         activity.setEventBrief("demo活动简介");
         activity.setEventTag("开会");
+        activity.setEventPlace("B楼");
+        activity.setUid(2);
+
         Activity result = activityService.createActivity(activity);
         System.out.println(result);
-        *//*
-*/
-/**
-         * 结果:
-         * Activity(eventId=5, eventName=demo活动, eventBrief=demo活动简介, eventTag=开会, eventPlace=null, members=0, uid=null, username=null, avatar=null, startTime=0, endTime=0, statisticTime=0)
-         *//*
-*/
-/*
-    }*//*
+    }
 
-
-}*/
+}
