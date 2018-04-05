@@ -51,12 +51,12 @@ public class ActivityServiceImpl implements ActivityService{
     @Override
     public List<Activity> selectActivitiesById(int uId) {
         //查询该用户参与的所有活动的id
-        List<Integer> eventIds = activityDao.selectJoinEventsIdById(uId);
+        List<Integer> eventIds = activityDao.selectJoinEventsIdByUid(uId);
         List<Activity> activities = new ArrayList<Activity>();
-        for (Integer id : eventIds) {
-            Activity activity = activityDao.selectActivityById(id);
+        for (Integer eventId : eventIds) {
+            Activity activity = activityDao.selectActivityByEventId(eventId);
             //若该活动未过期，则显示出来
-            if( activity.getEndTime() > new Date().getTime() ){
+            if( activity != null && activity.getEndTime() > new Date().getTime() ){
                 activities.add(activity);
             }
         }

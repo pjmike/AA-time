@@ -41,14 +41,14 @@
         INSERT INTO eventplace(event_id,place) VALUES (#{eventId},#{place})
     </insert>
 
-    <select id="selectJoinEventsIdById" parameterType="int" resultType="int">
-        SELECT event_id FROM members where id = #{id}
+    <select id="selectJoinEventsIdByUid" parameterType="int" resultType="int">
+        SELECT event_id FROM members where uid = #{uid}
     </select>
 
-    <select id="selectActivityById" parameterType="int" resultType="activity">
+    <select id="selectActivityByEventId" parameterType="int" resultType="activity">
         SELECT
-        e.event_id,
-        e.event_name,
+        e.event_id ,
+        e.event_name ,
         e.event_brief,
         e.event_tag,
         e.uid,
@@ -57,10 +57,8 @@
         e.start_time,
         e.end_time,
         e.statistic_time,
-        ep.id "eventPlace.id",
-        ep.place "eventPlace.place",
-        ep.event_id "eventPlace.event_id"
+        ep.place "eventPlace"
         FROM event e INNER JOIN eventplace ep ON e.event_id = ep.event_id
-        WHERE e.event_id = #{id}
+        WHERE e.event_id = #{eventId}
     </select>
 </mapper>

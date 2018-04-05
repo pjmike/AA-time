@@ -32,11 +32,11 @@ public interface ActivityDao {
      * 查询该用户参与的所有活动的Id
      * @return
      */
-    List<Integer> selectJoinEventsIdById(int uId);
+    List<Integer> selectJoinEventsIdByUid(int uId);
 
     /**
      * 通过event_id查询活动
      * @return
      */
-    Activity selectActivityById(int id);
+    Activity selectActivityByEventId(int eventId);
 }
