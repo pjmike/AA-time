@@ -32,4 +32,33 @@
             <if test="statisticTime != null">#{statisticTime},</if>
         </trim>
     </sql>
+
+    <select id="selectLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ID();
+    </select>
+
+    <insert id="createPlace" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO eventplace(event_id,place) VALUES (#{eventId},#{place})
+    </insert>
+
+    <select id="selectJoinEventsIdByUid" parameterType="int" resultType="int">
+        SELECT event_id FROM members where uid = #{uid}
+    </select>
+
+    <select id="selectActivityByEventId" parameterType="int" resultType="activity">
+        SELECT
+        e.event_id ,
+        e.event_name ,
+        e.event_brief,
+        e.event_tag,
+        e.uid,
+        e.username,
+        e.avatar,
+        e.start_time,
+        e.end_time,
+        e.statistic_time,
+        ep.place "eventPlace"
+        FROM event e INNER JOIN eventplace ep ON e.event_id = ep.event_id
+        WHERE e.event_id = #{eventId}
+    </select>
 </mapper>
