@@ -23,4 +23,12 @@
             (#{item.eventId}, #{item.uid},#{item.startTime},#{item.endTime})
         </foreach>
     </sql>
+
+    <delete id="delMembersTimeByEventId" parameterType="int">
+        DELETE FROM time WHERE event_id = #{eventId}
+    </delete>
+
+    <select id="selectFreeTimes" resultType="HashMap">
+        SELECT start_time "key",end_time "value" FROM time WHERE uid=#{uid} AND event_id=#{eventId}
+    </select>
 </mapper>

@@ -1,11 +1,14 @@
 package com.ctg.aatime.web.controller.wx;
 
+import com.ctg.aatime.commons.enums.ErrorMsgEnum;
+import com.ctg.aatime.commons.exception.CascadeException;
 import com.ctg.aatime.commons.exception.LoginException;
 import com.ctg.aatime.commons.exception.WeiXinException;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.http.HttpStatus;
 /**
@@ -37,5 +40,12 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseResult loginExceptionHandler(LoginException w) {
         return FormatResponseUtil.error(w.getMessage());
+    }
+
+    //TODO 这样写对吗？
+    @ExceptionHandler(CascadeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseResult cascadeExceptionHandler(CascadeException c) {
+        return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
     }
 }

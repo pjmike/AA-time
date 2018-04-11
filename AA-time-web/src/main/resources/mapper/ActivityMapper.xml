@@ -41,10 +41,6 @@
         INSERT INTO eventplace(event_id,place) VALUES (#{eventId},#{place})
     </insert>
 
-    <select id="selectJoinEventsIdByUid" parameterType="int" resultType="int">
-        SELECT event_id FROM members where uid = #{uid}
-    </select>
-
     <select id="selectActivityByEventId" parameterType="int" resultType="activity">
         SELECT
         e.event_id ,
@@ -61,4 +57,46 @@
         FROM event e INNER JOIN eventplace ep ON e.event_id = ep.event_id
         WHERE e.event_id = #{eventId}
     </select>
+
+    <delete id="delActivityPlaceByEventId" parameterType="int">
+        DELETE FROM eventplace WHERE event_id = #{eventId}
+    </delete>
+
+    <delete id="delActivity" parameterType="int">
+        DELETE FROM event WHERE event_id = #{eventId}
+    </delete>
+
+    <update id="reduceJoinNumByEventId" parameterType="int">
+        UPDATE event set members = members+1 WHERE event_id=#{eventId}
+    </update>
+
+    <insert id="addQuitReason" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO eventquit
+    </insert>
+    <sql id="quitKey">
+        <trim suffixOverrides=",">
+            <if test="eventName != null">event_name,</if>
+            <if test="eventBrief != null">event_brief,</if>
+            <if test="eventTag != null">event_tag,</if>
+            <if test="uid != null">uid,</if>
+            <if test="username != null">username,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="statisticTime != null">statistic_time,</if>
+        </trim>
+    </sql>
+    <sql id="quitValue">
+        <trim suffixOverrides=",">
+            <if test="eventName != null">#{eventName},</if>
+            <if test="eventBrief != null">#{eventBrief},</if>
+            <if test="eventTag != null">#{eventTag},</if>
+            <if test="uid != null">#{uid},</if>
+            <if test="username != null">#{username},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="statisticTime != null">#{statisticTime},</if>
+        </trim>
+    </sql>
 </mapper>
