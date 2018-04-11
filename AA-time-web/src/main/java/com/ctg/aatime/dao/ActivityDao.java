@@ -1,6 +1,7 @@
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.Activity;
+import com.ctg.aatime.domain.ActivityMembers;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,14 +30,32 @@ public interface ActivityDao {
     int selectLastInsertId();
 
     /**
-     * 查询该用户参与的所有活动的Id
-     * @return
-     */
-    List<Integer> selectJoinEventsIdByUid(int uId);
-
-    /**
-     * 通过event_id查询活动
+     * 从活动信息表和活动地点表通过event_id查询活动
      * @return
      */
     Activity selectActivityByEventId(int eventId);
+
+    /**
+     * 通过该Id从活动地点表中删除该活动的活动地点信息
+     * @return
+     */
+    int delActivityPlaceByEventId(int eventId);
+
+    /**
+     * 通过该Id从活动信息表中删除该活动
+     * @return
+     */
+    int delActivity(int eventId);
+
+    /**
+     * 从活动信息表中将活动参与人数减一
+     */
+    int reduceJoinNumByEventId(int eventId);
+
+    /**
+     * 添加成员退出原因进退出活动记录表
+     * TODO sql语句可能不对
+     * @return
+     */
+    int addQuitReason(@Param("member") ActivityMembers member,@Param("reason") String reason,@Param("eventId") int eventId);
 }

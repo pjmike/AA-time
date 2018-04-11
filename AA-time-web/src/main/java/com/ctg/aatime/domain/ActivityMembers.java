@@ -2,6 +2,9 @@ package com.ctg.aatime.domain;
 
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 活动成员信息
  *
@@ -38,4 +41,8 @@ public class ActivityMembers {
      * 成员加入的时间戳
      */
     private long addTime;
+    /**
+     * 成员空闲时间范围
+     */
+    private HashMap<Long, Long> freeTimes;
 }

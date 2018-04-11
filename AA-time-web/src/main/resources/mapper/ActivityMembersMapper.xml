@@ -26,4 +26,21 @@
             <if test="addTime != null">#{addTime},</if>
         </trim>
     </sql>
+
+    <select id="selectJoinEventsIdByUid" parameterType="int" resultType="int">
+        SELECT event_id FROM members where uid = #{uid}
+    </select>
+
+    <select id="selectActivityMembersByEventId" parameterType="int" resultType="ActivityMembers">
+        SELECT id,event_id,uid,username,notes,avatar,add_time FROM members WHERE event_id=#{eventId}
+    </select>
+
+    <delete id="delActivityMembersByEventId" parameterType="int">
+        DELETE FROM members WHERE event_id = #{eventId}
+    </delete>
+
+    <delete id="quitActivityByUid">
+        DELETE FROM members WHERE uid=#{uid} AND event_id=#{eventId}
+    </delete>
+
 </mapper>
