@@ -13,6 +13,7 @@ import java.util.List;
 public interface ActivityDao {
     /**
      * 新建活动
+     * TODO sql语句判断是否需要写成0
      *
      * @return
      */
@@ -20,6 +21,7 @@ public interface ActivityDao {
 
     /**
      * 新建活动地点
+     *
      * @return
      */
     int createPlace(@Param("place") String place, @Param("eventId") int eventId);
@@ -31,18 +33,21 @@ public interface ActivityDao {
 
     /**
      * 从活动信息表和活动地点表通过event_id查询活动
+     *
      * @return
      */
     Activity selectActivityByEventId(int eventId);
 
     /**
      * 通过该Id从活动地点表中删除该活动的活动地点信息
+     *
      * @return
      */
     int delActivityPlaceByEventId(int eventId);
 
     /**
      * 通过该Id从活动信息表中删除该活动
+     *
      * @return
      */
     int delActivity(int eventId);
@@ -54,8 +59,8 @@ public interface ActivityDao {
 
     /**
      * 添加成员退出原因进退出活动记录表
-     * TODO sql语句可能不对
+     *
      * @return
      */
-    int addQuitReason(@Param("member") ActivityMembers member,@Param("reason") String reason,@Param("eventId") int eventId);
+    int addQuitReason(@Param("member") ActivityMembers member, @Param("reason") String reason);
 }

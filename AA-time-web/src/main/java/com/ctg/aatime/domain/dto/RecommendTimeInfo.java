@@ -1,5 +1,6 @@
 package com.ctg.aatime.domain.dto;
 
+import com.ctg.aatime.domain.ActivityMembers;
 import lombok.Data;
 
 import java.util.List;

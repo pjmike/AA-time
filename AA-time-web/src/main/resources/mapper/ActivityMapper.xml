@@ -66,37 +66,32 @@
         DELETE FROM event WHERE event_id = #{eventId}
     </delete>
 
-    <update id="reduceJoinNumByEventId" parameterType="int">
-        UPDATE event set members = members+1 WHERE event_id=#{eventId}
+    <update id="reduceJoinNumByEventId">
+        UPDATE event set members = members-1 WHERE event_id=#{eventId}
     </update>
 
     <insert id="addQuitReason" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO eventquit
+        INSERT INTO eventquit(<include refid="quitKey"/>) VALUES (<include refid="quitValue"/>)
     </insert>
     <sql id="quitKey">
         <trim suffixOverrides=",">
-            <if test="eventName != null">event_name,</if>
-            <if test="eventBrief != null">event_brief,</if>
-            <if test="eventTag != null">event_tag,</if>
-            <if test="uid != null">uid,</if>
-            <if test="username != null">username,</if>
-            <if test="avatar != null">avatar,</if>
-            <if test="startTime != null">start_time,</if>
-            <if test="endTime != null">end_time,</if>
-            <if test="statisticTime != null">statistic_time,</if>
+            <if test="member.eventId != 0">event_Id,</if>
+            <if test="member.uid != 0">uid,</if>
+            <if test="member.username != null">username,</if>
+            <if test="member.avatar != null">avatar,</if>
+            <if test="member.notes != null">notes,</if>
+            <if test="reason != null">reason,</if>
         </trim>
     </sql>
     <sql id="quitValue">
         <trim suffixOverrides=",">
-            <if test="eventName != null">#{eventName},</if>
-            <if test="eventBrief != null">#{eventBrief},</if>
-            <if test="eventTag != null">#{eventTag},</if>
-            <if test="uid != null">#{uid},</if>
-            <if test="username != null">#{username},</if>
-            <if test="avatar != null">#{avatar},</if>
-            <if test="startTime != null">#{startTime},</if>
-            <if test="endTime != null">#{endTime},</if>
-            <if test="statisticTime != null">#{statisticTime},</if>
+            <if test="member.eventId != 0">#{member.eventId},</if>
+            <if test="member.uid != 0">#{member.uid},</if>
+            <if test="member.username != null">#{member.username},</if>
+            <if test="member.avatar != null">#{member.avatar},</if>
+            <if test="member.notes != null">#{member.notes},</if>
+            <if test="reason != null">#{reason},</if>
         </trim>
     </sql>
+
 </mapper>

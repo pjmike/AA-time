@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,5 +30,11 @@ public class ActivityMemberServiceImplTest {
         for (ActivityMembers member : members) {
             System.out.println(member);
         }
+    }
+
+    @Test
+    public void quitActivity(){
+        ActivityMembers activityMembers = activityMembersService.quitActivity(2,16,"再见");
+        System.out.println(activityMembers);
     }
 }

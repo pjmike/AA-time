@@ -1,10 +1,11 @@
 package com.ctg.aatime.web.controller.activity;
 
-import com.ctg.aatime.commons.exception.CascadeException;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.Activity;
+import com.ctg.aatime.domain.dto.RecommendTimeInfo;
 import com.ctg.aatime.service.ActivityService;
+import com.ctg.aatime.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 首页：我的行程界面 已参与活动显示操作
+ * 活动有关接口
  * Created By Cx On 2018/4/4 20:32
  */
 @RestController
@@ -22,6 +23,8 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private TimeService timeService;
 
     @GetMapping("/create")
     public ResponseResult createActivity(Activity activity){
@@ -38,12 +41,18 @@ public class ActivityController {
 
     @GetMapping("/delete/{eventId}")
     public ResponseResult delActivity(@PathVariable("eventId") int eventId) {
-        //TODO
-        try {
-            activityService.delActivityByEventId(eventId);
-            return FormatResponseUtil.formatResponse();
-        } catch (CascadeException e) {
-            return FormatResponseUtil.error("删除失败");
-        }
+        activityService.delActivityByEventId(eventId);
+        return FormatResponseUtil.formatResponse();
+    }
+
+    //推荐时间
+    @GetMapping(value = "/recommendTime/{eventId}")
+    public ResponseResult RecommendTime(@PathVariable("eventId") int eventId){
+        //TODO 这里是service调用service封装成一个方法好:timeService.getRecommendTime(eventId)
+        // 还是controller调用service好:timeService.getRecommendTime(Activity,joinMembers)
+        // 还是在Dao层定义并调用
+        RecommendTimeInfo recommendTimeInfo =timeService.getRecommendTime(eventId);
+
+        return FormatResponseUtil.formatResponseDomain(recommendTimeInfo);
     }
 }

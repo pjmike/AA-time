@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class ActivityServiceImpl implements ActivityService{
+public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityDao activityDao;
     @Autowired
@@ -43,7 +43,7 @@ public class ActivityServiceImpl implements ActivityService{
         //将添加成功的活动Id赋给EventPlace
         int lastInsertId = activityDao.selectLastInsertId();
         //将信息插入活动地点表
-        if (activityDao.createPlace(activity.getEventPlace(),lastInsertId) < 1){
+        if (activityDao.createPlace(activity.getEventPlace(), lastInsertId) < 1) {
             //添加地点失败
             throw new CascadeException();
         }
@@ -58,7 +58,7 @@ public class ActivityServiceImpl implements ActivityService{
         for (Integer eventId : eventIds) {
             Activity activity = activityDao.selectActivityByEventId(eventId);
             //若该活动统计未结束，则显示出来
-            if( activity != null && activity.getEndTime() > new Date().getTime() ){
+            if (activity != null && activity.getEndTime() > new Date().getTime()) {
                 activities.add(activity);
             }
         }
@@ -72,20 +72,17 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
+    @Transactional
     public void delActivityByEventId(int eventId) {
-        try{
-            if ( activityMembersDao.delActivityMembersByEventId(eventId) < 1 ||
-                    activityDao.delActivityPlaceByEventId(eventId) < 1 ||
-                    timeDao.delMembersTimeByEventId(eventId) < 1){
-                //如果删除活动成员/选择时间/地点表相关信息失败
-                throw new CascadeException();
-            }
-            if (activityDao.delActivity(eventId) < 1){
-                //如果删除该活动失败
-                throw new CascadeException();
-            }
-        } catch (CascadeException e) {
-            throw e;
+        if (activityMembersDao.delActivityMembersByEventId(eventId) < 1 ||
+                activityDao.delActivityPlaceByEventId(eventId) < 1 ||
+                timeDao.delMembersTimeByEventId(eventId) < 1) {
+            //如果删除活动成员/选择时间/地点表相关信息失败
+            throw new CascadeException();
+        }
+        if (activityDao.delActivity(eventId) < 1) {
+            //如果删除该活动失败
+            throw new CascadeException();
         }
     }
 }
