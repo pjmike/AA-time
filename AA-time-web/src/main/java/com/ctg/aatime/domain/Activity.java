@@ -9,7 +9,8 @@ import lombok.Data;
  * @create 2018-03-16 16:19
  */
 @Data
-public class Activity {
+public class
+Activity {
     /**
      * 活动Id
      */
@@ -58,4 +59,12 @@ public class Activity {
      * 活动统计截止时间戳
      */
     private long statisticTime;
+    /**
+     * 活动最小持续时间
+     */
+    private long minTime;
+    /**
+     * 活动最少参与人员
+     */
+    private int fewMembers;
 }

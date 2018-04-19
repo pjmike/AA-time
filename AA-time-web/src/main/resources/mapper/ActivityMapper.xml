@@ -32,4 +32,66 @@
             <if test="statisticTime != null">#{statisticTime},</if>
         </trim>
     </sql>
+
+    <select id="selectLastInsertId" resultType="int">
+        SELECT LAST_INSERT_ID();
+    </select>
+
+    <insert id="createPlace" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO eventplace(event_id,place) VALUES (#{eventId},#{place})
+    </insert>
+
+    <select id="selectActivityByEventId" parameterType="int" resultType="activity">
+        SELECT
+        e.event_id ,
+        e.event_name ,
+        e.event_brief,
+        e.event_tag,
+        e.uid,
+        e.username,
+        e.avatar,
+        e.start_time,
+        e.end_time,
+        e.statistic_time,
+        ep.place "eventPlace"
+        FROM event e INNER JOIN eventplace ep ON e.event_id = ep.event_id
+        WHERE e.event_id = #{eventId}
+    </select>
+
+    <delete id="delActivityPlaceByEventId" parameterType="int">
+        DELETE FROM eventplace WHERE event_id = #{eventId}
+    </delete>
+
+    <delete id="delActivity" parameterType="int">
+        DELETE FROM event WHERE event_id = #{eventId}
+    </delete>
+
+    <update id="reduceJoinNumByEventId">
+        UPDATE event set members = members-1 WHERE event_id=#{eventId}
+    </update>
+
+    <insert id="addQuitReason" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO eventquit(<include refid="quitKey"/>) VALUES (<include refid="quitValue"/>)
+    </insert>
+    <sql id="quitKey">
+        <trim suffixOverrides=",">
+            <if test="member.eventId != 0">event_Id,</if>
+            <if test="member.uid != 0">uid,</if>
+            <if test="member.username != null">username,</if>
+            <if test="member.avatar != null">avatar,</if>
+            <if test="member.notes != null">notes,</if>
+            <if test="reason != null">reason,</if>
+        </trim>
+    </sql>
+    <sql id="quitValue">
+        <trim suffixOverrides=",">
+            <if test="member.eventId != 0">#{member.eventId},</if>
+            <if test="member.uid != 0">#{member.uid},</if>
+            <if test="member.username != null">#{member.username},</if>
+            <if test="member.avatar != null">#{member.avatar},</if>
+            <if test="member.notes != null">#{member.notes},</if>
+            <if test="reason != null">#{reason},</if>
+        </trim>
+    </sql>
+
 </mapper>

@@ -1,7 +1,7 @@
-/*
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.Activity;
+import com.ctg.aatime.domain.ActivityMembers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,6 +12,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -21,8 +23,23 @@ public class ActivityDaoTest {
     private ActivityDao activityDao;
 
     private Logger logger = LoggerFactory.getLogger(ActivityDaoTest.class);
- */
-/*   @Rollback
+
+    @Test
+    public void addQuitReason() {
+        ActivityMembers activityMembers = new ActivityMembers();
+        activityMembers.setUid(2);
+        activityMembers.setEventId(16);
+        activityMembers.setAvatar("hao");
+        activityMembers.setNotes("再说");
+        System.out.println(activityDao.addQuitReason(activityMembers,"我想回家"));
+    }
+
+    @Test
+    public void reduceJoinNumByEventId(){
+        System.out.println(activityDao.reduceJoinNumByEventId(16));
+    }
+
+    @Rollback
     @Test
     public void createActivity() throws Exception {
         Activity activity = new Activity();
@@ -34,6 +51,19 @@ public class ActivityDaoTest {
         logger.info("count : " + count);
         logger.info("activity id :"+activity.getEventId());
     }
-*//*
 
-}*/
+    @Test
+    public void selectActivityByEventId() throws Exception {
+        Activity activity = activityDao.selectActivityByEventId(18);
+        System.out.println(activity);
+    }
+
+    @Test
+    @Rollback(value = false)
+    public void delActivityPlaceByEventId() throws Exception {
+        int count = activityDao.delActivityPlaceByEventId(18);
+        System.out.println("影响行数:   "+count);
+    }
+
+
+}
