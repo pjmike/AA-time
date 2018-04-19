@@ -2,6 +2,7 @@ package com.ctg.aatime.service.impl;
 
 import com.ctg.aatime.commons.bean.ServerResponseMessage;
 import com.ctg.aatime.commons.enums.MessageTypeEnum;
+import com.ctg.aatime.commons.exception.CascadeException;
 import com.ctg.aatime.dao.ActivityDao;
 import com.ctg.aatime.dao.ActivityMembersDao;
 import com.ctg.aatime.dao.TimeDao;
@@ -12,6 +13,7 @@ import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,13 +25,15 @@ import java.util.Map;
  */
 @Service
 @Slf4j
-public class ActivityMemberServiceImpl implements ActivityMembersService{
+public class ActivityMemberServiceImpl implements ActivityMembersService {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
     @Autowired
     private ActivityMembersDao activityMembersDao;
     @Autowired
     private TimeDao timeDao;
+    @Autowired
+    private ActivityDao activityDao;
 
     @Override
     public ActivityMembers insertActivityMember(ActivityMembers members) {
@@ -46,11 +50,11 @@ public class ActivityMemberServiceImpl implements ActivityMembersService{
         for (ActivityMembers member : members) {
             //查询每个成员的freeTime并添加进属性
             int uid = member.getUid();
-            HashMap<Long,Long> freeTime = new HashMap<Long, Long>();
-            List<HashMap<String,Long>> freeTimeList = timeDao.selectFreeTimes(uid,eventId);
-            for (HashMap<String,Long> time : freeTimeList) {
+            HashMap<Long, Long> freeTime = new HashMap<Long, Long>();
+            List<HashMap<String, Long>> freeTimeList = timeDao.selectFreeTimes(uid, eventId);
+            for (HashMap<String, Long> time : freeTimeList) {
                 //将该成员每段freeTime置入同一个map中
-                freeTime.put(time.get("key"),time.get("value"));
+                freeTime.put(time.get("key"), time.get("value"));
             }
             member.setFreeTimes(freeTime);
         }
@@ -58,9 +62,15 @@ public class ActivityMemberServiceImpl implements ActivityMembersService{
     }
 
     @Override
+    @Transactional
     public ActivityMembers quitActivity(int uid, int eventId, String reason) {
-        return null;
+        ActivityMembers activityMember = activityMembersDao.selectActivityMembersByUEid(uid, eventId);
+        if (activityMembersDao.quitActivityByUid(uid, eventId) != 1 ||
+                activityDao.reduceJoinNumByEventId(eventId) != 1 ||
+                timeDao.delMembersTimeByUId(uid, eventId) < 1 ||
+                activityDao.addQuitReason(activityMember, reason) != 1) {
+            throw new CascadeException();
+        }
+        return activityMember;
     }
-
-
 }

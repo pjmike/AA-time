@@ -12,19 +12,22 @@ import java.util.List;
  */
 @Data
 public class BestTime {
-    //开始时间
-    private int startTime;
-    //结束时间
-    private int endTime;
+    //开始时间戳
+    private long startTime;
+    //结束时间戳
+    private long endTime;
     //所有参与活动的人集合
     private List<ActivityMembers> joinMembers;
+    //最优时间解未参与人
+    private List<ActivityMembers> notJoinMembers;
 
     public BestTime() {
     }
 
-    public BestTime(int startTime, int endTime, List<ActivityMembers> joinMembers) {
+    public BestTime(long startTime, long endTime, List<ActivityMembers> joinMembers, List<ActivityMembers> notJoinMembers) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.joinMembers = joinMembers;
+        this.notJoinMembers = notJoinMembers;
     }
 }

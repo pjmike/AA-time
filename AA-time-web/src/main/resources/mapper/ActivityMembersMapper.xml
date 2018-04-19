@@ -35,6 +35,10 @@
         SELECT id,event_id,uid,username,notes,avatar,add_time FROM members WHERE event_id=#{eventId}
     </select>
 
+    <select id="selectActivityMembersByUEid" resultType="ActivityMembers">
+        SELECT id,event_id,uid,username,notes,avatar,add_time FROM members WHERE event_id=#{eventId} AND uid=#{uid}
+    </select>
+
     <delete id="delActivityMembersByEventId" parameterType="int">
         DELETE FROM members WHERE event_id = #{eventId}
     </delete>

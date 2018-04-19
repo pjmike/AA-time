@@ -32,4 +32,10 @@ public interface TimeDao {
      * @return
      */
     List<HashMap<String,Long>> selectFreeTimes(@Param("uid")int uid, @Param("eventId")int eventId);
+
+    /**
+     * 通过uid，eventId从时间选择表中删除该用户该活动的时间选择数据
+     * @return
+     */
+    int delMembersTimeByUId(@Param("uid") int uid,@Param("eventId") int eventId);
 }

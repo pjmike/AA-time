@@ -33,6 +33,11 @@ public interface ActivityMembersDao {
     List<ActivityMembers> selectActivityMembersByEventId(int eventId);
 
     /**
+     * 通过uid和eventId在活动成员表中找出唯一符合条件的活动成员
+     */
+    ActivityMembers selectActivityMembersByUEid(@Param("uid") int uid,@Param("eventId") int eventId);
+
+    /**
      * 通过该Id从活动成员表中删除所有参与该活动的成员
      * @return
      */

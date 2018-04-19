@@ -1,6 +1,7 @@
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.Activity;
+import com.ctg.aatime.domain.ActivityMembers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,6 +23,21 @@ public class ActivityDaoTest {
     private ActivityDao activityDao;
 
     private Logger logger = LoggerFactory.getLogger(ActivityDaoTest.class);
+
+    @Test
+    public void addQuitReason() {
+        ActivityMembers activityMembers = new ActivityMembers();
+        activityMembers.setUid(2);
+        activityMembers.setEventId(16);
+        activityMembers.setAvatar("hao");
+        activityMembers.setNotes("再说");
+        System.out.println(activityDao.addQuitReason(activityMembers,"我想回家"));
+    }
+
+    @Test
+    public void reduceJoinNumByEventId(){
+        System.out.println(activityDao.reduceJoinNumByEventId(16));
+    }
 
     @Rollback
     @Test
