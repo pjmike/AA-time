@@ -29,6 +29,7 @@ public class WxProperties {
      */
     public static final String CODEURL = "https://api.weixin.qq.com/wxa/getwxacode?access_token=";
 
+    public static final String TEMPLATE_MSG_SEND_URL = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=";
     /**
      * 小程序的appid
      */

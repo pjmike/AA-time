@@ -1,16 +1,19 @@
 package com.ctg.aatime.web.controller.wx;
 
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
+import com.ctg.aatime.commons.utils.RedisOperator;
 import com.ctg.aatime.domain.User;
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.domain.dto.WxInfo;
 import com.ctg.aatime.service.UserService;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.api.impl.WxServiceImpl;
+import com.ctg.utils.Md5Util;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -41,8 +44,7 @@ public class WxLoginController {
      * 微信服务器生成的针对用户数据加密签名的密钥
      */
     private String session_key;
-    @Autowired
-    private RedisTemplate redisTemplate;
+
     /**
      * 设置redis中key过期时间为15天
      */
@@ -50,6 +52,8 @@ public class WxLoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisOperator redis;
 
     private WxServiceImpl service = new WxServiceImpl();
 
@@ -77,20 +81,20 @@ public class WxLoginController {
             session_key = (String) map.get("session_key");
             //对encryptedData加密数据进行AES解密,获取用户信息
             Map<String, Object> userInfoMap = service.getUserInfo(wxInfo.getEncrytedData(), session_key, wxInfo.getIv(), "UTF-8");
-            //用户昵称
+
             String nickName = (String) userInfoMap.get("nickName");
-            //用户头像
+
             String avatarUrl = (String) userInfoMap.get("avatarUrl");
+
             User user = new User(openid, nickName, avatarUrl);
             if (userService.findUserByOpenId(openid) == null) {
                 userService.insertUser(user);
             }
         }
-        //生成一个key
-        String key = UUID.randomUUID().toString();
-        ValueOperations valueOperations = redisTemplate.opsForValue();
+        //使用MD5生成一个key,返回给前端
+        String key = Md5Util.getMD5(session_key);
         //将session_key放入redis
-        valueOperations.set(key, session_key.toString(), EXP_TIMES, TimeUnit.SECONDS);
+        redis.set(key, session_key.toString(), EXP_TIMES);
         //将key放入请求头里传给前端进行本地保存
         response.setHeader("3rd_session", key);
         return FormatResponseUtil.formatResponse();
