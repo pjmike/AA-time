@@ -29,7 +29,7 @@ public class ActivityControllerTest {
     public void listByUid() throws Exception {
         //表示测试根目录+该url能否成功被访问
         //TODO 访问请求失败
-        String url = "http://localhost:" + port + "/activity/listByUid/2";
+        String url = "http://localhost:" + port + "/activity/joinListByUid";
         String result = template.getForObject(url,String.class);
         System.out.println("结果："+result);
 //        mvc.perform(MockMvcRequestBuilders.get("/girl/list")).andExpect(MockMvcResultMatchers.status().isOk())

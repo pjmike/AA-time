@@ -8,6 +8,7 @@ import com.ctg.aatime.dao.ActivityMembersDao;
 import com.ctg.aatime.dao.TimeDao;
 import com.ctg.aatime.domain.ActivityMembers;
 import com.ctg.aatime.service.ActivityMembersService;
+import com.ctg.aatime.service.TimeService;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
     private TimeDao timeDao;
     @Autowired
     private ActivityDao activityDao;
+    @Autowired
+    private TimeService timeService;
 
     @Override
     public ActivityMembers insertActivityMember(ActivityMembers members) {
@@ -50,12 +53,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
         for (ActivityMembers member : members) {
             //查询每个成员的freeTime并添加进属性
             int uid = member.getUid();
-            HashMap<Long, Long> freeTime = new HashMap<Long, Long>();
-            List<HashMap<String, Long>> freeTimeList = timeDao.selectFreeTimes(uid, eventId);
-            for (HashMap<String, Long> time : freeTimeList) {
-                //将该成员每段freeTime置入同一个map中
-                freeTime.put(time.get("key"), time.get("value"));
-            }
+            HashMap<Long, Long> freeTime = (HashMap<Long,Long>)timeService.getFreeTimeByUid(uid,eventId);
             member.setFreeTimes(freeTime);
         }
         return members;

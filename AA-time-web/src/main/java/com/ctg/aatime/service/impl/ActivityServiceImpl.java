@@ -51,14 +51,15 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<Activity> selectActivitiesByUid(int uId) {
+    public List<Activity> selectLiveActivitiesByUid(int uId) {
         //查询该用户参与的所有活动的id
         List<Integer> eventIds = activityMembersDao.selectJoinEventsIdByUid(uId);
         List<Activity> activities = new ArrayList<Activity>();
         for (Integer eventId : eventIds) {
             Activity activity = activityDao.selectActivityByEventId(eventId);
-            //若该活动统计未结束，则显示出来
+            //若该活动统计未结束，则查询参与人数，并显示出来
             if (activity != null && activity.getEndTime() > new Date().getTime()) {
+                activity.setJoinMembers(activityMembersDao.selectActivityMembersByEventId(eventId).size());
                 activities.add(activity);
             }
         }
@@ -85,4 +86,34 @@ public class ActivityServiceImpl implements ActivityService {
             throw new CascadeException();
         }
     }
+
+    @Override
+    public int launchActivity(int eventId, String launchWords) {
+        return activityDao.updateLaunchInfo(eventId, new Date().getTime(), launchWords);
+    }
+
+    @Override
+    public List<Activity> selectLaunchActivitiesByUid(int uId) {
+        List<Activity> activities = selectLiveActivitiesByUid(uId);
+        for (Activity activity : activities){
+            if (activity.getLaunchTime() == 0) activities.remove(activity);
+        }
+        return activities;
+    }
+
+    @Override
+    public List<Activity> selectDeadActivitiesByUid(int uId) {
+        List<Integer> eventIds = activityMembersDao.selectJoinEventsIdByUid(uId);
+        List<Activity> activities = new ArrayList<Activity>();
+        for (Integer eventId : eventIds) {
+            Activity activity = activityDao.selectActivityByEventId(eventId);
+            //若该活动统计未结束，则查询参与人数，并显示出来
+            if (activity != null && activity.getEndTime() < new Date().getTime()) {
+                activity.setJoinMembers(activityMembersDao.selectActivityMembersByEventId(eventId).size());
+                activities.add(activity);
+            }
+        }
+        return activities;
+    }
+
 }

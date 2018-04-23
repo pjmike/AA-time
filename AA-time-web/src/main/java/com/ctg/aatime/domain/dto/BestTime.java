@@ -16,7 +16,7 @@ public class BestTime {
     private long startTime;
     //结束时间戳
     private long endTime;
-    //所有参与活动的人集合
+    //参与活动的人集合（不是所有报名人集合）
     private List<ActivityMembers> joinMembers;
     //最优时间解未参与人
     private List<ActivityMembers> notJoinMembers;
