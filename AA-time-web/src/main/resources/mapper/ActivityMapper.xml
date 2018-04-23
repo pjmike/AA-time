@@ -94,4 +94,7 @@
         </trim>
     </sql>
 
+    <update id="updateLaunchInfo">
+        UPDATE event SET launch_time = #{launchTime},launch_words = #{launchWords} WHERE event_id = #{eventId}
+    </update>
 </mapper>

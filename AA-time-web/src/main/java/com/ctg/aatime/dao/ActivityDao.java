@@ -13,7 +13,6 @@ import java.util.List;
 public interface ActivityDao {
     /**
      * 新建活动
-     * TODO sql语句判断是否需要写成0
      *
      * @return
      */
@@ -63,4 +62,10 @@ public interface ActivityDao {
      * @return
      */
     int addQuitReason(@Param("member") ActivityMembers member, @Param("reason") String reason);
+
+    /**
+     * 通过eventId在活动信息表中添加发起信息
+     * @return
+     */
+    int updateLaunchInfo(@Param("eventId")int eventId, @Param("launchTime")long launchTime,@Param("launchWords")String launchWords);
 }

@@ -1,5 +1,6 @@
 package com.ctg.aatime.web.controller.activity;
 
+import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.Activity;
@@ -7,10 +8,7 @@ import com.ctg.aatime.domain.dto.RecommendTimeInfo;
 import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,33 +24,62 @@ public class ActivityController {
     @Autowired
     private TimeService timeService;
 
-    @GetMapping("/create")
-    public ResponseResult createActivity(Activity activity){
+    @PostMapping()
+    //TODO 待命名
+    public ResponseResult createActivity(Activity activity) {
         activity = activityService.createActivity(activity);
         return FormatResponseUtil.formatResponseDomain(activity);
     }
 
-    @GetMapping(value = "/listByUid/{uId}")
-    public ResponseResult listByUid(@PathVariable("uId") int uId){
-        //TODO 查询该用户参与的所有活动(包括未确定发布的)
-        List<Activity> activities = activityService.selectActivitiesByUid(uId);
+    @GetMapping("/joinList")
+    public ResponseResult joinListByUid(@RequestParam("uId") int uId) {
+        //查询该用户参与的所有活动(包括未确定发布的)
+        List<Activity> activities = activityService.selectLiveActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
-    @GetMapping("/delete/{eventId}")
-    public ResponseResult delActivity(@PathVariable("eventId") int eventId) {
+    @DeleteMapping("/delete")
+    public ResponseResult delActivity(@RequestParam("eventId") int eventId) {
         activityService.delActivityByEventId(eventId);
         return FormatResponseUtil.formatResponse();
     }
 
     //推荐时间
-    @GetMapping(value = "/recommendTime/{eventId}")
-    public ResponseResult RecommendTime(@PathVariable("eventId") int eventId){
-        //TODO 这里是service调用service封装成一个方法好:timeService.getRecommendTime(eventId)
-        // 还是controller调用service好:timeService.getRecommendTime(Activity,joinMembers)
-        // 还是在Dao层定义并调用
-        RecommendTimeInfo recommendTimeInfo =timeService.getRecommendTime(eventId);
-
+    @GetMapping(value = "/recommendTime")
+    public ResponseResult RecommendTime(@RequestParam("eventId") int eventId) {
+        RecommendTimeInfo recommendTimeInfo = timeService.getRecommendTime(eventId);
         return FormatResponseUtil.formatResponseDomain(recommendTimeInfo);
     }
+
+    @PostMapping("/launchInfo")
+    public ResponseResult launchActivity(@RequestParam("eventId") int eventId,
+                                         @RequestParam("launchWords") String launchWords) {
+
+        if(eventId < 0){
+            //TODO 所有controller方法每次运行前是否都需要判定数据是否合法？
+            return FormatResponseUtil.formatResponse(ErrorMsgEnum.SERVER_FAIL_CONNECT);
+        }
+
+        if (activityService.launchActivity(eventId, launchWords) < 1) {
+            //更新失败
+            return FormatResponseUtil.formatResponse(ErrorMsgEnum.SERVER_FAIL_CONNECT);
+        } else {
+            return FormatResponseUtil.formatResponse();
+        }
+    }
+
+    @GetMapping("/launchList")
+    public ResponseResult launchListByUid(@RequestParam("uId") int uId) {
+        //查询该用户参与的已发布活动
+        List<Activity> activities = activityService.selectLaunchActivitiesByUid(uId);
+        return FormatResponseUtil.formatResponseDomain(activities);
+    }
+
+    @GetMapping("/deadList")
+    public ResponseResult deadListByUid(@RequestParam("uId") int uId) {
+        //查询该用户参与的已过期活动
+        List<Activity> activities = activityService.selectDeadActivitiesByUid(uId);
+        return FormatResponseUtil.formatResponseDomain(activities);
+    }
+
 }
