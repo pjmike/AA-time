@@ -25,14 +25,14 @@ public class ActivityMembersController {
      * 用户退出活动接口
      */
     @DeleteMapping("/quit")
-    public ResponseResult quitEvent(@RequestParam("uid") int uid, @RequestParam("eventId")int eventId, @RequestParam("reason")String reason){
+    public ResponseResult quitEvent(@RequestParam("uId") int uid, @RequestParam("eventId")int eventId, @RequestParam("reason")String reason){
         activityMembersService.quitActivity(uid,eventId,reason);
         return FormatResponseUtil.formatResponse();
     }
 
     @GetMapping("/freeTime")
-    public ResponseResult findFree(@RequestParam("uid") int uid, @RequestParam("eventId")int eventId){
-        Map<Long, Long> freeTime = timeService.getFreeTimeByUid(uid,eventId);
-        return FormatResponseUtil.formatResponse(freeTime);
+    public ResponseResult findFree(@RequestParam("uId") int uid, @RequestParam("eventId")int eventId){
+        return FormatResponseUtil.formatResponse(timeService.getFreeTimeByUid(uid,eventId));
     }
+
 }

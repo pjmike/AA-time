@@ -31,9 +31,13 @@ public class Activity {
      */
     private String eventPlace;
     /**
-     * 活动人数
+     * 活动报名人数
      */
     private int members;
+    /**
+     * 活动参与人数
+     */
+    private int joinMembers;
     /**
      * 活动发起人id
      */
@@ -63,10 +67,6 @@ public class Activity {
      */
     private long minTime;
     /**
-     * 活动最少参与人员
-     */
-    private int fewMembers;
-    /**
      * 活动发布时间
      */
     private long launchTime;
@@ -74,8 +74,4 @@ public class Activity {
      * 活动发布留言
      */
     private String launchWords;
-    /**
-     * 活动参与人员
-     */
-    private int joinMembers;
 }
