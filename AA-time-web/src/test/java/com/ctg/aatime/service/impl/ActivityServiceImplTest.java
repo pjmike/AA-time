@@ -34,7 +34,7 @@ public class ActivityServiceImplTest {
     }
 
     @Test
-    public void selectActivitiesByUid() throws Exception {
+    public void selectLiveActivitiesByUid() throws Exception {
         List<Activity> activity = activityService.selectLiveActivitiesByUid(2);
         System.out.println("结果是:"+activity);
     }
@@ -52,7 +52,7 @@ public class ActivityServiceImplTest {
     @Test
     @Rollback(false)
     public void launchActivity(){
-        System.out.println(activityService.launchActivity(666,0,null));
+        System.out.println(activityService.launchActivity(666,null));
     }
 
 }

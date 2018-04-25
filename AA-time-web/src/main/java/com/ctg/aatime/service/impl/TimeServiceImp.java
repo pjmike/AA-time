@@ -42,7 +42,7 @@ public class TimeServiceImp implements TimeService{
 
     @Override
     public Map<Long, Long> getFreeTimeByUid(int uid,int eventId) {
-        HashMap<Long, Long> freeTime = new HashMap<Long, Long>();
+        Map<Long, Long> freeTime = new HashMap<Long, Long>();
         List<HashMap<String, Long>> freeTimeList = timeDao.selectFreeTimes(uid, eventId);
         for (HashMap<String, Long> time : freeTimeList) {
             //将该成员每段freeTime置入同一个map中

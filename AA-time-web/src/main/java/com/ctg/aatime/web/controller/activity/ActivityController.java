@@ -28,27 +28,10 @@ public class ActivityController {
     //TODO 待命名
     public ResponseResult createActivity(Activity activity) {
         activity = activityService.createActivity(activity);
+        if(activity == null){
+            return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
+        }
         return FormatResponseUtil.formatResponseDomain(activity);
-    }
-
-    @GetMapping("/joinList")
-    public ResponseResult joinListByUid(@RequestParam("uId") int uId) {
-        //查询该用户参与的所有活动(包括未确定发布的)
-        List<Activity> activities = activityService.selectLiveActivitiesByUid(uId);
-        return FormatResponseUtil.formatResponseDomain(activities);
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseResult delActivity(@RequestParam("eventId") int eventId) {
-        activityService.delActivityByEventId(eventId);
-        return FormatResponseUtil.formatResponse();
-    }
-
-    //推荐时间
-    @GetMapping(value = "/recommendTime")
-    public ResponseResult RecommendTime(@RequestParam("eventId") int eventId) {
-        RecommendTimeInfo recommendTimeInfo = timeService.getRecommendTime(eventId);
-        return FormatResponseUtil.formatResponseDomain(recommendTimeInfo);
     }
 
     @PostMapping("/launchInfo")
@@ -68,6 +51,13 @@ public class ActivityController {
         }
     }
 
+    @GetMapping("/joinList")
+    public ResponseResult joinListByUid(@RequestParam("uId") int uId) {
+        //查询该用户参与的所有活动(包括未确定发布的)
+        List<Activity> activities = activityService.selectLiveActivitiesByUid(uId);
+        return FormatResponseUtil.formatResponseDomain(activities);
+    }
+
     @GetMapping("/launchList")
     public ResponseResult launchListByUid(@RequestParam("uId") int uId) {
         //查询该用户参与的已发布活动
@@ -80,6 +70,24 @@ public class ActivityController {
         //查询该用户参与的已过期活动
         List<Activity> activities = activityService.selectDeadActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseResult delActivity(@RequestParam("eventId") int eventId) {
+        activityService.delActivityByEventId(eventId);
+        return FormatResponseUtil.formatResponse();
+    }
+
+    //TODO 待测试
+    @GetMapping(value = "/recommendTime")
+    public ResponseResult RecommendTime(@RequestParam("eventId") int eventId) {
+        RecommendTimeInfo recommendTimeInfo = timeService.getRecommendTime(eventId);
+        return FormatResponseUtil.formatResponseDomain(recommendTimeInfo);
+    }
+
+    @GetMapping("/activityInfo")
+    public ResponseResult getActivityInfo(@RequestParam("eventId")int eventId){
+        return FormatResponseUtil.formatResponse(activityService.selectActivityByEventId(eventId));
     }
 
 }

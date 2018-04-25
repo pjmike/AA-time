@@ -1,7 +1,5 @@
 package com.ctg.aatime.service.impl;
 
-import com.ctg.aatime.commons.bean.ServerResponseMessage;
-import com.ctg.aatime.commons.enums.MessageTypeEnum;
 import com.ctg.aatime.commons.exception.CascadeException;
 import com.ctg.aatime.dao.ActivityDao;
 import com.ctg.aatime.dao.ActivityMembersDao;
@@ -10,7 +8,6 @@ import com.ctg.aatime.domain.ActivityMembers;
 import com.ctg.aatime.service.ActivityMembersService;
 import com.ctg.aatime.service.TimeService;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author pjmike
@@ -64,7 +60,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
     public ActivityMembers quitActivity(int uid, int eventId, String reason) {
         ActivityMembers activityMember = activityMembersDao.selectActivityMembersByUEid(uid, eventId);
         if (activityMembersDao.quitActivityByUid(uid, eventId) != 1 ||
-                activityDao.reduceJoinNumByEventId(eventId) != 1 ||
+                activityDao.reduceMembersByEventId(eventId) != 1 ||
                 timeDao.delMembersTimeByUId(uid, eventId) < 1 ||
                 activityDao.addQuitReason(activityMember, reason) != 1) {
             throw new CascadeException();

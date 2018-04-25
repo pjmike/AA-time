@@ -54,4 +54,9 @@ public interface ActivityService {
      * 查询该用户参与的已过期活动
      */
     List<Activity> selectDeadActivitiesByUid(int uId);
+
+    /**
+     * 查询该用户发起的活动
+     */
+    List<Activity> selectInitActivitiesByUid(int uId);
 }
