@@ -2,6 +2,7 @@ package com.ctg.api.impl;
 
 import com.ctg.api.WxService;
 import com.ctg.config.WxProperties;
+import com.ctg.exception.WxErrorException;
 import com.ctg.utils.AesCbcUtil;
 import com.ctg.utils.GsonUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,8 +22,9 @@ public class WxServiceImpl implements WxService {
     @Override
     public String getAccessToken() {
         Map result = restTemplate.getForObject(WxProperties.URLTOACCESSTOKEN, Map.class,WxProperties.ACCESSTOKEN_VARS);
-        if (!StringUtils.isBlank((String) result.get("access_token"))) {
+        if (StringUtils.isBlank((String) result.get("access_token"))) {
             //TODO
+            throw new WxErrorException("服务器错误");
         }
         String access_token = (String) result.get("access_token");
         return access_token;

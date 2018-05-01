@@ -1,5 +1,8 @@
 package com.ctg.aatime.web.controller.activity;
 
+import com.ctg.aatime.domain.Activity;
+import org.hibernate.validator.constraints.EAN;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +10,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created By Cx On 2018/4/7 22:24
@@ -30,8 +42,8 @@ public class ActivityControllerTest {
         //表示测试根目录+该url能否成功被访问
         //TODO 访问请求失败
         String url = "http://localhost:" + port + "/activity/listByUid/2";
-        String result = template.getForObject(url,String.class);
-        System.out.println("结果："+result);
+        String result = template.getForObject(url, String.class);
+        System.out.println("结果：" + result);
 //        mvc.perform(MockMvcRequestBuilders.get("/girl/list")).andExpect(MockMvcResultMatchers.status().isOk())
 //        .andExpect(MockMvcResultMatchers.content().string("a"));
     }
