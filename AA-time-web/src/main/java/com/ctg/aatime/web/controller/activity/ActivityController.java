@@ -36,40 +36,45 @@ public class ActivityController {
 
     @PostMapping("/launchInfo")
     public ResponseResult launchActivity(@RequestParam("eventId") int eventId,
-                                         @RequestParam("launchWords") String launchWords) {
+                                         @RequestParam("launchWords") String launchWords,
+                                         @RequestParam("launchStartTime")long launchStartTime,
+                                         @RequestParam("launchEndTime")long launchEndTime) {
 
         if(eventId < 0){
             //TODO 所有controller方法每次运行前是否都需要判定数据是否合法？
-            return FormatResponseUtil.formatResponse(ErrorMsgEnum.SERVER_FAIL_CONNECT);
+            return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
         }
-
-        if (activityService.launchActivity(eventId, launchWords) < 1) {
-            //更新失败
-            return FormatResponseUtil.formatResponse(ErrorMsgEnum.SERVER_FAIL_CONNECT);
-        } else {
-            return FormatResponseUtil.formatResponse();
-        }
+        if(activityService.launchActivity(eventId, launchWords, launchStartTime, launchEndTime) < 1){
+            return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
+        }else return FormatResponseUtil.formatResponse();
     }
 
-    @GetMapping("/joinList")
-    public ResponseResult joinListByUid(@RequestParam("uId") int uId) {
+    @GetMapping("/liveList")
+    public ResponseResult liveListByUid(@RequestParam("uid") int uId) {
         //查询该用户参与的所有活动(包括未确定发布的)
         List<Activity> activities = activityService.selectLiveActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
     @GetMapping("/launchList")
-    public ResponseResult launchListByUid(@RequestParam("uId") int uId) {
+    public ResponseResult launchListByUid(@RequestParam("uid") int uId) {
         //查询该用户参与的已发布活动
         List<Activity> activities = activityService.selectLaunchActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
     @GetMapping("/deadList")
-    public ResponseResult deadListByUid(@RequestParam("uId") int uId) {
+    public ResponseResult deadListByUid(@RequestParam("uid") int uId) {
         //查询该用户参与的已过期活动
         List<Activity> activities = activityService.selectDeadActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
+    }
+
+    @GetMapping("/establishmentList")
+    public ResponseResult establishmentListByUid(@RequestParam("uid")int uId){
+        //查询该用户创建的活动
+        List<Activity> activities = activityService.selectEstablishedActivitiesByUid(uId);
+        return FormatResponseUtil.formatResponse(activities);
     }
 
     @DeleteMapping("/delete")

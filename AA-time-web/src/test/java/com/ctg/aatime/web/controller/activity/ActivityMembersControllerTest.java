@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@Transactional
+//@Transactional
 public class ActivityMembersControllerTest {
 
     @Autowired
@@ -29,7 +29,30 @@ public class ActivityMembersControllerTest {
 
     @Test
     public void quitEvent() {
+        try{
+            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activityMember/event")    //请求的url,请求的方法是get
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("uid","3").param("eventId","27") .param("reason","无聊")        //添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    @Test
+    public void joinEvent(){
+        try{
+            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activityMember")    //请求的url,请求的方法是get
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("uid","3").param("eventId","27")         //添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Test

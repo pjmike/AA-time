@@ -55,4 +55,10 @@ public class ActivityMembersDaoTest {
         List<ActivityMembers> l = activityMembersDao.selectActivityMembersByEventId(9);
         System.out.println(l);
     }
+
+    @Test
+    public void selectActivityMembersByUEid(){
+        ActivityMembers activityMembers = activityMembersDao.selectActivityMembersByUEid(4,20);
+        System.out.println(activityMembers);
+    }
 }

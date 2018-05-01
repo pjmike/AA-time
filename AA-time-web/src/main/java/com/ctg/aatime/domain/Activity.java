@@ -37,7 +37,7 @@ public class Activity {
     /**
      * 活动参与人数
      */
-    private int joinMembers;
+    private int launchMembers;
     /**
      * 活动发起人id
      */
@@ -51,13 +51,21 @@ public class Activity {
      */
     private String avatar;
     /**
-     * 活动开始时间戳
+     * 活动可选开始时间戳
      */
     private long startTime;
     /**
-     * 活动结束时间戳
+     * 活动可选结束时间戳
      */
     private long endTime;
+    /**
+     * 活动确认开始时间
+     */
+    private long launchStartTime;
+    /**
+     * 活动确认结束时间
+     */
+    private long launchEndTime;
     /**
      * 活动统计截止时间戳
      */
