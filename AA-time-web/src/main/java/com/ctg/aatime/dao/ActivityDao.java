@@ -8,42 +8,21 @@ import java.util.List;
 
 /**
  * @author pjmike
- * @create 2018-03-16 16:42
  */
 public interface ActivityDao {
     /**
      * 新建活动
-     * TODO sql语句判断是否需要写成0
      *
      * @return
      */
     int createActivity(Activity activity);
 
     /**
-     * 新建活动地点
-     *
-     * @return
-     */
-    int createPlace(@Param("place") String place, @Param("eventId") int eventId);
-
-    /**
-     * 查询最新生成的主键Id值
-     */
-    int selectLastInsertId();
-
-    /**
-     * 从活动信息表和活动地点表通过event_id查询活动
+     * 从活动信息表通过event_id查询活动
      *
      * @return
      */
     Activity selectActivityByEventId(int eventId);
-
-    /**
-     * 通过该Id从活动地点表中删除该活动的活动地点信息
-     *
-     * @return
-     */
-    int delActivityPlaceByEventId(int eventId);
 
     /**
      * 通过该Id从活动信息表中删除该活动
@@ -53,9 +32,14 @@ public interface ActivityDao {
     int delActivity(int eventId);
 
     /**
-     * 从活动信息表中将活动参与人数减一
+     * 从活动信息表中将活动报名人数减一
      */
-    int reduceJoinNumByEventId(int eventId);
+    int reduceMembersByEventId(int eventId);
+
+    /**
+     * 从活动信息表中将活动报名人数加一
+     */
+    int addMembersByEventId(int eventId);
 
     /**
      * 添加成员退出原因进退出活动记录表
@@ -63,4 +47,21 @@ public interface ActivityDao {
      * @return
      */
     int addQuitReason(@Param("member") ActivityMembers member, @Param("reason") String reason);
+
+    /**
+     * 通过eventId删除退出活动记录表有关信息
+     * @return
+     */
+    int delQuitInfoByEventId(@Param("eventId")int eventId);
+
+    /**
+     * 通过eventId在活动信息表中更新发布活动信息
+     * @return
+     */
+    int updateLaunchInfo(Activity activity);
+
+    /**
+     * 通过uId在活动信息表查询该用户创建的活动
+     */
+    List<Activity> selectEstablishedActivitiesByUid(@Param("uId")int uId);
 }

@@ -12,8 +12,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -36,7 +34,7 @@ public class ActivityDaoTest {
 
     @Test
     public void reduceJoinNumByEventId(){
-        System.out.println(activityDao.reduceJoinNumByEventId(16));
+        System.out.println(activityDao.reduceMembersByEventId(16));
     }
 
     @Rollback
@@ -54,16 +52,10 @@ public class ActivityDaoTest {
 
     @Test
     public void selectActivityByEventId() throws Exception {
-        Activity activity = activityDao.selectActivityByEventId(18);
+        Activity activity = activityDao.selectActivityByEventId(20);
         System.out.println(activity);
     }
 
-    @Test
-    @Rollback(value = false)
-    public void delActivityPlaceByEventId() throws Exception {
-        int count = activityDao.delActivityPlaceByEventId(18);
-        System.out.println("影响行数:   "+count);
-    }
 
 
 }

@@ -34,19 +34,29 @@ public class ActivityServiceImplTest {
     }
 
     @Test
-    public void selectActivitiesByUid() throws Exception {
-        List<Activity> activity = activityService.selectActivitiesByUid(2);
+    public void selectLiveActivitiesByUid() throws Exception {
+        List<Activity> activity = activityService.selectLiveActivitiesByUid(2);
         System.out.println("结果是:"+activity);
     }
 
     @Test
-    @Rollback(false)
+    public void selectLaunchActivitiesByUid() throws Exception {
+        List<Activity> activity = activityService.selectLaunchActivitiesByUid(2);
+        System.out.println("结果是:"+activity);
+    }
+
+    @Test
     public void delActivityByEventId() throws Exception {
         try {
-            activityService.delActivityByEventId(10);
+            activityService.delActivityByEventId(27);
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void launchActivity(){
+        activityService.launchActivity(15,"好无聊",1524952288207L,1525952288207L);
     }
 
 }

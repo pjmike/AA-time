@@ -10,41 +10,148 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+<<<<<<< HEAD
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+=======
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.Rollback;
+>>>>>>> 0baa56726f50773db2d2592b9354393eb78a579f
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+<<<<<<< HEAD
+=======
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+>>>>>>> 0baa56726f50773db2d2592b9354393eb78a579f
 
 /**
  * Created By Cx On 2018/4/7 22:24
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+//@Transactional
 public class ActivityControllerTest {
 
     @Autowired
+    private MockMvc mvc;
+    @Autowired
     private TestRestTemplate template = new TestRestTemplate();
-    //注意：端口号不能直接给8080，必须用这种方式注入，因为不是用TomCat启动的，每次执行端口号都不一样
+    //注意：端口号不能直接给8080，必须用这种方式注入
     @Value("${local.server.port}")
     private int port;
 
     @Test
-    public void listByUid() throws Exception {
+    public void joinListByUid() throws Exception {
         //表示测试根目录+该url能否成功被访问
-        //TODO 访问请求失败
-        String url = "http://localhost:" + port + "/activity/listByUid/2";
-        String result = template.getForObject(url, String.class);
-        System.out.println("结果：" + result);
-//        mvc.perform(MockMvcRequestBuilders.get("/girl/list")).andExpect(MockMvcResultMatchers.status().isOk())
+<<<<<<< HEAD
+       
+=======
+        String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/joinList")    //请求的url,请求的方法是get
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                .param("uid","2")         //添加参数
+        ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                .andDo(print())         //打印出请求和相应的内容
+                .andReturn().getResponse().getContentAsString();
+//        mvc.perform(MockMvcRequestBuilders.get("/activity/joinList?uId=2")).andExpect(MockMvcResultMatchers.status().isOk())
+>>>>>>> 0baa56726f50773db2d2592b9354393eb78a579f
 //        .andExpect(MockMvcResultMatchers.content().string("a"));
+    }
+
+    @Test
+    public void createActivity(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activity")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("eventName","睡觉").param("eventBrief","吃肉")
+                    .param("eventPlace","宿舍").param("username","pj")
+                    .param("avatar","hello").param("startTime","1525176808888")
+                    .param("endTime","1525552288207").param("statisticTime","1525276808888")
+                    .param("minTime","7200000").param("uid","2")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void delActivity(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activity/delete")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("eventId","26")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void launchActivity(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activity/launchInfo")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("eventId","27").param("launchWords","吃嘛嘛香")
+                    .param("launchStartTime","1524952288207").param("launchEndTime","1525952288207")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void launchListByUid(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/launchList")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("uid","2")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deadListByUid(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/deadList")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("uid","2")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void establishmentListByUid(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/establishmentList")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("uid","2")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

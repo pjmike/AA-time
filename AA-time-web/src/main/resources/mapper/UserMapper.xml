@@ -9,4 +9,7 @@
     <select id="selectUserByOpenId" parameterType="String" resultType="user">
         SELECT * FROM user WHERE openid = #{openid}
     </select>
+    <select id="selectUserByUid" resultType="user">
+        SELECT id, username,avatar FROM user WHERE id = #{uid}
+    </select>
 </mapper>

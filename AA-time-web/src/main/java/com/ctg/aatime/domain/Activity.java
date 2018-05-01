@@ -9,8 +9,7 @@ import lombok.Data;
  * @create 2018-03-16 16:19
  */
 @Data
-public class
-Activity {
+public class Activity {
     /**
      * 活动Id
      */
@@ -32,9 +31,13 @@ Activity {
      */
     private String eventPlace;
     /**
-     * 活动人数
+     * 活动报名人数
      */
     private int members;
+    /**
+     * 活动参与人数
+     */
+    private int launchMembers;
     /**
      * 活动发起人id
      */
@@ -48,13 +51,21 @@ Activity {
      */
     private String avatar;
     /**
-     * 活动开始时间戳
+     * 活动可选开始时间戳
      */
     private long startTime;
     /**
-     * 活动结束时间戳
+     * 活动可选结束时间戳
      */
     private long endTime;
+    /**
+     * 活动确认开始时间
+     */
+    private long launchStartTime;
+    /**
+     * 活动确认结束时间
+     */
+    private long launchEndTime;
     /**
      * 活动统计截止时间戳
      */
@@ -64,7 +75,11 @@ Activity {
      */
     private long minTime;
     /**
-     * 活动最少参与人员
+     * 活动发布时间
      */
-    private int fewMembers;
+    private long launchTime;
+    /**
+     * 活动发布留言
+     */
+    private String launchWords;
 }
