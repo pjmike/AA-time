@@ -23,6 +23,7 @@
             <if test="endTime != null">end_time,</if>
             <if test="statisticTime != null">statistic_time,</if>
             <if test="minTime != null">min_time,</if>
+            <if test="members != null">members,</if>
         </trim>
     </sql>
     <sql id="value">
@@ -38,28 +39,31 @@
             <if test="endTime != null">#{endTime},</if>
             <if test="statisticTime != null">#{statisticTime},</if>
             <if test="minTime != null">#{minTime},</if>
+            <if test="members != null">#{members},</if>
         </trim>
     </sql>
 
     <select id="selectActivityByEventId" parameterType="int" resultType="activity">
         SELECT
-        e.event_id ,
-        e.event_name ,
-        e.event_brief,
-        e.event_tag,
-        e.event_place,
-        e.uid,
-        e.username,
-        e.avatar,
-        e.start_time,
-        e.end_time,
-        e.statistic_time,
-        e.min_time,
-        e.members,
-        e.launch_time,
-        e.launch_words,
-        e.launch_members
-        FROM event e WHERE e.event_id = #{eventId}
+        event_id ,
+        event_name ,
+        event_brief,
+        event_tag,
+        event_place,
+        uid,
+        username,
+        avatar,
+        start_time,
+        end_time,
+        statistic_time,
+        min_time,
+        members,
+        launch_time,
+        launch_words,
+        launch_members,
+        launch_start_time,
+        launch_end_time
+        FROM event WHERE event_id = #{eventId}
     </select>
 
     <delete id="delActivity" parameterType="int">
@@ -68,6 +72,10 @@
 
     <update id="reduceMembersByEventId">
         UPDATE event set members = members-1 WHERE event_id=#{eventId}
+    </update>
+
+    <update id="addMembersByEventId">
+        UPDATE event set members = members+1 WHERE event_id=#{eventId}
     </update>
 
     <insert id="addQuitReason" useGeneratedKeys="true" keyProperty="id">
@@ -100,10 +108,30 @@
 
     <update id="updateLaunchInfo">
         UPDATE event SET launch_members = #{launchMembers}, launch_time = #{launchTime}, launch_words = #{launchWords}
+            , launch_start_time = #{launchStartTime}, launch_end_time = #{launchEndTime}
         WHERE event_id = #{eventId}
     </update>
 
-    <select id="selectInitActivitiesByUid" resultType="activity">
-
+    <select id="selectEstablishedActivitiesByUid" resultType="activity">
+        SELECT
+            event_id ,
+            event_name ,
+            event_brief,
+            event_tag,
+            event_place,
+            uid,
+            username,
+            avatar,
+            start_time,
+            end_time,
+            statistic_time,
+            min_time,
+            members,
+            launch_time,
+            launch_words,
+            launch_members,
+            launch_start_time,
+            launch_end_time
+        FROM event WHERE uid = #{uId}
     </select>
 </mapper>

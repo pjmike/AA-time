@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@Transactional
+//@Transactional
 public class ActivityControllerTest {
 
     @Autowired
@@ -41,7 +41,7 @@ public class ActivityControllerTest {
         //表示测试根目录+该url能否成功被访问
         String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/joinList")    //请求的url,请求的方法是get
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                .param("uId","2")         //添加参数
+                .param("uid","2")         //添加参数
         ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                 .andDo(print())         //打印出请求和相应的内容
                 .andReturn().getResponse().getContentAsString();
@@ -54,11 +54,11 @@ public class ActivityControllerTest {
         try {
             String responseString = mvc.perform(MockMvcRequestBuilders.post("/activity")    //请求的url,请求的方法是post
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("eventName","吃饭").param("eventBrief","吃肉")
-                    .param("eventPlace","食堂").param("username","pj")
-                    .param("avatar","hello").param("startTime","1523952288207")
-                    .param("endTime","1525952288207").param("statisticTime","1524952288207")
-                    .param("minTime","288207").param("uid","2")//添加参数
+                    .param("eventName","睡觉").param("eventBrief","吃肉")
+                    .param("eventPlace","宿舍").param("username","pj")
+                    .param("avatar","hello").param("startTime","1525176808888")
+                    .param("endTime","1525552288207").param("statisticTime","1525276808888")
+                    .param("minTime","7200000").param("uid","2")//添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -72,7 +72,7 @@ public class ActivityControllerTest {
         try {
             String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activity/delete")    //请求的url,请求的方法是post
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("eventId","16")//添加参数
+                    .param("eventId","26")//添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -82,12 +82,12 @@ public class ActivityControllerTest {
     }
 
     @Test
-    @Rollback(false)
     public void launchActivity(){
         try {
             String responseString = mvc.perform(MockMvcRequestBuilders.post("/activity/launchInfo")    //请求的url,请求的方法是post
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("eventId","22").param("launchWords","吃嘛嘛香")//添加参数
+                    .param("eventId","27").param("launchWords","吃嘛嘛香")
+                    .param("launchStartTime","1524952288207").param("launchEndTime","1525952288207")//添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -101,7 +101,7 @@ public class ActivityControllerTest {
         try {
             String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/launchList")    //请求的url,请求的方法是post
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("uId","2")//添加参数
+                    .param("uid","2")//添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -115,7 +115,21 @@ public class ActivityControllerTest {
         try {
             String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/deadList")    //请求的url,请求的方法是post
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("uId","2")//添加参数
+                    .param("uid","2")//添加参数
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void establishmentListByUid(){
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/establishmentList")    //请求的url,请求的方法是post
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
+                    .param("uid","2")//添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();

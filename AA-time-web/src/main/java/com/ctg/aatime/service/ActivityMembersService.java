@@ -10,11 +10,8 @@ import java.util.List;
 public interface ActivityMembersService {
     /**
      * 插入活动成员
-     *
-     * @param members
-     * @return
      */
-    ActivityMembers insertActivityMember(ActivityMembers members);
+    ActivityMembers insertActivityMember(int uid, int eventId);
 
     /**
      * 通过活动id查询所有参与活动的成员

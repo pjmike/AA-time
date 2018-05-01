@@ -32,4 +32,10 @@ public class User {
         this.username = username;
         this.avatar = avatar;
     }
+
+    public User(int id, String username, String avatar) {
+        this.id = id;
+        this.username = username;
+        this.avatar = avatar;
+    }
 }

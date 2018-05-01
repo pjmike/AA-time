@@ -22,4 +22,9 @@ public interface UserDao {
      * @return
      */
     User selectUserByOpenId(String OpenId);
+
+    /**
+     * 通过uid查找user
+     */
+    User selectUserByUid(int uid);
 }

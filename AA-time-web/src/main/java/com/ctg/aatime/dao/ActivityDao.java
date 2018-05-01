@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * @author pjmike
- * @create 2018-03-16 16:42
  */
 public interface ActivityDao {
     /**
@@ -38,6 +37,11 @@ public interface ActivityDao {
     int reduceMembersByEventId(int eventId);
 
     /**
+     * 从活动信息表中将活动报名人数加一
+     */
+    int addMembersByEventId(int eventId);
+
+    /**
      * 添加成员退出原因进退出活动记录表
      *
      * @return
@@ -54,12 +58,10 @@ public interface ActivityDao {
      * 通过eventId在活动信息表中更新发布活动信息
      * @return
      */
-    int updateLaunchInfo(@Param("eventId")int eventId, @Param("launchMembers")int launchMembers,
-                         @Param("launchTime")long launchTime,@Param("launchWords")String launchWords);
+    int updateLaunchInfo(Activity activity);
 
     /**
      * 通过uId在活动信息表查询该用户创建的活动
-     * TODO 地点是一对一
      */
-    List<Activity> selectInitActivitiesByUid(@Param("uId")int uId);
+    List<Activity> selectEstablishedActivitiesByUid(@Param("uId")int uId);
 }
