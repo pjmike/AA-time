@@ -10,6 +10,9 @@
         SELECT * FROM user WHERE openid = #{openid}
     </select>
     <select id="selectUserByUid" resultType="user">
-        SELECT id, username,avatar FROM user WHERE id = #{uid}
+        SELECT id, username,avatar,nickname FROM user WHERE id = #{uid}
     </select>
+    <update id="updateUserNickName">
+        UPDATE user SET nickname = #{nickname} WHERE id = #{id}
+    </update>
 </mapper>

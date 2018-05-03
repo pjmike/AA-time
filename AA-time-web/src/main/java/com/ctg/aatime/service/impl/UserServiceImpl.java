@@ -26,4 +26,14 @@ public class UserServiceImpl implements UserService{
     public User findUserByOpenId(String openid) {
         return userDao.selectUserByOpenId(openid);
     }
+
+    @Override
+    public User selectUserByUid(Integer id) {
+        return userDao.selectUserByUid(id);
+    }
+
+    @Override
+    public void changeUserNickName(Integer id,String nickname) {
+        userDao.updateUserNickName(id, nickname);
+    }
 }

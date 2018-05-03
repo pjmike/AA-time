@@ -10,27 +10,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-<<<<<<< HEAD
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-=======
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
->>>>>>> 0baa56726f50773db2d2592b9354393eb78a579f
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-<<<<<<< HEAD
-=======
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
->>>>>>> 0baa56726f50773db2d2592b9354393eb78a579f
 
 /**
  * Created By Cx On 2018/4/7 22:24
@@ -52,9 +43,7 @@ public class ActivityControllerTest {
     @Test
     public void joinListByUid() throws Exception {
         //表示测试根目录+该url能否成功被访问
-<<<<<<< HEAD
-       
-=======
+
         String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/joinList")    //请求的url,请求的方法是get
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
                 .param("uid","2")         //添加参数
@@ -62,7 +51,7 @@ public class ActivityControllerTest {
                 .andDo(print())         //打印出请求和相应的内容
                 .andReturn().getResponse().getContentAsString();
 //        mvc.perform(MockMvcRequestBuilders.get("/activity/joinList?uId=2")).andExpect(MockMvcResultMatchers.status().isOk())
->>>>>>> 0baa56726f50773db2d2592b9354393eb78a579f
+
 //        .andExpect(MockMvcResultMatchers.content().string("a"));
     }
 

@@ -20,4 +20,20 @@ public interface UserService {
      * @return
      */
     User findUserByOpenId(String openid);
+
+    /**
+     * 查询用户
+     *
+     * @param id
+     * @return
+     */
+    User selectUserByUid(Integer id);
+
+    /**
+     * 修改昵称
+     *
+     * @param id
+     * @param nickname
+     */
+    void changeUserNickName(Integer id,String nickname);
 }

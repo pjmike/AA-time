@@ -1,6 +1,8 @@
 package com.ctg.aatime.dao;
 
 import com.ctg.aatime.domain.User;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * @author pjmike
@@ -27,4 +29,13 @@ public interface UserDao {
      * 通过uid查找user
      */
     User selectUserByUid(int uid);
+
+    /**
+     * 修改用户昵称
+     *
+     * @param nickname
+     * @param id
+     * @return
+     */
+    int updateUserNickName(@Param("id")Integer id,@Param("nickname") String nickname);
 }

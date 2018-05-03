@@ -23,7 +23,11 @@ public enum ErrorMsgEnum {
     /**
      * redis值不存在
      */
-    REDIS_VALUE_NULL("redis值不存在");
+    REDIS_VALUE_NULL("redis值不存在"),
+    /**
+     * 用户不存在
+     */
+    USER_NOT_FOUND("用户不存在");
     @Getter
     private String msg;
 }
