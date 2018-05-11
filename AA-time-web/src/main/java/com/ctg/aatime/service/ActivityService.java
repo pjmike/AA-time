@@ -43,7 +43,7 @@ public interface ActivityService {
      * 发布活动时更新活动信息的发布时间和发布留言（默认为0，null）
      * @return
      */
-    int launchActivity(int eventId, String launchWords, long launchStartTime, long launchEndTime);
+    int launchActivity(Activity activity);
 
     /**
      * 查询该用户参与的已发布未过期活动
