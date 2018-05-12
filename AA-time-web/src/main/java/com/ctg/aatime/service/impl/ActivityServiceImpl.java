@@ -45,9 +45,16 @@ public class ActivityServiceImpl implements ActivityService {
     public Activity createActivity(Activity activity) {
         //将信息插入活动信息表
         activity.setMembers(1);
+        User u = userDao.selectUserByUid(activity.getUid());
+        if(u == null){
+            throw new CascadeException("uid无效");
+
+        }
+        activity.setAvatar(u.getAvatar());
+        activity.setUsername(u.getUsername());
         if (activityDao.createActivity(activity) < 1) {
             //添加活动失败
-            throw new CascadeException();
+            throw new CascadeException("添加活动失败");
         }
         ActivityMembers activityMembers = new ActivityMembers();
         activityMembers.setEventId(activity.getEventId());
@@ -56,7 +63,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityMembers.setAddTime(new Date().getTime());
         activityMembers.setUsername(activity.getUsername());
         if (membersService.insertActivityMember(activity.getUid(),activity.getEventId()) == null){
-            throw new CascadeException();
+            throw new CascadeException("添加活动成员失败");
         }
         return activity;
     }
@@ -87,29 +94,26 @@ public class ActivityServiceImpl implements ActivityService {
         activityDao.delQuitInfoByEventId(eventId);
         timeDao.delMembersTimeByEventId(eventId);
         if (activityMembersDao.delActivityMembersByEventId(eventId) < 1) {
-            //如果删除活动成员/选择时间相关信息失败
-            throw new CascadeException();
+            //如果删除活动成员失败
+            throw new CascadeException("删除活动成员失败");
         }
         if (activityDao.delActivity(eventId) < 1) {
             //如果删除该活动失败
-            throw new CascadeException();
+            throw new CascadeException("删除活动失败");
         }
     }
 
     @Override
-    public int launchActivity(int eventId, String launchWords, long launchStartTime, long launchEndTime) {
-        Activity activity = activityDao.selectActivityByEventId(eventId);
-        if (activity.getLaunchTime() != 0 ){
+    public int launchActivity(Activity activity) {
+        Activity a = activityDao.selectActivityByEventId(activity.getEventId());
+        if (a.getLaunchTime() != 0 ){
             //若活动已经发布  则发布失败
-            return -1;
+            throw new CascadeException("活动已发布");
         }
         //TODO 推荐时间方法仍存在问题，需要合适数据
 //        int launchMembers = timeService.getRecommendTime(eventId).getBestTimes().get(0).getJoinMembers().size();
+//        activity.setLaunchMembers(launchMembers);
         activity.setLaunchTime(new Date().getTime());
-        activity.setLaunchMembers(1);
-        activity.setLaunchStartTime(launchStartTime);
-        activity.setLaunchEndTime(launchEndTime);
-        activity.setLaunchWords(launchWords);
         return activityDao.updateLaunchInfo(activity);
     }
 
@@ -140,11 +144,6 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> selectEstablishedActivitiesByUid(int uId) {
         List<Activity> activities = activityDao.selectEstablishedActivitiesByUid(uId);
-        for (int i = 0; i < activities.size();){
-            Activity activity = activities.get(i);
-            if (activity.getLaunchTime() == 0) activities.remove(activity);
-            else i++;
-        }
         return activities;
     }
 

@@ -24,9 +24,15 @@ public class ActivityController {
     @Autowired
     private TimeService timeService;
 
+    /**
+     * 创建活动接口
+     * 必传参数：eventName（活动名称）、uid（创建者Id）、startTime（可选投票开始时间戳）、endTime（可选投票结束时间戳）
+     * statisticTime（投票截止时间戳）
+     * 可选参数：eventBrief（活动简介）、eventTag（活动标签）、eventPlace（活动地点）、minTime（最小所需时间戳：默认为0）
+     * members（最小参与人数：默认为0）
+     */
     @PostMapping()
-    //TODO 待命名
-    public ResponseResult createActivity(Activity activity) {
+    public ResponseResult createActivity(@RequestBody Activity activity) {
         activity = activityService.createActivity(activity);
         if(activity == null){
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
@@ -34,64 +40,83 @@ public class ActivityController {
         return FormatResponseUtil.formatResponseDomain(activity);
     }
 
+    /**
+     * 发布活动接口
+     * 必传参数：eventId(活动Id)，launchStartTime（活动开始时间）,launchEndTime(活动结束时间)
+     * 可选参数：launchWords（发布留言）
+     */
     @PostMapping("/launchInfo")
-    public ResponseResult launchActivity(@RequestParam("eventId") int eventId,
-                                         @RequestParam("launchWords") String launchWords,
-                                         @RequestParam("launchStartTime")long launchStartTime,
-                                         @RequestParam("launchEndTime")long launchEndTime) {
+    public ResponseResult launchActivity(@RequestBody Activity activity) {
 
-        if(eventId < 0){
+        if(activity.getEventId() < 0){
             //TODO 所有controller方法每次运行前是否都需要判定数据是否合法？
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
         }
-        if(activityService.launchActivity(eventId, launchWords, launchStartTime, launchEndTime) < 1){
+        if(activityService.launchActivity(activity) < 1){
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
         }else return FormatResponseUtil.formatResponse();
     }
 
-    @GetMapping("/liveList")
-    public ResponseResult liveListByUid(@RequestParam("uid") int uId) {
-        //查询该用户参与的所有活动(包括未确定发布的)
+    /**
+     * 查询该用户参与的所有活动(包括未确定发布的)
+     */
+    @GetMapping("/liveList/{uid}")
+    public ResponseResult liveListByUid(@PathVariable("uid") int uId) {
         List<Activity> activities = activityService.selectLiveActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
-    @GetMapping("/launchList")
-    public ResponseResult launchListByUid(@RequestParam("uid") int uId) {
-        //查询该用户参与的已发布活动
+    /**
+     * 查询该用户参与的已发布活动
+     */
+    @GetMapping("/launchList/{uid}")
+    public ResponseResult launchListByUid(@PathVariable("uid") int uId) {
         List<Activity> activities = activityService.selectLaunchActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
-    @GetMapping("/deadList")
-    public ResponseResult deadListByUid(@RequestParam("uid") int uId) {
-        //查询该用户参与的已过期活动
+    /**
+     * 查询该用户参与的已过期活动
+     */
+    @GetMapping("/deadList/{uid}")
+    public ResponseResult deadListByUid(@PathVariable("uid") int uId) {
         List<Activity> activities = activityService.selectDeadActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
-    @GetMapping("/establishmentList")
-    public ResponseResult establishmentListByUid(@RequestParam("uid")int uId){
-        //查询该用户创建的活动
+    /**
+     * 查询该用户创建的活动（不管是否发布/过期）
+     */
+    @GetMapping("/establishmentList/{uid}")
+    public ResponseResult establishmentListByUid(@PathVariable("uid")int uId){
         List<Activity> activities = activityService.selectEstablishedActivitiesByUid(uId);
         return FormatResponseUtil.formatResponse(activities);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseResult delActivity(@RequestParam("eventId") int eventId) {
+    /**
+     * 删除活动
+     */
+    @DeleteMapping("/{eventId}")
+    public ResponseResult delActivity(@PathVariable("eventId") int eventId) {
         activityService.delActivityByEventId(eventId);
         return FormatResponseUtil.formatResponse();
     }
 
+    /**
+     * 获取活动推荐时间
+     */
     //TODO 待测试
-    @GetMapping(value = "/recommendTime")
-    public ResponseResult RecommendTime(@RequestParam("eventId") int eventId) {
+    @GetMapping(value = "/recommendTime/{eventId}")
+    public ResponseResult RecommendTime(@PathVariable("eventId") int eventId) {
         RecommendTimeInfo recommendTimeInfo = timeService.getRecommendTime(eventId);
         return FormatResponseUtil.formatResponseDomain(recommendTimeInfo);
     }
 
-    @GetMapping("/activityInfo")
-    public ResponseResult getActivityInfo(@RequestParam("eventId")int eventId){
+    /**
+     * 获取活动信息
+     */
+    @GetMapping("/activityInfo/{eventId}")
+    public ResponseResult getActivityInfo(@PathVariable("eventId")int eventId){
         return FormatResponseUtil.formatResponse(activityService.selectActivityByEventId(eventId));
     }
 

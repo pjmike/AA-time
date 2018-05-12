@@ -83,15 +83,17 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
 
     @Override
     @Transactional
-    public ActivityMembers quitActivity(int uid, int eventId, String reason) {
-        ActivityMembers activityMember = activityMembersDao.selectActivityMembersByUEid(uid, eventId);
+    public ActivityMembers quitActivity(ActivityMembers members, String reason) {
+        int uid = members.getUid();
+        int eventId = members.getEventId();
+        members = activityMembersDao.selectActivityMembersByUEid(uid, eventId);
         //TODO　无法保证时间选择表中是否有数据，所以无法判断sql是否执行
         timeDao.delMembersTimeByUId(uid, eventId);
         if (activityMembersDao.quitActivityByUid(uid, eventId) != 1 ||
                 activityDao.reduceMembersByEventId(eventId) != 1 ||
-                activityDao.addQuitReason(activityMember, reason) != 1) {
+                activityDao.addQuitReason(members, reason) != 1) {
             throw new CascadeException();
         }
-        return activityMember;
+        return members;
     }
 }

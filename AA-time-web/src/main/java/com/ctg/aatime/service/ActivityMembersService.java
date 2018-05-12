@@ -23,9 +23,6 @@ public interface ActivityMembersService {
 
     /**
      * 通过eventId退出活动，删除活动成员、时间选择表有关信息，活动信息表活动成员总数-1，在退出活动记录表添加退出原因
-     *
-     * @param eventId
-     * @param reason
      */
-    ActivityMembers quitActivity(int uid, int eventId, String reason);
+    ActivityMembers quitActivity(ActivityMembers members, String reason);
 }
