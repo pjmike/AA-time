@@ -41,14 +41,13 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMembersService membersService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Activity createActivity(Activity activity) {
         //将信息插入活动信息表
         activity.setMembers(1);
         User u = userDao.selectUserByUid(activity.getUid());
-        if(u == null){
-            throw new CascadeException("uid无效");
-
+        if (u == null) {
+            throw new CascadeException("用户id不存在");
         }
         activity.setAvatar(u.getAvatar());
         activity.setUsername(u.getUsername());
@@ -60,9 +59,9 @@ public class ActivityServiceImpl implements ActivityService {
         activityMembers.setEventId(activity.getEventId());
         activityMembers.setAvatar(activity.getAvatar());
         activityMembers.setUid(activity.getUid());
-        activityMembers.setAddTime(new Date().getTime());
+        activityMembers.setAddTime(System.currentTimeMillis());
         activityMembers.setUsername(activity.getUsername());
-        if (membersService.insertActivityMember(activity.getUid(),activity.getEventId()) == null){
+        if (membersService.insertActivityMember(activity.getUid(), activity.getEventId()) == null) {
             throw new CascadeException("添加活动成员失败");
         }
         return activity;
@@ -106,7 +105,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public int launchActivity(Activity activity) {
         Activity a = activityDao.selectActivityByEventId(activity.getEventId());
-        if (a.getLaunchTime() != 0 ){
+        if (a.getLaunchTime() != 0) {
             //若活动已经发布  则发布失败
             throw new CascadeException("活动已发布");
         }
@@ -120,7 +119,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> selectLaunchActivitiesByUid(int uId) {
         List<Activity> activities = selectLiveActivitiesByUid(uId);
-        for (int i = 0; i < activities.size();){
+        for (int i = 0; i < activities.size(); ) {
             Activity activity = activities.get(i);
             if (activity.getLaunchTime() == 0) activities.remove(activity);
             else i++;

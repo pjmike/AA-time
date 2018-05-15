@@ -45,4 +45,12 @@ public class ActivityMembers {
      * 成员空闲时间范围
      */
     private HashMap<Long, Long> freeTimes;
+
+    public ActivityMembers(int eventId, int uid) {
+        this.eventId = eventId;
+        this.uid = uid;
+    }
+
+    public ActivityMembers() {
+    }
 }

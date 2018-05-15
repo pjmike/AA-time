@@ -15,7 +15,7 @@ public interface ActivityService {
      * 新建活动
      *
      * @param activity
-     * @return
+     * @return Activity
      */
     Activity createActivity(Activity activity);
 

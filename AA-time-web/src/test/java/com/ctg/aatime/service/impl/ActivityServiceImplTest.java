@@ -56,7 +56,7 @@ public class ActivityServiceImplTest {
 
     @Test
     public void launchActivity(){
-        activityService.launchActivity(15,"好无聊",1524952288207L,1525952288207L);
+//        activityService.launchActivity(15,"好无聊",1524952288207L,1525952288207L);
     }
 
 }

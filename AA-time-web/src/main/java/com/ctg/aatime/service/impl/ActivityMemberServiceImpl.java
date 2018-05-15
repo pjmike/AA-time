@@ -41,10 +41,10 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
     private TimeService timeService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ActivityMembers insertActivityMember(int uid, int eventId) {
         //TODO 待重构
-        long now = new Date().getTime();
+        long now = System.currentTimeMillis();
         Activity activity = activityDao.selectActivityByEventId(eventId);
         ActivityMembers members = activityMembersDao.selectActivityMembersByUEid(uid,eventId);
         if (activity.getStatisticTime() < now || activity.getLaunchTime() > 0 || members!=null){
@@ -60,7 +60,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
         members.setEventId(eventId);
         members.setAvatar(user.getAvatar());
         members.setUid(uid);
-        members.setAddTime(new Date().getTime());
+        members.setAddTime(System.currentTimeMillis());
         if (activityMembersDao.insertActivityMembers(members) < 1) {
             throw new CascadeException();
         }
@@ -82,7 +82,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ActivityMembers quitActivity(ActivityMembers members, String reason) {
         int uid = members.getUid();
         int eventId = members.getEventId();

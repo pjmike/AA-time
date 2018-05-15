@@ -20,7 +20,7 @@ public class WsController {
     /**
      * TODO 待重构
      */
-    @MessageMapping("/welcome")
+    @MessageMapping("/websocket")
     public void sendMessageToAll(ServerResponseMessage message) {
         template.convertAndSend("/topic/notice",message.getResponseMessage());
     }

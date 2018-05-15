@@ -6,10 +6,7 @@ import com.ctg.aatime.commons.exception.LoginException;
 import com.ctg.aatime.commons.exception.WeiXinException;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 /**
  * 自定义异常处理器
@@ -17,7 +14,7 @@ import org.springframework.http.HttpStatus;
  * @author pjmike
  * @create 2018-03-29 22:00
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionController {
     /**
      *
@@ -42,9 +39,7 @@ public class ExceptionController {
         return FormatResponseUtil.error(w.getMessage());
     }
 
-    //TODO 这样写对吗？
     @ExceptionHandler(CascadeException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseResult cascadeExceptionHandler(CascadeException c) {
         return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
     }
