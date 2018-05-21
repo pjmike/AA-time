@@ -1,16 +1,25 @@
 package com.ctg.aatime.web.controller.activity;
 
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
+import com.ctg.aatime.commons.qiniu.IQiNIuService;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.Activity;
 import com.ctg.aatime.domain.dto.RecommendTimeInfo;
 import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
+import com.google.gson.Gson;
+import com.qiniu.http.Response;
+import com.qiniu.storage.model.DefaultPutRet;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -20,12 +29,16 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/activity")
+@Slf4j
 public class ActivityController {
-
+    @Value("${activity.defaultImageUrl}")
+    private String defaultImageUrl;
+    @Value("${QiNiu}")
+    private String QiNiu;
     private final ActivityService activityService;
-
     private final TimeService timeService;
-
+    @Autowired
+    private IQiNIuService qiNIuService;
     @Autowired
     public ActivityController(ActivityService activityService, TimeService timeService) {
         this.activityService = activityService;
@@ -46,8 +59,19 @@ public class ActivityController {
      * @param activity 活动类
      * @return ResponseResult
      */
-    @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseResult createActivity(@RequestBody Activity activity) {
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseResult createActivity(@RequestPart("file")MultipartFile file, @RequestPart Activity activity) throws IOException {
+        if (file == null) {
+            //设置活动默认图片
+            activity.setAvatar(defaultImageUrl);
+        }
+        String originalFileName = file.getOriginalFilename();
+        Response response = qiNIuService.uploadFile(file.getInputStream(),originalFileName);
+        //解析上传成功的结果
+        DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+        log.info("filename: {}",putRet.key);
+        //设置图片URL
+        activity.setAvatar(QiNiu+originalFileName);
         activity = activityService.createActivity(activity);
         if (activity == null) {
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);

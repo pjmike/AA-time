@@ -59,4 +59,10 @@ public class ActivityServiceImplTest {
 //        activityService.launchActivity(15,"好无聊",1524952288207L,1525952288207L);
     }
 
+    @Test
+    public void selectAll() {
+        List<Activity> activity = activityService.selectDeadActivitiesByUid(2);
+        System.out.println("结果是:"+activity);
+    }
+
 }

@@ -37,4 +37,6 @@ public class ActivityMemberServiceImplTest {
 //        ActivityMembers activityMembers = activityMembersService.quitActivity(3,27,"再见");
 //        System.out.println(activityMembers);
     }
+
+
 }
