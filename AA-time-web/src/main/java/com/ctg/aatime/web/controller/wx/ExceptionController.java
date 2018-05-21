@@ -39,6 +39,11 @@ public class ExceptionController {
         return FormatResponseUtil.error(w.getMessage());
     }
 
+    /**
+     * 级联异常
+     * @param c
+     * @return
+     */
     @ExceptionHandler(CascadeException.class)
     public ResponseResult cascadeExceptionHandler(CascadeException c) {
         return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);

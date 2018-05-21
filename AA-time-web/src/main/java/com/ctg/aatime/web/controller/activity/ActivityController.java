@@ -5,7 +5,9 @@ import com.ctg.aatime.commons.qiniu.IQiNIuService;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.Activity;
+import com.ctg.aatime.domain.ActivityMembers;
 import com.ctg.aatime.domain.dto.RecommendTimeInfo;
+import com.ctg.aatime.service.ActivityMembersService;
 import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
 import com.google.gson.Gson;
@@ -92,11 +94,6 @@ public class ActivityController {
      */
     @PostMapping(value = "/launchInfo",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseResult launchActivity(@RequestBody Activity activity) {
-
-        if (activity.getEventId() < 0) {
-            //TODO 所有controller方法每次运行前是否都需要判定数据是否合法？
-            return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
-        }
         if (activityService.launchActivity(activity) < 1) {
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
         } else {
@@ -106,10 +103,10 @@ public class ActivityController {
 
 
     /**
-     * 查询该用户参与的所有活动(包括未确定发布的)
+     * 查询该用户参与的所有未过期活动(包括未发布的)
      *
      * @param uId 用户id
-     * @return 用户参加的所有活动
+     * @return 用户参加的所有未过期活动
      */
     @GetMapping("/liveList/{uid}")
     public ResponseResult liveListByUid(@PathVariable("uid") int uId) {
@@ -119,10 +116,10 @@ public class ActivityController {
 
 
     /**
-     * 查询该用户参与的已发布活动
+     * 查询该用户参与的已发布的未过期活动
      *
      * @param uId 用户id
-     * @return 已发布的活动
+     * @return 已发布的未过期活动
      */
     @GetMapping("/launchList/{uid}")
     public ResponseResult launchListByUid(@PathVariable("uid") int uId) {
@@ -168,10 +165,10 @@ public class ActivityController {
     }
 
     /**
-     * 获取活动推荐时间
+     * 获取活动推荐时间有关信息
      *
      * @param eventId 活动id
-     * @return 返回推荐时间
+     * @return 返回推荐时间有关信息
      */
     @GetMapping(value = "/recommendTime/{eventId}")
     public ResponseResult recommendTime(@PathVariable("eventId") int eventId) {

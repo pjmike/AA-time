@@ -83,8 +83,8 @@
     </insert>
     <sql id="quitKey">
         <trim suffixOverrides=",">
-            <if test="member.eventId != 0">event_Id,</if>
-            <if test="member.uid != 0">uid,</if>
+            <if test="member.eventId != null">event_Id,</if>
+            <if test="member.uid != null">uid,</if>
             <if test="member.username != null">username,</if>
             <if test="member.avatar != null">avatar,</if>
             <if test="member.notes != null">notes,</if>
@@ -93,8 +93,8 @@
     </sql>
     <sql id="quitValue">
         <trim suffixOverrides=",">
-            <if test="member.eventId != 0">#{member.eventId},</if>
-            <if test="member.uid != 0">#{member.uid},</if>
+            <if test="member.eventId != null">#{member.eventId},</if>
+            <if test="member.uid != null">#{member.uid},</if>
             <if test="member.username != null">#{member.username},</if>
             <if test="member.avatar != null">#{member.avatar},</if>
             <if test="member.notes != null">#{member.notes},</if>

@@ -14,8 +14,6 @@ import java.util.*;
  * Created By Cx On 2018/4/5 11:51
  */
 public class RecommendTimeUtil {
-
-
     /**
      * 将时间戳转换成时间块大小，每个时间块为15min
      *
@@ -23,7 +21,7 @@ public class RecommendTimeUtil {
      * @return 该时长总共能分成多少个时间块
      */
     private static int getTimeSize(long time) {
-        return (int) (time / 1000 / 60 / 15);
+        return (int)Math.ceil(time*1.0/1000/60/15) ;
     }
 
     /**
@@ -35,6 +33,22 @@ public class RecommendTimeUtil {
      */
     private static int getTimeSize(long startTime, long endTime) {
         return getTimeSize(endTime - startTime);
+    }
+
+    /**
+     * 将时间块<开始时间块，结束时间块>转换成时间戳
+     *
+     * @param baseTime  活动统计开始时间戳
+     * @param startTime 活动统计开始后的第几个时间块开始（从1开始）
+     * @param endTime   活动统计开始后的第几个时间块结束（从2开始）比如描述第一个时间块：endTime=2，startTime=1
+     * @return List:0表示startTime时间戳，1表示endTime时间戳
+     */
+    private static List<Long> formatTime(long baseTime, int startTime, int endTime) {
+        List<Long> values = new ArrayList<Long>();
+        //因为第一块的开始时间其实就是baseTime（活动可选开始时间），所以要减一
+        values.add(baseTime + (startTime-1) * 15 * 60 * 1000);
+        values.add(baseTime + (endTime-1) * 15 * 60 * 1000);
+        return values;
     }
 
     /**
@@ -57,6 +71,8 @@ public class RecommendTimeUtil {
         int timeSize = getTimeSize(activity.getStartTime(), activity.getEndTime());
         //活动最少持续时间
         int minTime = getTimeSize(activity.getMinTime());
+        //若最少持续时间大于可选时间
+        if (minTime > timeSize) return null;
         List<ActivityMembers>[] times = new ArrayList[timeSize - minTime + 5];
 
         //初始化times
@@ -66,12 +82,14 @@ public class RecommendTimeUtil {
 
         for (ActivityMembers member : members) {
             //遍历所有成员
+            //跳过未选时间成员
+            if (member.getFreeTimes() == null) continue;
             for (long key : member.getFreeTimes().keySet()) {
                 //遍历每个成员的所有空闲时间区间
                 //将开始时间和结束时间转换成时间块形式,表示是第x块的start/end
                 int start = getTimeSize(key - activity.getStartTime()) + 1,
                         end = getTimeSize(member.getFreeTimes().get(key) - activity.getStartTime());
-                //TODO 有无可能数据异常，即选取空闲时间超出可选时间范围。
+                //TODO 有无可能选取空闲时间超出可选时间范围。
                 if (start < 1) {
                     start = 1;
                 }
@@ -82,11 +100,11 @@ public class RecommendTimeUtil {
                     //如果数据有误，抛弃该数据
                     continue;
                 }
-                if (end - start < minTime) {
+                if (end - start < minTime-1) {
                     //如果空闲区间长度小于最小时限,则该区间不满足
                     continue;
                 }
-                while (end - start >= minTime) {
+                while (end - start >= minTime-1) {
                     //空闲区间长度大于等于最小时限，
                     //起点每次往右加一.每个起点是不同的时间范围,若满足则在该时间范围添加该成员
                     times[start].add(member);
@@ -98,18 +116,44 @@ public class RecommendTimeUtil {
     }
 
     /**
-     * 将时间块<开始时间块，结束时间块>转换成时间戳
-     *
-     * @param baseTime  活动统计开始时间戳
-     * @param startTime 活动统计开始后的第几个时间块开始（从1开始）
-     * @param endTime   活动统计开始后的第几个时间块结束（从1开始）
-     * @return List:0表示startTime时间戳，1表示endTime时间戳
+     * 获取创建者的所有空闲时间段
+     * @return
      */
-    private static List<Long> formatTime(long baseTime, int startTime, int endTime) {
-        List<Long> values = new ArrayList<Long>();
-        values.add(baseTime + (startTime - 1) * 15 * 60 * 1000);
-        values.add(baseTime + endTime * 15 * 60 * 1000);
-        return values;
+    private static Set<Integer> getUserTime(Activity activity,ActivityMembers user){
+        //活动可选时间范围,从1开始计数
+        int timeSize = getTimeSize(activity.getStartTime(), activity.getEndTime());
+        //活动最少持续时间
+        int minTime = getTimeSize(activity.getMinTime());
+        //若最少持续时间大于可选时间
+        if (minTime > timeSize) return null;
+        Set<Integer> timeSet = new HashSet<Integer>();
+        for (long key : user.getFreeTimes().keySet()) {
+            //遍历每个成员的所有空闲时间区间
+            //将开始时间和结束时间转换成时间块形式,表示是第x块的start/end
+            int start = getTimeSize(key - activity.getStartTime()) + 1,
+                    end = getTimeSize(user.getFreeTimes().get(key) - activity.getStartTime());
+            if (start < 1) {
+                start = 1;
+            }
+            if (end > timeSize) {
+                end = timeSize;
+            }
+            if (start > end || start > timeSize) {
+                //如果数据有误，抛弃该数据
+                continue;
+            }
+            if (end - start < minTime-1) {
+                //如果空闲区间长度小于最小时限,则该区间不满足
+                continue;
+            }
+            while (end - start >= minTime-1) {
+                //空闲区间长度大于等于最小时限，
+                //起点每次往右加一.每个起点是不同的时间范围,若满足则在该时间范围添加该成员
+                timeSet.add(start);
+                start++;
+            }
+        }
+        return timeSet;
     }
 
     /**
@@ -117,24 +161,39 @@ public class RecommendTimeUtil {
      *
      * @return
      */
-    public static RecommendTimeInfo getRecommendTimeInfo(Activity activity, List<ActivityMembers> members) {
-
+    public static RecommendTimeInfo getRecommendTimeInfo(Activity activity, List<ActivityMembers> members,ActivityMembers user) {
+        if (activity.getMinTime() < 15*60*1000){
+            //如果最小时间小于15min，默认改为15min
+            activity.setMinTime(15*60*1000);
+        }
+        //最优解列表
+        List<BestTime> bestTimes = new ArrayList<BestTime>();
         //活动可选时间范围
         int timeSize = getTimeSize(activity.getStartTime(), activity.getEndTime());
         //活动最少持续时间
         int minTime = getTimeSize(activity.getMinTime());
-        //最优解列表
-        List<BestTime> bestTimes = new ArrayList<BestTime>();
-        //所有推荐信息
+        //返回的推荐时间信息
         RecommendTimeInfo recommendTimeInfo = new RecommendTimeInfo(bestTimes, activity.getStartTime(), activity.getEndTime(), members.size());
-
-        if (timeSize < minTime) {
-            //若活动可选范围小于活动最小时限，直接返回空列表
+        if (user.getFreeTimes() == null || timeSize < minTime){
+            //如果创建者未选择时间 或 活动可选范围小于活动最小时限，直接返回空列表
             return recommendTimeInfo;
         }
+        //创建者空闲时间段
+        Set<Integer> uTime = getUserTime(activity,user);
+        //TODO
+//        for (ActivityMembers m : members) {
+//            for (long d : m.getFreeTimes().keySet()){
+//                System.out.print(Test2.stampToDate(d)+"="+Test2.stampToDate(m.getFreeTimes().get(d))+" ");
+//            }
+//            System.out.println();
+//            Set<Integer> m1 = getUserTime(activity,m);
+//            System.out.println(m.getId()+" "+m1);
+//        }
+//        System.out.println(uTime);
 
         //定义时间轴数组（每个元素长为最小时长，元素下标表示起始时间块）,值为参与人集合，最优解即为元素值最大的元素。
         List<ActivityMembers>[] times = getTimes(activity, members);
+
         //用于记录最优解中的key值，使其能够按key值的增序输出
         List<Integer> keyList = new ArrayList<Integer>();
         //最优解的参与成员数
@@ -144,14 +203,16 @@ public class RecommendTimeUtil {
 
         //遍历times数组
         for (int i = 1; i <= timeSize; i++) {
-            if (times[i].size() > maxMember) {
-                //如果找到比已知最大参与人数大的时间范围
-                bestTime.clear();
-                bestTime.put(i, i + minTime - 1);
-                maxMember = times[i].size();
-            } else if (times[i].size() == maxMember) {
-                //如果找到和已知最大参与人数相同的时间范围
-                bestTime.put(i, i + minTime - 1);
+            if (uTime.contains(i)){
+                if (times[i].size() > maxMember) {
+                    //如果找到比已知最大参与人数大的时间范围
+                    bestTime.clear();
+                    bestTime.put(i, i + minTime);
+                    maxMember = times[i].size();
+                } else if (times[i].size() == maxMember) {
+                    //如果找到和已知最大参与人数相同的时间范围
+                    bestTime.put(i, i + minTime);
+                }
             }
         }
 
@@ -195,6 +256,8 @@ public class RecommendTimeUtil {
                 notJoin.remove(am);
             }
             List<Long> l = formatTime(activity.getStartTime(), key, bestTime.get(key));
+            //加上创建者
+            times[key].add(user);
             BestTime bti = new BestTime(l.get(0), l.get(1), times[key], notJoin);
             bestTimes.add(bti);
         }
