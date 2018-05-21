@@ -72,7 +72,7 @@ public class ActivityServiceImpl implements ActivityService {
             if (activity != null) {
                 //如果能查询到该活动,添加未过期活动
                 if (activity.getLaunchTime() != 0 && activity.getLaunchEndTime() <= now){
-                    //如果活动已发布 且 此时大于活动结束时间
+                    //如果活动已发布 且 此时大于活动结束时间,则说明是过期活动，跳过
                     continue;
                 }
                 else if(activity.getLaunchTime() == 0 && activity.getEndTime() <= now){
@@ -174,8 +174,13 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<Activity> selectEstablishedActivitiesByUid(int uId) {
-        //TODO 是否要过滤过期活动
-        List<Activity> activities = activityDao.selectEstablishedActivitiesByUid(uId);
+        List<Activity> activities = selectLiveActivitiesByUid(uId);
+        for (Activity a: activities) {
+            if (a.getUid() != uId){
+                //若不是该用户创建的活动，移除！
+                activities.remove(a);
+            }
+        }
         return activities;
     }
 
