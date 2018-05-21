@@ -6,8 +6,10 @@ import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.User;
 import com.ctg.aatime.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
 /**
  * 个人中心
  *
@@ -19,6 +21,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 查询个人信息
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/user/{id}")
     public ResponseResult userCenter(@PathVariable("id") Integer id) {
         User user = userService.selectUserByUid(id);
@@ -29,7 +37,11 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public ResponseResult changeNickName(@PathVariable("id") Integer id, @RequestParam("nickname") String nickname) {
+    public ResponseResult changeNickName(@PathVariable("id") Integer id, @RequestBody Map<String,String> map) {
+        String nickname = map.get("nickname");
+        if (org.apache.commons.lang.StringUtils.isBlank(nickname)) {
+            return FormatResponseUtil.error("昵称为空");
+        }
         userService.changeUserNickName(id, nickname);
         return FormatResponseUtil.formatResponse();
     }

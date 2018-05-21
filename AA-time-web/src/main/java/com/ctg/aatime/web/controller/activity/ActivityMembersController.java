@@ -40,12 +40,13 @@ public class ActivityMembersController {
      *
      * @param eventId 用户id
      * @param uid 退出的活动id
-     * @param reason 退出活动原因
+     * @param map 退出活动原因
      * @return ResponseResult
      */
     @DeleteMapping("/event/{uid}/{eventId}")
     public ResponseResult quitEvent(@PathVariable("eventId")Integer eventId,@PathVariable("uid")Integer uid,
-                                    @RequestBody String reason) {
+                                    @RequestBody Map<String,String> map) {
+        String reason = map.get("reason");
         ActivityMembers member = new ActivityMembers(eventId,uid);
         activityMembersService.quitActivity(member, reason);
         return FormatResponseUtil.formatResponse();

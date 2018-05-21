@@ -84,6 +84,7 @@ public class LoginController {
 
             User user = new User(openid, nickName, avatarUrl);
             if (userService.findUserByOpenId(openid) == null) {
+                user.setNickname(nickName);
                 userService.insertUser(user);
             }
         }
