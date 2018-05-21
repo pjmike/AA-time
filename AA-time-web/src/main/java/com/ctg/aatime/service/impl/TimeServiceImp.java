@@ -6,6 +6,7 @@ import com.ctg.aatime.dao.ActivityMembersDao;
 import com.ctg.aatime.dao.TimeDao;
 import com.ctg.aatime.domain.Activity;
 import com.ctg.aatime.domain.ActivityMembers;
+import com.ctg.aatime.domain.Time;
 import com.ctg.aatime.domain.dto.RecommendTimeInfo;
 import com.ctg.aatime.service.ActivityMembersService;
 import com.ctg.aatime.service.ActivityService;
@@ -34,10 +35,25 @@ public class TimeServiceImp implements TimeService{
     ActivityMembersService activityMembersService;
 
     @Override
+    public int changeFreeTime(int uid, int eventId, List<Time> freeTime) {
+        return 1;
+    }
+
+    @Override
     public RecommendTimeInfo getRecommendTime(int eventId) {
         List<ActivityMembers> members = activityMembersService.selectJoinMembersByEventId(eventId);
         Activity activity = activityDao.selectActivityByEventId(eventId);
-        return RecommendTimeUtil.getRecommendTimeInfo(activity, members);
+        ActivityMembers user = null;
+        int uid = activity.getUid();
+        for (ActivityMembers m : members) {
+            if (m.getUid() == uid){
+                user = m;
+                members.remove(m);
+                break;
+            }
+        }
+        if(user == null) throw new RuntimeException("创建者用户缺失");
+        return RecommendTimeUtil.getRecommendTimeInfo(activity, members,user);
     }
 
     @Override

@@ -23,12 +23,14 @@ public class ActivityServiceImplTest {
     @Test
     public void createActivity() throws Exception {
         Activity activity = new Activity();
-        activity.setEventName("demo活动");
-        activity.setEventBrief("demo活动简介");
-        activity.setEventTag("开会");
-        activity.setEventPlace("B楼");
+        activity.setEventName("看书");
+        activity.setEventBrief("是是是");
+        activity.setEventPlace("天上");
+        activity.setStartTime(1527176808888L);
+        activity.setEndTime(1527422288207L);
+        activity.setStatisticTime(1527076808888L);
+        activity.setMinTime(7200000L);
         activity.setUid(2);
-
         Activity result = activityService.createActivity(activity);
         System.out.println(result);
     }

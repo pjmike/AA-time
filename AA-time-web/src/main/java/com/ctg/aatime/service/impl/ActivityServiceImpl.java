@@ -7,7 +7,9 @@ import com.ctg.aatime.dao.TimeDao;
 import com.ctg.aatime.dao.UserDao;
 import com.ctg.aatime.domain.Activity;
 import com.ctg.aatime.domain.ActivityMembers;
+import com.ctg.aatime.domain.Time;
 import com.ctg.aatime.domain.User;
+import com.ctg.aatime.domain.dto.BestTime;
 import com.ctg.aatime.service.ActivityMembersService;
 import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
@@ -16,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author pjmike
@@ -44,7 +44,6 @@ public class ActivityServiceImpl implements ActivityService {
     @Transactional(rollbackFor = Exception.class)
     public Activity createActivity(Activity activity) {
         //将信息插入活动信息表
-        activity.setMembers(1);
         User u = userDao.selectUserByUid(activity.getUid());
         if (u == null) {
             throw new CascadeException("用户id不存在");
@@ -55,26 +54,32 @@ public class ActivityServiceImpl implements ActivityService {
             //添加活动失败
             throw new CascadeException("添加活动失败");
         }
-        ActivityMembers activityMembers = new ActivityMembers();
-        activityMembers.setEventId(activity.getEventId());
-        activityMembers.setAvatar(activity.getAvatar());
-        activityMembers.setUid(activity.getUid());
-        activityMembers.setAddTime(System.currentTimeMillis());
-        activityMembers.setUsername(activity.getUsername());
-        if (membersService.insertActivityMember(activity.getUid(), activity.getEventId()) == null) {
-            throw new CascadeException("添加活动成员失败");
+        if (membersService.insertActivityMember(activity.getUid(), activity.getEventId(), new ArrayList<Time>()) == null){
+            //将创建者添加为该活动成员失败
+            throw new CascadeException("添加活动失败");
         }
         return activity;
     }
 
     @Override
     public List<Activity> selectLiveActivitiesByUid(int uId) {
-        //查询该用户参与的所有活动的id
+        //查询该用户参与的所有活动（包括过期的）id
         List<Integer> eventIds = activityMembersDao.selectJoinEventsIdByUid(uId);
         List<Activity> activities = new ArrayList<Activity>();
+        long now =System.currentTimeMillis();
         for (Integer eventId : eventIds) {
             Activity activity = activityDao.selectActivityByEventId(eventId);
-            if (activity != null && activity.getEndTime() > new Date().getTime()) {
+            if (activity != null) {
+                //如果能查询到该活动,添加未过期活动
+                if (activity.getLaunchTime() != 0 && activity.getLaunchEndTime() <= now){
+                    //如果活动已发布 且 此时大于活动结束时间
+                    continue;
+                }
+                else if(activity.getLaunchTime() == 0 && activity.getEndTime() <= now){
+                    //如果活动未发布 且 此时大于活动可选范围结束时间 则该活动已无效，直接删除
+                    delActivityByEventId(activity.getEventId());
+                    continue;
+                }
                 activities.add(activity);
             }
         }
@@ -105,14 +110,32 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public int launchActivity(Activity activity) {
         Activity a = activityDao.selectActivityByEventId(activity.getEventId());
+        long now = System.currentTimeMillis();
+        if (now > a.getEndTime()){
+            //如果当前时间大于活动可选时间范围，删除活动，并通知发布失败
+            delActivityByEventId(activity.getEventId());
+            throw new CascadeException("活动已失效");
+        }
         if (a.getLaunchTime() != 0) {
             //若活动已经发布  则发布失败
             throw new CascadeException("活动已发布");
         }
-        //TODO 推荐时间方法仍存在问题，需要合适数据
-//        int launchMembers = timeService.getRecommendTime(eventId).getBestTimes().get(0).getJoinMembers().size();
-//        activity.setLaunchMembers(launchMembers);
-        activity.setLaunchTime(new Date().getTime());
+        a.setLaunchTime(activity.getLaunchTime());
+        a.setLaunchStartTime(activity.getLaunchStartTime());
+        a.setLaunchEndTime(activity.getLaunchEndTime());
+        a.setLaunchWords(activity.getLaunchWords());
+        if (a.getLaunchStartTime() > a.getLaunchEndTime() || a.getLaunchStartTime() < now){
+            //活动确定发布的开始时间 大于结束时间/小于此时
+            throw new CascadeException("数据有误");
+        }
+        List<BestTime> bestTime = timeService.getRecommendTime(a.getEventId()).getBestTimes();
+        int launchMembers = 0;
+        if (bestTime.size()!=0){
+            //如果存在最优解，查找第一个最优解的参与人数（因为最优解的参与人数都相同）
+            launchMembers = bestTime.get(0).getJoinMembers().size();
+        }
+        activity.setLaunchMembers(launchMembers);
+        activity.setLaunchTime(now);
         return activityDao.updateLaunchInfo(activity);
     }
 
@@ -131,10 +154,19 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> selectDeadActivitiesByUid(int uId) {
         List<Integer> eventIds = activityMembersDao.selectJoinEventsIdByUid(uId);
         List<Activity> activities = new ArrayList<Activity>();
+        long now = System.currentTimeMillis();
         for (Integer eventId : eventIds) {
             Activity activity = activityDao.selectActivityByEventId(eventId);
-            if (activity != null && activity.getEndTime() < new Date().getTime()) {
-                activities.add(activity);
+            if (activity != null) {
+                //如果能查询到该活动,添加未过期活动
+                if (activity.getLaunchTime() != 0 && activity.getLaunchEndTime() <= now){
+                    //如果活动已发布 且 此时大于活动结束时间
+                    activities.add(activity);
+                }
+                else if(activity.getLaunchTime() == 0 && activity.getEndTime() <= now){
+                    //如果活动未发布 且 此时大于活动可选范围结束时间 则该活动已无效，直接删除
+                    delActivityByEventId(activity.getEventId());
+                }
             }
         }
         return activities;
@@ -142,6 +174,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<Activity> selectEstablishedActivitiesByUid(int uId) {
+        //TODO 是否要过滤过期活动
         List<Activity> activities = activityDao.selectEstablishedActivitiesByUid(uId);
         return activities;
     }
