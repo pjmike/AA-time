@@ -56,6 +56,17 @@ public class ActivityDaoTest {
         System.out.println(activity);
     }
 
+    @Test
+    public void updateLaunchInfo(){
+        Activity activity = new Activity();
+        activity.setLaunchWords("你好");
+        activity.setLaunchEndTime(1527296808888L);
+        activity.setLaunchStartTime(1527276808888L);
+        activity.setLaunchTime(System.currentTimeMillis());
+        activity.setEventId(35);
+        System.out.println(activityDao.updateLaunchInfo(activity));
+    }
+
 
 
 }

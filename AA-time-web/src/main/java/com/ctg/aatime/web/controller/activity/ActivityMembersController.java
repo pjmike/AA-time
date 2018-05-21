@@ -4,12 +4,15 @@ import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.ActivityMembers;
+import com.ctg.aatime.domain.Time;
 import com.ctg.aatime.service.ActivityMembersService;
 import com.ctg.aatime.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -40,23 +43,24 @@ public class ActivityMembersController {
      * @param reason 退出活动原因
      * @return ResponseResult
      */
-    @DeleteMapping("/event/{eventId}/{uid}")
+    @DeleteMapping("/event/{uid}/{eventId}")
     public ResponseResult quitEvent(@PathVariable("eventId")Integer eventId,@PathVariable("uid")Integer uid,
-                                    @RequestParam("reason")String reason) {
+                                    @RequestBody String reason) {
         ActivityMembers member = new ActivityMembers(eventId,uid);
         activityMembersService.quitActivity(member, reason);
         return FormatResponseUtil.formatResponse();
     }
 
     /**
-     * 用户参与活动接口
+     * 用户参与活动接口/用户修改空闲时间接口
      *
      * @param uid     用户id
      * @param eventId 参与活动Id
+     * @param freeTime 用户空闲时间(传入参数startTime , endTime表示每段空闲时间的开始时间和结束时间)
      */
-    @PostMapping(value = "/{uid}/{eventId}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseResult joinEvent(@PathVariable("uid") int uid, @PathVariable("eventId") int eventId) {
-        if (activityMembersService.insertActivityMember(uid, eventId) != null) {
+    @PostMapping(value = "/{uid}/{eventId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseResult joinEvent(@PathVariable("uid") int uid, @PathVariable("eventId") int eventId, @RequestBody List<Time> freeTime) {
+        if (activityMembersService.insertActivityMember(uid, eventId, freeTime) != null) {
             return FormatResponseUtil.formatResponse();
         } else {
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);

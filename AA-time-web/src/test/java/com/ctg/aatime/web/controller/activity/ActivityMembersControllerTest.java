@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -28,11 +29,13 @@ public class ActivityMembersControllerTest {
     private MockMvc mvc;
 
     @Test
+    @Rollback()
     public void quitEvent() {
         try{
-            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activityMember/event")    //请求的url,请求的方法是get
-                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("uid","3").param("eventId","27") .param("reason","无聊")        //添加参数
+            String requestBody = "回家过年";
+            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activityMember/event/2/38")    //请求的url,请求的方法是get
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)//数据的格式
+                    .content(requestBody)    //添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -44,9 +47,10 @@ public class ActivityMembersControllerTest {
     @Test
     public void joinEvent(){
         try{
-            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activityMember")    //请求的url,请求的方法是get
-                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                    .param("uid","3").param("eventId","27")         //添加参数
+            String requestBody = "[{\"startTime\":\"12345\",\"endTime\":\"74546\"},{\"startTime\":\"212345\",\"endTime\":\"2123456\"}]";
+            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activityMember/2/34")    //请求的url,请求的方法是get
+                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)//数据的格式
+                    .content(requestBody)
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -58,9 +62,7 @@ public class ActivityMembersControllerTest {
     @Test
     public void findFree() {
        try{
-           String responseString = mvc.perform(MockMvcRequestBuilders.get("/activityMember/freeTime")    //请求的url,请求的方法是get
-                   .contentType(MediaType.APPLICATION_FORM_URLENCODED)//数据的格式
-                   .param("uid","2").param("eventId","6")         //添加参数
+           String responseString = mvc.perform(MockMvcRequestBuilders.get("/activityMember/freeTime/2/34")    //请求的url,请求的方法是get
            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                    .andDo(print())         //打印出请求和相应的内容
                    .andReturn().getResponse().getContentAsString();

@@ -1,8 +1,10 @@
 package com.ctg.aatime.service;
 
 import com.ctg.aatime.domain.ActivityMembers;
+import com.ctg.aatime.domain.Time;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author pjmike
@@ -11,7 +13,7 @@ public interface ActivityMembersService {
     /**
      * 插入活动成员
      */
-    ActivityMembers insertActivityMember(int uid, int eventId);
+    ActivityMembers insertActivityMember(int uid, int eventId, List<Time> freeTime);
 
     /**
      * 通过活动id查询所有参与活动的成员
