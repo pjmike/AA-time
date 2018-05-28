@@ -24,6 +24,7 @@
             <if test="statisticTime != null">statistic_time,</if>
             <if test="minTime != null">min_time,</if>
             <if test="members != null">members,</if>
+            <if test="imageUrl != null">image_url,</if>
         </trim>
     </sql>
     <sql id="value">
@@ -40,6 +41,7 @@
             <if test="statisticTime != null">#{statisticTime},</if>
             <if test="minTime != null">#{minTime},</if>
             <if test="members != null">#{members},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
         </trim>
     </sql>
 
@@ -50,6 +52,7 @@
         event_brief,
         event_tag,
         event_place,
+        image_url,
         uid,
         username,
         avatar,

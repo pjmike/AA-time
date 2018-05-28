@@ -73,7 +73,7 @@ public class ActivityController {
         DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
         log.info("filename: {}",putRet.key);
         //设置图片URL
-        activity.setAvatar(QiNiu+originalFileName);
+        activity.setImageUrl(QiNiu+originalFileName);
         activity = activityService.createActivity(activity);
         if (activity == null) {
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);

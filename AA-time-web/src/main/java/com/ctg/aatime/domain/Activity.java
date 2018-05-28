@@ -82,4 +82,8 @@ public class Activity {
      * 活动发布留言
      */
     private String launchWords;
+    /**
+     * 活动照片
+     */
+    private String imageUrl;
 }
