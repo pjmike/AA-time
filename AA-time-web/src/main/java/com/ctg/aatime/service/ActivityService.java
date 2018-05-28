@@ -20,9 +20,9 @@ public interface ActivityService {
     Activity createActivity(Activity activity);
 
     /**
-     * 查询该用户参与的所有未过期活动
+     * 查询该用户所有仅参与（不包含创建）的未发布未过期活动
      */
-    List<Activity> selectLiveActivitiesByUid(int uid);
+    List<Activity> selectJoinActivitiesByUid(int uid);
 
     /**
      * 通过活动id在活动信息和活动地点表中查询活动
@@ -46,7 +46,7 @@ public interface ActivityService {
     int launchActivity(Activity activity);
 
     /**
-     * 查询该用户参与的已发布未过期活动
+     * 查询该用户所有参与的未过期已发布的活动
      */
     List<Activity> selectLaunchActivitiesByUid(int uId);
 
@@ -56,7 +56,7 @@ public interface ActivityService {
     List<Activity> selectDeadActivitiesByUid(int uId);
 
     /**
-     * 查询该用户发起的活动
+     * 查询该用户创建的未发布的未过期的活动
      */
     List<Activity> selectEstablishedActivitiesByUid(int uId);
 }

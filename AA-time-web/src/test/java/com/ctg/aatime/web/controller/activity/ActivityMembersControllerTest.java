@@ -48,7 +48,7 @@ public class ActivityMembersControllerTest {
     public void joinEvent(){
         try{
             String requestBody = "[{\"startTime\":\"12345\",\"endTime\":\"74546\"},{\"startTime\":\"212345\",\"endTime\":\"2123456\"}]";
-            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activityMember/2/34")    //请求的url,请求的方法是get
+            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activityMember/3/36")    //请求的url,请求的方法是get
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)//数据的格式
                     .content(requestBody)
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200

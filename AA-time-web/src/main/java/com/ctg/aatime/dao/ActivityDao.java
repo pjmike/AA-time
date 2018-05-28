@@ -61,7 +61,7 @@ public interface ActivityDao {
     int updateLaunchInfo(Activity activity);
 
     /**
-     * 通过uId在活动信息表查询该用户创建的活动
+     * 通过uId在活动信息表查询该用户创建的未发布的活动，按统计截止时间的升序排序
      */
     List<Activity> selectEstablishedActivitiesByUid(@Param("uId")int uId);
 }

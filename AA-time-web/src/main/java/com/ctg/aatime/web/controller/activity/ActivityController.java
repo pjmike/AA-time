@@ -5,16 +5,13 @@ import com.ctg.aatime.commons.qiniu.IQiNIuService;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.Activity;
-import com.ctg.aatime.domain.ActivityMembers;
 import com.ctg.aatime.domain.dto.RecommendTimeInfo;
-import com.ctg.aatime.service.ActivityMembersService;
 import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
 import com.google.gson.Gson;
 import com.qiniu.http.Response;
 import com.qiniu.storage.model.DefaultPutRet;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -54,7 +51,7 @@ public class ActivityController {
      * <p>
      * 必传参数：eventName（活动名称）、uid（创建者Id）、startTime（可选投票开始时间戳）、endTime（可选投票结束时间戳）
      * statisticTime（投票截止时间戳）
-     * 可选参数：eventBrief（活动简介）、eventTag（活动标签）、eventPlace（活动地点）、minTime（最小所需时间戳：默认为0）
+     * 可选参数：eventBrief（活动简介）、eventTag（活动标签）、eventPlace（活动地点）、minTime（最小所需时间戳：默认为15min）
      * members（最小参与人数：默认为0）
      * </p>
      *
@@ -101,41 +98,15 @@ public class ActivityController {
         }
     }
 
-
     /**
-     * 查询该用户参与的所有未过期活动(包括未发布的)
+     * 查询该用户仅参与的所有未发布且未过期活动
      *
      * @param uId 用户id
-     * @return 用户参加的所有未过期活动
+     * @return 用户仅参与的所有未发布未过期活动
      */
-    @GetMapping("/liveList/{uid}")
+    @GetMapping("/joinList/{uid}")
     public ResponseResult liveListByUid(@PathVariable("uid") int uId) {
-        List<Activity> activities = activityService.selectLiveActivitiesByUid(uId);
-        return FormatResponseUtil.formatResponseDomain(activities);
-    }
-
-
-    /**
-     * 查询该用户参与的已发布的未过期活动
-     *
-     * @param uId 用户id
-     * @return 已发布的未过期活动
-     */
-    @GetMapping("/launchList/{uid}")
-    public ResponseResult launchListByUid(@PathVariable("uid") int uId) {
-        List<Activity> activities = activityService.selectLaunchActivitiesByUid(uId);
-        return FormatResponseUtil.formatResponseDomain(activities);
-    }
-
-    /**
-     * 查询该用户参与的已过期活动
-     *
-     * @param uId 用户id
-     * @return 已过期的活动
-     */
-    @GetMapping("/deadList/{uid}")
-    public ResponseResult deadListByUid(@PathVariable("uid") int uId) {
-        List<Activity> activities = activityService.selectDeadActivitiesByUid(uId);
+        List<Activity> activities = activityService.selectJoinActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
@@ -151,6 +122,29 @@ public class ActivityController {
         return FormatResponseUtil.formatResponse(activities);
     }
 
+    /**
+     * 查询该用户参与的已发布的未过期活动
+     *
+     * @param uId 用户id
+     * @return 已发布的未过期活动
+     */
+    @GetMapping("/launchList/{uid}")
+    public ResponseResult launchListByUid(@PathVariable("uid") int uId) {
+        List<Activity> activities = activityService.selectLaunchActivitiesByUid(uId);
+        return FormatResponseUtil.formatResponseDomain(activities);
+    }
+
+    /**
+     * 查询该用户所有的已过期活动（只有已发布的，未发布的过期自动删除）
+     *
+     * @param uId 用户id
+     * @return 已过期的活动
+     */
+    @GetMapping("/deadList/{uid}")
+    public ResponseResult deadListByUid(@PathVariable("uid") int uId) {
+        List<Activity> activities = activityService.selectDeadActivitiesByUid(uId);
+        return FormatResponseUtil.formatResponseDomain(activities);
+    }
 
     /**
      * 删除活动
