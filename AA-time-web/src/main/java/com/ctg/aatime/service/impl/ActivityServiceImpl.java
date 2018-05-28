@@ -40,6 +40,37 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityMembersService membersService;
 
+
+    //查询该用户所有参与的未过期活动
+    public List<Activity> selectLiveActivitiesByUid(int uId) {
+        //查询该用户参与的所有活动（包括过期的）id
+        List<Integer> eventIds = activityMembersDao.selectJoinEventsIdByUid(uId);
+        List<Activity> activities = new ArrayList<Activity>();
+        long now =System.currentTimeMillis();
+        for (Integer eventId : eventIds) {
+            Activity activity = activityDao.selectActivityByEventId(eventId);
+            if (activity != null) {
+                //如果能查询到该活动,添加未过期活动
+                if (activity.getLaunchTime() != 0 && activity.getLaunchEndTime() <= now){
+                    //如果活动已发布 且 此时大于活动结束时间,则说明是过期活动，跳过
+                    continue;
+                }
+                else if(activity.getLaunchTime() == 0 && activity.getEndTime() <= now){
+                    //如果活动未发布 且 此时大于活动可选范围结束时间 则该活动已无效，直接删除
+                    delActivityByEventId(activity.getEventId());
+                    continue;
+                }
+                activities.add(activity);
+            }
+        }
+        //按统计截止时间升序排序
+        Collections.sort(activities, (o1, o2) -> {
+            if (o1.getStatisticTime() > o2.getStatisticTime()) return 1;
+            else return -1;
+        });
+        return activities;
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Activity createActivity(Activity activity) {
@@ -61,26 +92,19 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
+    //查询该用户所有仅参与（不包含创建）的未发布未过期活动
     @Override
-    public List<Activity> selectLiveActivitiesByUid(int uId) {
-        //查询该用户参与的所有活动（包括过期的）id
-        List<Integer> eventIds = activityMembersDao.selectJoinEventsIdByUid(uId);
-        List<Activity> activities = new ArrayList<Activity>();
-        long now =System.currentTimeMillis();
-        for (Integer eventId : eventIds) {
-            Activity activity = activityDao.selectActivityByEventId(eventId);
-            if (activity != null) {
-                //如果能查询到该活动,添加未过期活动
-                if (activity.getLaunchTime() != 0 && activity.getLaunchEndTime() <= now){
-                    //如果活动已发布 且 此时大于活动结束时间,则说明是过期活动，跳过
-                    continue;
-                }
-                else if(activity.getLaunchTime() == 0 && activity.getEndTime() <= now){
-                    //如果活动未发布 且 此时大于活动可选范围结束时间 则该活动已无效，直接删除
-                    delActivityByEventId(activity.getEventId());
-                    continue;
-                }
-                activities.add(activity);
+    public List<Activity> selectJoinActivitiesByUid(int uId) {
+        List<Activity> activities = selectLiveActivitiesByUid(uId);
+        for (int i = 0;i<activities.size();i++) {
+            Activity a = activities.get(i);
+            if (a.getLaunchTime() != 0) {
+                //如果该活动已发布，remove
+                activities.remove(a);
+            }
+            else if (a.getUid() == uId){
+                //如果该活动是该用户创建的，remove
+                activities.remove(a);
             }
         }
         return activities;
@@ -139,11 +163,13 @@ public class ActivityServiceImpl implements ActivityService {
         return activityDao.updateLaunchInfo(activity);
     }
 
+    //查询该用户所有参与的未过期已发布的活动
     @Override
     public List<Activity> selectLaunchActivitiesByUid(int uId) {
         List<Activity> activities = selectLiveActivitiesByUid(uId);
         for (int i = 0; i < activities.size(); ) {
             Activity activity = activities.get(i);
+            //如果该活动未发布，
             if (activity.getLaunchTime() == 0) activities.remove(activity);
             else i++;
         }
@@ -172,13 +198,17 @@ public class ActivityServiceImpl implements ActivityService {
         return activities;
     }
 
+    //该用户创建的未发布的未过期的活动
     @Override
     public List<Activity> selectEstablishedActivitiesByUid(int uId) {
-        List<Activity> activities = selectLiveActivitiesByUid(uId);
+        //该用户创建的未发布的活动，按统计截止时间的升序排序
+        List<Activity> activities = activityDao.selectEstablishedActivitiesByUid(uId);
+        Long now = System.currentTimeMillis();
         for (Activity a: activities) {
-            if (a.getUid() != uId){
-                //若不是该用户创建的活动，移除！
+            if (a.getEndTime() <= now){
+                //若该活动到结束时间时仍未发布，则删除该活动！
                 activities.remove(a);
+                delActivityByEventId(a.getEventId());
             }
         }
         return activities;

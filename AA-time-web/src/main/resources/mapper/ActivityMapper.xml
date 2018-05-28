@@ -135,6 +135,6 @@
             launch_members,
             launch_start_time,
             launch_end_time
-        FROM event WHERE uid = #{uId}
+        FROM event WHERE uid = #{uId} AND launch_time=0 ORDER BY statistic_time
     </select>
 </mapper>

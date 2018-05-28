@@ -41,10 +41,10 @@ public class ActivityControllerTest {
     private int port;
 
     @Test
-    public void liveListByUid() throws Exception {
+    public void joinListByUid() throws Exception {
         //表示测试根目录+该url能否成功被访问
 
-        String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/liveList/2")    //请求的url,请求的方法是get
+        String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/joinList/2")    //请求的url,请求的方法是get
         ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                 .andDo(print())         //打印出请求和相应的内容
                 .andReturn().getResponse().getContentAsString();
@@ -56,7 +56,7 @@ public class ActivityControllerTest {
     @Test
     public void createActivity() throws Exception {
         String requestBody = "{\"eventName\":\"问问\",\"eventBrief\":\"是是是\",\"eventPlace\":\"天上\"" +
-                ",\"startTime\":\"1527176808888\",\"endTime\":\"1527422288207\",\"statisticTime\":\"1527076808888\"" +
+                ",\"startTime\":\"1627176808888\",\"endTime\":\"1927422288207\",\"statisticTime\":\"1727076808888\"" +
                 ",\"minTime\":\"7200000\",\"uid\":\"2\"}";
         try {
             String responseString = mvc.perform(MockMvcRequestBuilders.post("/activity")    //请求的url,请求的方法是post

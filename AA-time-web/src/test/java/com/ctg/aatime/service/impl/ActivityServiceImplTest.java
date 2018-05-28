@@ -23,12 +23,12 @@ public class ActivityServiceImplTest {
     @Test
     public void createActivity() throws Exception {
         Activity activity = new Activity();
-        activity.setEventName("看书");
-        activity.setEventBrief("是是是");
-        activity.setEventPlace("天上");
-        activity.setStartTime(1527176808888L);
-        activity.setEndTime(1527422288207L);
-        activity.setStatisticTime(1527076808888L);
+        activity.setEventName("睡觉");
+        activity.setEventBrief("嗡嗡嗡");
+        activity.setEventPlace("程序");
+        activity.setStartTime(1727176808888L);
+        activity.setEndTime(1927422288207L);
+        activity.setStatisticTime(1727076808888L);
         activity.setMinTime(7200000L);
         activity.setUid(2);
         Activity result = activityService.createActivity(activity);
@@ -37,7 +37,7 @@ public class ActivityServiceImplTest {
 
     @Test
     public void selectLiveActivitiesByUid() throws Exception {
-        List<Activity> activity = activityService.selectLiveActivitiesByUid(2);
+        List<Activity> activity = activityService.selectJoinActivitiesByUid(2);
         System.out.println("结果是:"+activity);
     }
 
