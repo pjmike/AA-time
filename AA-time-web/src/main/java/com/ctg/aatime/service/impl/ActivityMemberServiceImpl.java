@@ -14,7 +14,6 @@ import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +51,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
         if (activity.getStatisticTime() < now || activity.getLaunchTime() > 0 ){
             //若超过活动统计截止时间  或  活动已发布，则添加失败
             //TODO 这里是否应该抛出异常 表示为什么添加失败
+            log.info("加入活动失败，异常原因：超过活动统计截止时间  或  活动已发布");
             throw new CascadeException("加入活动失败");
         }
         for (Time t : freeTime) {
@@ -65,7 +65,8 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
                 //空闲时间不为空，则添加
                 if (timeDao.insertTimeList(freeTime) == 0){
                     //活动成员空闲时间添加失败
-                    throw new CascadeException("加入活动失败");
+                    log.info("修改活动失败，异常原因：空闲时间修改失败");
+                    throw new CascadeException("修改活动空闲时间失败");
                 }
             }
             return members;
@@ -73,6 +74,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
         //如果用户不存在，则说明是加入活动
         if (activityDao.addMembersByEventId(eventId) < 1){
             //活动参与人数+1 失败
+            log.info("加入活动失败，异常原因：活动参与人数+1 失败");
             throw new CascadeException("加入活动失败");
         }
         members = new ActivityMembers();
@@ -85,12 +87,14 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
         members.setAddTime(System.currentTimeMillis());
         if (activityMembersDao.insertActivityMembers(members) < 1) {
             //活动成员添加失败
+            log.error("加入活动失败，异常原因：活动成员添加失败");
             throw new CascadeException("加入活动失败");
         }
         if (freeTime.size()!=0){
             //空闲时间不为空，则添加
             if (timeDao.insertTimeList(freeTime) == 0){
                 //活动成员空闲时间添加失败
+                log.info("加入活动失败，异常原因：成员空闲时间添加失败");
                 throw new CascadeException("加入活动失败");
             }
         }
@@ -128,6 +132,7 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
                 activityDao.reduceMembersByEventId(eventId) != 1 ||
                 activityDao.addQuitReason(members, reason) != 1) {
             //如果 退出活动成员表 / 减少活动成员数 / 添加退出原因 失败
+            log.info("退出失败,原因：数据库级联更新失败");
             throw new CascadeException("退出失败");
         }
         return members;

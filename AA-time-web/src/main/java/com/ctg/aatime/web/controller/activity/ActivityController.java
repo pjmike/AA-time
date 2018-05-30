@@ -105,13 +105,13 @@ public class ActivityController {
      * @return 用户仅参与的所有未发布未过期活动
      */
     @GetMapping("/joinList/{uid}")
-    public ResponseResult liveListByUid(@PathVariable("uid") int uId) {
+    public ResponseResult joinListByUid(@PathVariable("uid") int uId) {
         List<Activity> activities = activityService.selectJoinActivitiesByUid(uId);
         return FormatResponseUtil.formatResponseDomain(activities);
     }
 
     /**
-     * 查询该用户创建的活动（不管是否发布/过期）
+     * 查询该用户创建的未发布的未过期的活动
      *
      * @param uId 用户id
      * @return 创建的活动
