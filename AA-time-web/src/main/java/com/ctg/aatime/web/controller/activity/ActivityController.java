@@ -58,11 +58,11 @@ public class ActivityController {
      * @param activity 活动类
      * @return ResponseResult
      */
-    @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseResult createActivity(@RequestPart("file")MultipartFile file, @RequestPart Activity activity) throws IOException {
+    @PostMapping
+    public ResponseResult createActivity(@RequestParam("file")MultipartFile file,Activity activity) throws IOException {
         if (file == null) {
             //设置活动默认图片
-            activity.setAvatar(defaultImageUrl);
+            activity.setImageUrl(defaultImageUrl);
         }
         String originalFileName = file.getOriginalFilename();
         Response response = qiNIuService.uploadFile(file.getInputStream(),originalFileName);
