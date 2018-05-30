@@ -52,7 +52,10 @@ public class TimeServiceImp implements TimeService{
                 break;
             }
         }
-        if(user == null) throw new RuntimeException("创建者用户缺失");
+        if(user == null) {
+            log.info("推荐时间失败，原因：创建者不存在");
+            throw new RuntimeException("创建者用户缺失");
+        }
         return RecommendTimeUtil.getRecommendTimeInfo(activity, members,user);
     }
 
