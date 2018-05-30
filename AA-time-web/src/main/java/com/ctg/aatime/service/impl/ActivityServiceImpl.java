@@ -77,16 +77,19 @@ public class ActivityServiceImpl implements ActivityService {
         //将信息插入活动信息表
         User u = userDao.selectUserByUid(activity.getUid());
         if (u == null) {
+            log.info("创建活动失败，原因：用户id不存在");
             throw new CascadeException("用户id不存在");
         }
         activity.setAvatar(u.getAvatar());
         activity.setUsername(u.getUsername());
         if (activityDao.createActivity(activity) < 1) {
             //添加活动失败
+            log.info("创建活动失败，原因：数据库更新失败");
             throw new CascadeException("添加活动失败");
         }
         if (membersService.insertActivityMember(activity.getUid(), activity.getEventId(), new ArrayList<Time>()) == null){
             //将创建者添加为该活动成员失败
+            log.info("创建活动失败，原因：添加活动成员失败");
             throw new CascadeException("添加活动失败");
         }
         return activity;
@@ -123,10 +126,12 @@ public class ActivityServiceImpl implements ActivityService {
         timeDao.delMembersTimeByEventId(eventId);
         if (activityMembersDao.delActivityMembersByEventId(eventId) < 1) {
             //如果删除活动成员失败
+            log.info("删除活动失败，原因：删除活动成员失败");
             throw new CascadeException("删除活动成员失败");
         }
         if (activityDao.delActivity(eventId) < 1) {
             //如果删除该活动失败
+            log.info("删除活动失败，原因：删除活动信息失败");
             throw new CascadeException("删除活动失败");
         }
     }
@@ -138,10 +143,12 @@ public class ActivityServiceImpl implements ActivityService {
         if (now > a.getEndTime()){
             //如果当前时间大于活动可选时间范围，删除活动，并通知发布失败
             delActivityByEventId(activity.getEventId());
+            log.info("发布活动失败，原因：活动已失效");
             throw new CascadeException("活动已失效");
         }
         if (a.getLaunchTime() != 0) {
             //若活动已经发布  则发布失败
+            log.info("发布活动失败，原因：活动已发布");
             throw new CascadeException("活动已发布");
         }
         a.setLaunchTime(activity.getLaunchTime());
@@ -150,6 +157,7 @@ public class ActivityServiceImpl implements ActivityService {
         a.setLaunchWords(activity.getLaunchWords());
         if (a.getLaunchStartTime() > a.getLaunchEndTime() || a.getLaunchStartTime() < now){
             //活动确定发布的开始时间 大于结束时间/小于此时
+            log.info("发布活动失败，原因：活动确定发布的开始时间 大于结束时间/小于此时");
             throw new CascadeException("数据有误");
         }
         List<BestTime> bestTime = timeService.getRecommendTime(a.getEventId()).getBestTimes();
