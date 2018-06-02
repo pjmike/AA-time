@@ -86,4 +86,5 @@ public class Activity {
      * 活动照片
      */
     private String imageUrl;
+
 }

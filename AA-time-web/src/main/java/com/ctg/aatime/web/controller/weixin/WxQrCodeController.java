@@ -1,4 +1,4 @@
-package com.ctg.aatime.web.controller.wx;
+package com.ctg.aatime.web.controller.weixin;
 
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
 import com.ctg.aatime.commons.utils.ResponseResult;

@@ -45,26 +45,26 @@ public class HttpApectJs {
     /**
      * 对service方法定义一个切点，然后利用websocket推送消息
      */
-    @Pointcut("execution(public * com.ctg.aatime.service.ActivityMembersService.insertActivityMember(..))")
+    /*@Pointcut("execution(public * com.ctg.aatime.service.ActivityMembersService.insertActivityMember(..))")
     public void webSocketPush() {
 
-    }
+    }*/
 
     /**
      * 在插入活动人员之后，广播通知某某进入了活动
      *
-     * @param object
+//     * @param object
      */
-    @AfterReturning(returning = "object", pointcut = "webSocketPush()")
-    public void WebSocketPushAfterReturn(Object object) {
-        ActivityMembers members = (ActivityMembers) object;
-        log.info("return={}", object.toString());
-        //广播信息
-        ServerResponseMessage message = new ServerResponseMessage();
-        message.setResponseMessage(members.getUsername() + MessageTypeEnum.JOIN.getType());
-        //向活动成员发送广播消息,某某进入了活动
-        messagingTemplate.convertAndSend("/topic/notice", message.getResponseMessage());
-    }
+//    @AfterReturning(returning = "object", pointcut = "webSocketPush()")
+//    public void WebSocketPushAfterReturn(Object object) {
+//        ActivityMembers members = (ActivityMembers) object;
+//        log.info("return={}", object.toString());
+//        //广播信息
+//        ServerResponseMessage message = new ServerResponseMessage();
+//        message.setResponseMessage(members.getUsername() + MessageTypeEnum.JOIN.getType());
+//        //向活动成员发送广播消息,某某进入了活动
+//        messagingTemplate.convertAndSend("/topic/notice", message.getResponseMessage());
+//    }
 
     @Before("webLog()")
     public void doBefore(JoinPoint point) {

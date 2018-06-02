@@ -1,4 +1,4 @@
-package com.ctg.aatime.web.controller.wx;
+package com.ctg.aatime.web.controller.weixin;
 
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.exception.CascadeException;

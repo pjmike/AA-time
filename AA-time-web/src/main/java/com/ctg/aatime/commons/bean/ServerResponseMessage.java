@@ -14,4 +14,11 @@ public class ServerResponseMessage {
      * 消息内容
      */
     private String responseMessage;
+
+    public ServerResponseMessage() {
+    }
+
+    public ServerResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
 }

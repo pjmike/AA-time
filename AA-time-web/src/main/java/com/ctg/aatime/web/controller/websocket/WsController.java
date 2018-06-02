@@ -1,5 +1,6 @@
-package com.ctg.aatime.web.controller.ws;
+package com.ctg.aatime.web.controller.websocket;
 
+import com.ctg.aatime.commons.bean.ClientRequestMessage;
 import com.ctg.aatime.commons.bean.ServerResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,10 +19,10 @@ public class WsController {
     @Autowired
     private SimpMessagingTemplate template;
     /**
-     * TODO 待重构
+     * TODO
      */
-    @MessageMapping("/websocket")
-    public void sendMessageToAll(ServerResponseMessage message) {
-        template.convertAndSend("/topic/notice",message.getResponseMessage());
+    @MessageMapping("/notice")
+    public void sendMessageToAll(ClientRequestMessage message) {
+        template.convertAndSend("/topic/response", new ServerResponseMessage(message.getContent()));
     }
 }

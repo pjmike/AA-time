@@ -30,4 +30,9 @@ public class UserServiceTest {
         System.out.println(result);
     }
 
+    @Test
+    public void changeName() {
+        userService.changeUserNickName(2,"pjmike");
+    }
+
 }
