@@ -13,11 +13,11 @@ public class EventPlace {
     /**
      * 自增id
      */
-    private int id;
+    private Integer id;
     /**
      * 活动id
      */
-    private int eventId;
+    private Integer eventId;
     /**
      * 活动地点名
      */
