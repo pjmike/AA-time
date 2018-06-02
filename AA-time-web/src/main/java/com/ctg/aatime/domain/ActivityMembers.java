@@ -16,15 +16,15 @@ public class ActivityMembers {
     /**
      * 自增id
      */
-    private int id;
+    private Integer id;
     /**
      * 活动id
      */
-    private int eventId;
+    private Integer eventId;
     /**
      * 成员id
      */
-    private int uid;
+    private Integer uid;
     /**
      * 成员名称
      */
@@ -40,13 +40,13 @@ public class ActivityMembers {
     /**
      * 成员加入的时间戳
      */
-    private long addTime;
+    private Long addTime;
     /**
      * 成员空闲时间范围
      */
     private HashMap<Long, Long> freeTimes;
 
-    public ActivityMembers(int eventId, int uid) {
+    public ActivityMembers(Integer eventId, Integer uid) {
         this.eventId = eventId;
         this.uid = uid;
     }

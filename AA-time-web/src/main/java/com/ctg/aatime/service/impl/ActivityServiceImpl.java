@@ -212,12 +212,15 @@ public class ActivityServiceImpl implements ActivityService {
         //该用户创建的未发布的活动，按统计截止时间的升序排序
         List<Activity> activities = activityDao.selectEstablishedActivitiesByUid(uId);
         Long now = System.currentTimeMillis();
-        for (Activity a: activities) {
+        for (int i = 0; i < activities.size();) {
+            Activity a = activities.get(i);
             if (a.getEndTime() <= now){
                 //若该活动到结束时间时仍未发布，则删除该活动！
                 activities.remove(a);
                 delActivityByEventId(a.getEventId());
+                continue;
             }
+            i++;
         }
         return activities;
     }

@@ -13,7 +13,7 @@ public class Activity {
     /**
      * 活动Id
      */
-    private int eventId;
+    private Integer eventId;
     /**
      * 活动名称
      */
@@ -33,15 +33,15 @@ public class Activity {
     /**
      * 活动报名人数
      */
-    private int members;
+    private Integer members;
     /**
      * 活动参与人数
      */
-    private int launchMembers;
+    private Integer launchMembers;
     /**
      * 活动发起人id
      */
-    private int uid;
+    private Integer uid;
     /**
      * 发起人名字
      */
@@ -53,31 +53,31 @@ public class Activity {
     /**
      * 活动可选开始时间戳
      */
-    private long startTime;
+    private Long startTime;
     /**
      * 活动可选结束时间戳
      */
-    private long endTime;
+    private Long endTime;
     /**
      * 活动确认开始时间
      */
-    private long launchStartTime;
+    private Long launchStartTime;
     /**
      * 活动确认结束时间
      */
-    private long launchEndTime;
+    private Long launchEndTime;
     /**
      * 活动统计截止时间戳
      */
-    private long statisticTime;
+    private Long statisticTime;
     /**
      * 活动最小持续时间
      */
-    private long minTime;
+    private Long minTime;
     /**
      * 活动发布时间
      */
-    private long launchTime;
+    private Long launchTime;
     /**
      * 活动发布留言
      */

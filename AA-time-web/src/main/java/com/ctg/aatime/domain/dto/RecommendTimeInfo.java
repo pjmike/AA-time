@@ -14,13 +14,13 @@ public class RecommendTimeInfo {
     //最优时间解
     private List<BestTime> bestTimes;
     //可选时间的起始时间戳
-    private long activityStart;
+    private Long activityStart;
     //可选时间的结束时间戳
-    private long activityEnd;
+    private Long activityEnd;
     //该活动参与统计的人数
-    private int allMembersNum;
+    private Integer allMembersNum;
 
-    public RecommendTimeInfo(List<BestTime> bestTimes, long activityStart, long activityEnd, int allMembersNum) {
+    public RecommendTimeInfo(List<BestTime> bestTimes, Long activityStart, Long activityEnd, Integer allMembersNum) {
         this.bestTimes = bestTimes;
         this.activityStart = activityStart;
         this.activityEnd = activityEnd;
