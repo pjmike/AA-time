@@ -27,7 +27,9 @@ public class WxQrCodeProperties {
     /**
      * rgb颜色
      */
-    public static final String LINE_COLOR = "";
+
+    public  static final Map<String,Object> LINE_COLOR = new HashMap<>();
+
     /**
      * 二维码参数
      */
@@ -36,6 +38,12 @@ public class WxQrCodeProperties {
     /**
      * 初始化二维码参数
      */
+
+    static {
+        LINE_COLOR.put("r", 0);
+        LINE_COLOR.put("g", 0);
+        LINE_COLOR.put("b", 0);
+    }
     static {
         QRCODEPARMS.put("path", PATH);
         QRCODEPARMS.put("auto_color", AUTO_COLOR);

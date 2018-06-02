@@ -18,7 +18,7 @@ public class WxProperties {
     /**
      * 获取access_token的地址
      */
-    public static final String URLTOACCESSTOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type={client_credential}&appid={APPID}&secret={APPSECRET}";
+    public static final String URLTOACCESSTOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type={client_credential}&appid={appid}&secret={appSecret}";
     /**
      * 获取session_info地址
      */
@@ -33,11 +33,11 @@ public class WxProperties {
     /**
      * 小程序的appid
      */
-    public static final String APPID = "";
+    public static final String APPID = "wx2673278f5838ab8b";
     /**
      * 小程序的appSecret
      */
-    public static final String APPSECRET = "";
+    public static final String APPSECRET = "f491576e6a1221b06f78c76f1f446098";
     /**
      * grant_type
      */
@@ -55,9 +55,8 @@ public class WxProperties {
      * 静态初始化 ACCESSTOKEN_VARS
      */
     static {
-        ACCESSTOKEN_VARS.put("grant_type", GRANT_TYPE);
-        ACCESSTOKEN_VARS.put("APPID", APPID);
-        ACCESSTOKEN_VARS.put("APPSECRET", APPSECRET);
+        ACCESSTOKEN_VARS.put("appid", APPID);
+        ACCESSTOKEN_VARS.put("appSecret", APPSECRET);
     }
 
     /**

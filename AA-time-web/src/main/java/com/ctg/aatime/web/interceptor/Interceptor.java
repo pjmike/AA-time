@@ -1,11 +1,10 @@
 package com.ctg.aatime.web.interceptor;
 
 
-import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.exception.LoginException;
+import com.ctg.aatime.commons.utils.RedisOperator;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -21,23 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class Interceptor extends HandlerInterceptorAdapter {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisOperator redisOperator;
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //TODO 待重构
-        if (StringUtils.equals(request.getServletPath(), "/index")) {
-            String key = request.getHeader("3rd_session");
-            //在redis去找值
-            long nowExpireTime = redisTemplate.getExpire(key);
-            if (nowExpireTime < 0) {
-                throw new LoginException(ErrorMsgEnum.REDIS_EXPIRE.getMsg());
-            } else {
-                String openidAndKey = (String) redisTemplate.opsForValue().get(key);
-                if (StringUtils.isBlank(openidAndKey)) {
-                    throw new LoginException(ErrorMsgEnum.REDIS_VALUE_NULL.getMsg());
-                }
-                return true;
-            }
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+        String key = request.getHeader("3rd_session");
+        if (StringUtils.isEmpty(key)) {
+            throw new LoginException("用户未登陆，请及时登陆");
+        }
+        if (redisOperator.get(key) == null) {
+            throw new LoginException("用户身份过期,请重新登录");
         }
         return true;
     }

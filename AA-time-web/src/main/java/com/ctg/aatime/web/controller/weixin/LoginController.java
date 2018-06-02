@@ -94,6 +94,8 @@ public class LoginController {
         redis.set(key, sessionKey, EXP_TIMES);
         //将key放入请求头里传给前端进行本地保存
         response.setHeader("3rd_session", key);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Expose-Headers","3rd_session");
         return FormatResponseUtil.formatResponse();
     }
 }
