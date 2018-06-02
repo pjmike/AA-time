@@ -13,7 +13,7 @@ public class User {
     /**
      * 用户自增
      */
-    private int id;
+    private Integer id;
     /**
      * 微信服务器生成的唯一id
      */
@@ -41,7 +41,7 @@ public class User {
         this.avatar = avatar;
     }
 
-    public User(int id, String username, String avatar,String nickname) {
+    public User(Integer id, String username, String avatar,String nickname) {
         this.nickname = nickname;
         this.id = id;
         this.username = username;

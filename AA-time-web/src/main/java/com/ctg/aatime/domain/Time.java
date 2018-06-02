@@ -13,25 +13,25 @@ public class Time {
     /**
      * 自增id
      */
-    private int id;
+    private Integer id;
     /**
      * 活动id
      */
-    private int eventId;
+    private Integer eventId;
     /**
      * 用户id
      */
-    private int uid;
+    private Integer uid;
     /**
      * 时间段的开始时间
      */
-    private long startTime;
+    private Long startTime;
     /**
      * 时间段的结束时间
      */
-    private long endTime;
+    private Long endTime;
     /**
      * 时间段的权重值
      */
-    private int weight;
+    private Integer weight;
 }
