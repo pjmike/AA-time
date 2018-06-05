@@ -60,16 +60,16 @@ public class ActivityMembersController {
      * @param map 退出活动原因
      * @return ResponseResult
      */
-    @PostMapping("/event/{uid}/{eventId}")
+    @DeleteMapping("/event/{uid}/{eventId}")
     public ResponseResult quitEvent(@PathVariable("eventId")Integer eventId,@PathVariable("uid")Integer uid,
                                     @RequestBody Map<String,String> map) {
+        Activity activity = activityService.selectActivityByEventId(eventId);
         String reason = map.get("reason");
         ActivityMembers member = new ActivityMembers(eventId,uid);
         activityMembersService.quitActivity(member, reason);
 
         //使用websocket发送消息
         User user = userService.selectUserByUid(uid);
-        Activity activity = activityService.selectActivityByEventId(eventId);
         Map<String, Object> response = new HashMap<>(16);
         response.put("username", user.getId());
         response.put("avatar", user.getAvatar());

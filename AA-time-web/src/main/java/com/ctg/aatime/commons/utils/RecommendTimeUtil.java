@@ -164,7 +164,7 @@ public class RecommendTimeUtil {
     public static RecommendTimeInfo getRecommendTimeInfo(Activity activity, List<ActivityMembers> members,ActivityMembers user) {
         if (activity.getMinTime() < 15*60*1000L){
             //如果最小时间小于15min，默认改为15min
-            activity.setMinTime(15*60*1000L);
+            activity.setMinTime((long) (15*60*1000));
         }
         //最优解列表
         List<BestTime> bestTimes = new ArrayList<BestTime>();

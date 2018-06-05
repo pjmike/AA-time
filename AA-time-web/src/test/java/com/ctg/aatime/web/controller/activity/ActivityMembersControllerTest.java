@@ -29,11 +29,10 @@ public class ActivityMembersControllerTest {
     private MockMvc mvc;
 
     @Test
-    @Rollback()
     public void quitEvent() {
         try{
-            String requestBody = "回家过年";
-            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activityMember/event/2/38")    //请求的url,请求的方法是get
+            String requestBody = "[{\"reason\":\"12345\"}]";
+            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activityMember/event/4/36")    //请求的url,请求的方法是get
                     .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)//数据的格式
                     .content(requestBody)    //添加参数
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200

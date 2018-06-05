@@ -141,7 +141,7 @@ public class ActivityControllerTest {
     @Test
     public void getActivityInfo(){
         try {
-            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/activityInfo/38")    //请求的url,请求的方法是post
+            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/activityInfo/36")    //请求的url,请求的方法是post
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
@@ -153,7 +153,7 @@ public class ActivityControllerTest {
     @Test
     public void recommendTime(){
         try {
-            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/recommendTime/34")    //请求的url,请求的方法是post
+            String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/recommendTime/36")    //请求的url,请求的方法是post
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
