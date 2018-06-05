@@ -29,7 +29,7 @@ public class WxQrCodeServiceImpl implements WxQrCodeService{
     @Override
     public File createQrCodeImgUrl(Map<String,Object> map) {
         //获取access_token
-        String access_token = service.getAccessToken();
+        String access_token = service.getAccessToken(restTemplate);
         //获取二维码的地址
         String url = WxProperties.CODEURL + access_token;
         Map<String, Object> target = WxQrCodeProperties.QRCODEPARMS;

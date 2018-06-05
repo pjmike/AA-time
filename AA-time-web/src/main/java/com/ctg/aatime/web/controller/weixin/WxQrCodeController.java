@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -36,9 +37,10 @@ public class WxQrCodeController {
     @Autowired
     private IQiNIuService qiNIuService;
     private String fileName = "code.jpg";
-    @GetMapping(value = "/code")
+    @PostMapping(value = "/code")
     public ResponseResult createCode(@RequestBody Map<String,Object> params) throws QiniuException {
         WxQrCodeServiceImpl service = new WxQrCodeServiceImpl(restTemplate);
+        System.out.println(restTemplate);
         //TODO 重构
         File imageFile = service.createQrCodeImgUrl(params);
         Response response = qiNIuService.uploadFile(imageFile, fileName);

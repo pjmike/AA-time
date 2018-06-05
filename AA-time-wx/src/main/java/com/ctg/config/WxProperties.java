@@ -18,7 +18,7 @@ public class WxProperties {
     /**
      * 获取access_token的地址
      */
-    public static final String URLTOACCESSTOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type={client_credential}&appid={appid}&secret={appSecret}";
+    public static final String URLTOACCESSTOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={appid}&secret={appSecret}";
     /**
      * 获取session_info地址
      */

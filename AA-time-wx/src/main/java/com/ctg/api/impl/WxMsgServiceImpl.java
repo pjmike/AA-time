@@ -24,7 +24,7 @@ public class WxMsgServiceImpl implements WxMsgService{
     private WxServiceImpl wxService = new WxServiceImpl(restTemplate);
     @Override
     public void sendTemplateMsg(WxTemplateMessage templateMessage) {
-        String access_token = wxService.getAccessToken();
+        String access_token = wxService.getAccessToken(restTemplate);
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(WxProperties.TEMPLATE_MSG_SEND_URL, templateMessage.toString(), String.class, access_token);
         if (!Objects.equals(responseEntity.getStatusCode(), HttpStatus.OK)) {
             throw new WxErrorException("服务器错误");

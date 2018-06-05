@@ -23,8 +23,9 @@ public class WxServiceImpl implements WxService {
     }
 
     @Override
-    public String getAccessToken() {
-        Map result = restTemplate.getForObject(WxProperties.URLTOACCESSTOKEN, Map.class,WxProperties.ACCESSTOKEN_VARS);
+    public String getAccessToken(RestTemplate restTemplate) {
+        Map<String,Object> result = restTemplate.getForObject(WxProperties.URLTOACCESSTOKEN, Map.class,WxProperties.ACCESSTOKEN_VARS);
+        System.out.println(result);
         if (StringUtils.isBlank((String) result.get("access_token"))) {
             //TODO
             throw new WxErrorException("服务器错误");

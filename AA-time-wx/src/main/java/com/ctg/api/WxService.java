@@ -1,5 +1,7 @@
 package com.ctg.api;
 
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Map;
 
 /**
@@ -14,7 +16,7 @@ public interface WxService {
      * 获取access_token信息
      * @return
      */
-    String getAccessToken();
+    String getAccessToken(RestTemplate restTemplate);
 
     /**
      * 获取session_info信息
