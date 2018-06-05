@@ -15,12 +15,17 @@ import java.util.Objects;
  * @create 2018-04-19 23:40
  */
 public class WxMsgServiceImpl implements WxMsgService{
-    private RestTemplate restTemplate = new RestTemplate();
-    private WxServiceImpl wxService = new WxServiceImpl();
+    private RestTemplate restTemplate;
+
+    public WxMsgServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    private WxServiceImpl wxService = new WxServiceImpl(restTemplate);
     @Override
     public void sendTemplateMsg(WxTemplateMessage templateMessage) {
         String access_token = wxService.getAccessToken();
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(WxProperties.TEMPLATE_MSG_SEND_URL, templateMessage, String.class, access_token);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(WxProperties.TEMPLATE_MSG_SEND_URL, templateMessage.toString(), String.class, access_token);
         if (!Objects.equals(responseEntity.getStatusCode(), HttpStatus.OK)) {
             throw new WxErrorException("服务器错误");
         }

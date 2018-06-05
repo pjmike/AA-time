@@ -9,13 +9,13 @@ import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.model.DefaultPutRet;
-import com.sun.javafx.collections.MappingChange;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.util.*;
@@ -28,7 +28,9 @@ import java.util.*;
 @RestController
 @Slf4j
 public class WxQrCodeController {
-    private final WxQrCodeServiceImpl service = new WxQrCodeServiceImpl();
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Value("${QiNiu}")
     private String QiNiu;
     @Autowired
@@ -36,6 +38,7 @@ public class WxQrCodeController {
     private String fileName = "code.jpg";
     @GetMapping(value = "/code")
     public ResponseResult createCode(@RequestBody Map<String,Object> params) throws QiniuException {
+        WxQrCodeServiceImpl service = new WxQrCodeServiceImpl(restTemplate);
         //TODO 重构
         File imageFile = service.createQrCodeImgUrl(params);
         Response response = qiNIuService.uploadFile(imageFile, fileName);

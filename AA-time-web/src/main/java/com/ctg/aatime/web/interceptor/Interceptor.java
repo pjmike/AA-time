@@ -23,7 +23,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
     private RedisOperator redisOperator;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        String key = request.getHeader("3rd_session");
+        String key = request.getHeader("token");
         if (StringUtils.isEmpty(key)) {
             throw new LoginException("用户未登陆，请及时登陆");
         }

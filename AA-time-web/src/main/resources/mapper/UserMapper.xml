@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctg.aatime.dao.UserDao">
     <insert id="insertUser" parameterType="user" keyProperty="id" useGeneratedKeys="true">
-        INSERT INTO user(username,avatar,openid) VALUES (#{username},#{avatar},#{openid})
+        INSERT INTO user(username,avatar,openid,nickname) VALUES (#{username},#{avatar},#{openid},#{nickname})
     </insert>
     <select id="selectUserByOpenId" parameterType="String" resultType="user">
         SELECT * FROM user WHERE openid = #{openid}

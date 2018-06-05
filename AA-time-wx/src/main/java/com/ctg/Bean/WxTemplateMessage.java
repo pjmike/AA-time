@@ -1,7 +1,9 @@
 package com.ctg.Bean;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class WxTemplateMessage implements Serializable{
      * <pre>
      * 参数：touser
      * 是否必填： 是
-     * 描述：接受者(用户)的id
+     * 描述：接受者(用户)的openId
      * </pre>
      */
     private String toUser;
@@ -30,7 +32,7 @@ public class WxTemplateMessage implements Serializable{
      * 描述: 所需下发的模板消息id
      * </pre>
      */
-    private String templateId;
+    private static  String templateId = "FJBgwjykvqNK32P6kabC3k6NHvR6JPrfLbIrIVAnCSI";
 
     /**
      * <pre>
@@ -57,8 +59,7 @@ public class WxTemplateMessage implements Serializable{
      * 描述： 模板内容，不填则下发空模板
      * </pre>
      */
-    @Builder.Default
-    private final List<Data> data = new ArrayList<>();
+    private  List<Data> data = new ArrayList<>();
 
     /**
      * <pre>
@@ -78,6 +79,20 @@ public class WxTemplateMessage implements Serializable{
      */
     private String emphasisKeyword;
 
+    public WxTemplateMessage(String toUser, String page, String formId) {
+        this.toUser = toUser;
+        this.page = page;
+        this.formId = formId;
+    }
+
+    public WxTemplateMessage() {
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+
     @lombok.Data
     public static class Data {
         private String name;
@@ -95,6 +110,9 @@ public class WxTemplateMessage implements Serializable{
             this.color = color;
         }
 
+        public Data(String value) {
+            this.value = value;
+        }
     }
 
 }

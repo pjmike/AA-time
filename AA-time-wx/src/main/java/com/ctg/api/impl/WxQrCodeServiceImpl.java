@@ -4,11 +4,7 @@ import com.ctg.api.WxQrCodeService;
 import com.ctg.config.WxProperties;
 import com.ctg.config.WxQrCodeProperties;
 import com.ctg.utils.ImgUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
@@ -21,9 +17,15 @@ import java.util.Map;
  */
 public class WxQrCodeServiceImpl implements WxQrCodeService{
 
-    private RestTemplate restTemplate = new RestTemplate();
-    private WxServiceImpl service = new WxServiceImpl();
+    private  RestTemplate restTemplate;
+
     private String imageName = "code.jpg";
+    public WxQrCodeServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    private WxServiceImpl service = new WxServiceImpl(restTemplate);
+
     @Override
     public File createQrCodeImgUrl(Map<String,Object> map) {
         //获取access_token

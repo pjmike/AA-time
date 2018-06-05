@@ -1,13 +1,17 @@
 package com.ctg.aatime.web.controller.activity;
 
+import com.ctg.Bean.WxTemplateMessage;
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.qiniu.IQiNIuService;
 import com.ctg.aatime.commons.utils.FormatResponseUtil;
+import com.ctg.aatime.commons.utils.RedisOperator;
 import com.ctg.aatime.commons.utils.ResponseResult;
 import com.ctg.aatime.domain.Activity;
 import com.ctg.aatime.domain.dto.RecommendTimeInfo;
 import com.ctg.aatime.service.ActivityService;
 import com.ctg.aatime.service.TimeService;
+import com.ctg.api.WxMsgService;
+import com.ctg.api.impl.WxMsgServiceImpl;
 import com.google.gson.Gson;
 import com.qiniu.http.Response;
 import com.qiniu.storage.model.DefaultPutRet;
@@ -15,11 +19,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 活动有关接口
@@ -34,8 +44,15 @@ public class ActivityController {
     private String defaultImageUrl;
     @Value("${QiNiu}")
     private String QiNiu;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+    private WxMsgService msgService = new WxMsgServiceImpl(restTemplate);
     private final ActivityService activityService;
     private final TimeService timeService;
+    @Autowired
+    private RedisOperator redisOperator;
     @Autowired
     private IQiNIuService qiNIuService;
     @Autowired
@@ -91,9 +108,31 @@ public class ActivityController {
      */
     @PostMapping(value = "/launchInfo",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseResult launchActivity(@RequestBody Activity activity) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm-dd : HH-mm");
+
         if (activityService.launchActivity(activity) < 1) {
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
         } else {
+            while (redisOperator.getFromSet(activity.getEventId() + "-message") != null) {
+                WxTemplateMessage message = (WxTemplateMessage) redisOperator.getFromSet(activity.getEventId() + "-message");
+                List<WxTemplateMessage.Data> data = new ArrayList<>();
+                data.add(new WxTemplateMessage.Data("keyword1", activity
+                        .getEventName()));
+                data.add(new WxTemplateMessage.Data("keyword2", simpleDateFormat.format(activity.getLaunchStartTime())));
+                data.add(new WxTemplateMessage.Data("keyword3",activity.getEventPlace()));
+                data.add(new WxTemplateMessage.Data("keyword4", activity.getUsername()));
+                message.setData(data);
+                //发送模板消息
+                msgService.sendTemplateMsg(message);
+            }
+            Map<String, Object> response = new HashMap<>(16);
+            response.put("eventName", activity.getEventName());
+            response.put("name", activity.getUsername());
+            response.put("avatar", activity.getAvatar());
+            response.put("time", System.currentTimeMillis());
+            response.put("operation", "发布");
+            //发布通知
+            messagingTemplate.convertAndSend("/topic/notification",response);
             return FormatResponseUtil.formatResponse();
         }
     }

@@ -1,5 +1,6 @@
 package com.ctg.aatime.commons.config;
 
+import com.ctg.aatime.commons.utils.WxMappingJackson2HttpMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,8 @@ public class RestTemplateConfig {
     private RestTemplateBuilder builder;
     @Bean
     public RestTemplate restTemplate() {
-        return builder.build();
+        RestTemplate restTemplate = builder.build();
+        restTemplate.getMessageConverters().add(new WxMappingJackson2HttpMessageConverter());
+        return restTemplate;
     }
 }

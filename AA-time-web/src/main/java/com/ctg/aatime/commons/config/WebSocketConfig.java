@@ -1,11 +1,11 @@
 package com.ctg.aatime.commons.config;
 
+import org.mapstruct.BeanMapping;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurationSupport;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.*;
 
 /**
  * 1.   websocket 配置类
@@ -28,7 +28,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         stompEndpointRegistry.addEndpoint("/websocket")
                 //解决跨域问题
                 .setAllowedOrigins("*")
-                .withSockJS();
+                .withSockJS().setInterceptors(webSocketInterceptor());
     }
 
     /**
@@ -40,7 +40,54 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         //设置消息代理,以/topic,/queue为前缀
         registry.enableSimpleBroker("/topic", "/queue");
+        registry.setUserDestinationPrefix("/user");
         //设置应用程序前缀，前端发起的请求会自动添加/app
 //        registry.setApplicationDestinationPrefixes("/app");
+    }
+
+    /**
+     * 消息传输参数设置
+     *
+     * @param registry
+     */
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
+        registry.setMessageSizeLimit(8192)
+                .setSendBufferSizeLimit(8192)
+                .setSendTimeLimit(10000);
+    }
+
+    /**
+     * 输入通道参数设置
+     *
+     * @param registration
+     */
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.taskExecutor().corePoolSize(4)
+                .maxPoolSize(8)
+                .keepAliveSeconds(60);
+        registration.setInterceptors(presenceChannelInterceptor());
+    }
+
+    /**
+     * 输出参数设置
+     *
+     * @param registration
+     */
+    @Override
+    public void configureClientOutboundChannel(ChannelRegistration registration) {
+        registration.taskExecutor().corePoolSize(4).maxPoolSize(8);
+        registration.setInterceptors(presenceChannelInterceptor());
+    }
+
+    @Bean
+    public WebSocketInterceptor webSocketInterceptor() {
+        return new WebSocketInterceptor();
+    }
+
+    @Bean
+    public PresenceChannelInterceptor presenceChannelInterceptor() {
+        return new PresenceChannelInterceptor();
     }
 }

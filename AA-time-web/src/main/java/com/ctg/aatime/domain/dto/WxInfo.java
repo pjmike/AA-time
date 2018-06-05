@@ -17,7 +17,7 @@ public class WxInfo {
     /**
      * 用户敏感信息加密数据
      */
-    private String encrytedData;
+    private String encryptedData;
     /**
      * 加密算法的初始向量
      */

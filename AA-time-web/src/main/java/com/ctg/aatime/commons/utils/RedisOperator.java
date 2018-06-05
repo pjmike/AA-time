@@ -178,4 +178,15 @@ public class RedisOperator {
 		return redisTemplate.opsForList().rightPush(key, value);
 	}
 
+	public void setForSet(String key,Object o) {
+		redisTemplate.opsForSet().add(key, o);
+	}
+
+	public Object getFromSet(String key) {
+		return redisTemplate.opsForSet().pop(key);
+	}
+
+	public void remove(String key) {
+		redisTemplate.opsForValue().set(key,null);
+	}
 }

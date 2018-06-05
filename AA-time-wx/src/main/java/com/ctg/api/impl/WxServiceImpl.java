@@ -6,7 +6,6 @@ import com.ctg.exception.WxErrorException;
 import com.ctg.utils.AesCbcUtil;
 import com.ctg.utils.GsonUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -17,7 +16,11 @@ import java.util.Map;
  */
 public class WxServiceImpl implements WxService {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+
+    public WxServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public String getAccessToken() {
