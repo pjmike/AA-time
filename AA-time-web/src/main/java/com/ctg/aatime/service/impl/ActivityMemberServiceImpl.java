@@ -121,6 +121,14 @@ public class ActivityMemberServiceImpl implements ActivityMembersService {
         int eventId = members.getEventId();
         members = activityMembersDao.selectActivityMembersByUEid(uid, eventId);
         Activity activity = activityDao.selectActivityByEventId(eventId);
+        if (activity == null){
+            log.info("退出失败，原因：该活动不存在");
+            throw new CascadeException("退出失败，该活动不存在");
+        }
+        if (members == null){
+            log.info("退出失败，原因：该成员没有参与活动");
+            throw new CascadeException("退出失败，该成员没有参与活动");
+        }
         if (activity.getUid() == uid){
             //TODO 创建者退出活动，则删除活动
             activityService.delActivityByEventId(eventId);
