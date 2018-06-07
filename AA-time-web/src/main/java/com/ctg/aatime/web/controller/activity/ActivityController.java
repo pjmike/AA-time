@@ -234,7 +234,7 @@ public class ActivityController {
     @GetMapping(value = "/recommendTime/{eventId}")
     public ResponseResult recommendTime(@PathVariable("eventId") int eventId) {
         RecommendTimeInfo recommendTimeInfo = timeService.getRecommendTime(eventId);
-        return FormatResponseUtil.formatResponseDomain(JSON.toJSONString(recommendTimeInfo));
+        return FormatResponseUtil.formatResponseDomain(JSON.toJSON(recommendTimeInfo));
     }
 
 }
