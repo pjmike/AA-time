@@ -45,6 +45,18 @@
         </trim>
     </sql>
 
+    <update id="updateActivity" parameterType="activity">
+      UPDATE event SET <include refid="updateInfo"/> WHERE event_id = #{eventId}
+    </update>
+    <sql id="updateInfo">
+        <trim suffixOverrides=",">
+            <if test="eventName != null">event_name = #{eventName},</if>
+            <if test="eventBrief != null">event_brief = #{eventBrief},</if>
+            <if test="eventPlace != null">event_place = #{eventPlace},</if>
+            <if test="minTime != null">min_time = #{minTime},</if>
+        </trim>
+    </sql>
+
     <select id="selectActivityByEventId" parameterType="int" resultType="activity">
         SELECT
         event_id ,

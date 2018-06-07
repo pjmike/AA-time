@@ -1,5 +1,6 @@
 package com.ctg.aatime.web.controller.activity;
 
+import com.alibaba.fastjson.JSON;
 import com.ctg.Bean.WxTemplateMessage;
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.qiniu.IQiNIuService;
@@ -93,6 +94,34 @@ public class ActivityController {
             return FormatResponseUtil.error(ErrorMsgEnum.SERVER_FAIL_CONNECT);
         }
         return FormatResponseUtil.formatResponseDomain(activity);
+    }
+
+    /**
+     * 更新活动接口
+     *
+     * <p>
+     * 必传参数：eventId(活动Id)
+     * 可选参数：eventName（活动名称）、eventBrief（活动简介）、eventPlace（活动地点）、minTime（最小所需时间戳：默认为15min）
+     * </p>
+     *
+     * @param activity 活动类
+     * @return ResponseResult
+     */
+    @PostMapping(value = "/activityInfo",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseResult updateActivity(@RequestBody Activity activity) throws IOException {
+        activityService.updateActivity(activity);
+        return FormatResponseUtil.formatResponse();
+    }
+
+    /**
+     * 获取活动信息
+     *
+     * @param eventId 活动id
+     * @return 返回活动信息
+     */
+    @GetMapping("/activityInfo/{eventId}")
+    public ResponseResult getActivityInfo(@PathVariable("eventId") int eventId) {
+        return FormatResponseUtil.formatResponse(activityService.selectActivityByEventId(eventId));
     }
 
     /**
@@ -199,25 +228,13 @@ public class ActivityController {
 
     /**
      * 获取活动推荐时间有关信息
-     *
      * @param eventId 活动id
      * @return 返回推荐时间有关信息
      */
     @GetMapping(value = "/recommendTime/{eventId}")
     public ResponseResult recommendTime(@PathVariable("eventId") int eventId) {
         RecommendTimeInfo recommendTimeInfo = timeService.getRecommendTime(eventId);
-        return FormatResponseUtil.formatResponseDomain(recommendTimeInfo);
-    }
-
-    /**
-     * 获取活动信息
-     *
-     * @param eventId 活动id
-     * @return 返回活动信息
-     */
-    @GetMapping("/activityInfo/{eventId}")
-    public ResponseResult getActivityInfo(@PathVariable("eventId") int eventId) {
-        return FormatResponseUtil.formatResponse(activityService.selectActivityByEventId(eventId));
+        return FormatResponseUtil.formatResponseDomain(JSON.toJSONString(recommendTimeInfo));
     }
 
 }

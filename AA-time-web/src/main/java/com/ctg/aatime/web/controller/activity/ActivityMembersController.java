@@ -1,5 +1,6 @@
 package com.ctg.aatime.web.controller.activity;
 
+import com.alibaba.fastjson.JSON;
 import com.ctg.Bean.WxTemplateMessage;
 import com.ctg.aatime.commons.enums.ErrorMsgEnum;
 import com.ctg.aatime.commons.utils.Constants;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -123,14 +123,13 @@ public class ActivityMembersController {
 
     /**
      * 获取用户选择的空闲时间
-     *
      * @param uid     用户id
      * @param eventId 参与活动Id
      * @return ResponseResult
      */
     @GetMapping("/freeTime/{uid}/{eventId}")
     public ResponseResult findFree(@PathVariable("uid") int uid, @PathVariable("eventId") int eventId) {
-        return FormatResponseUtil.formatResponse(timeService.getFreeTimeByUid(uid, eventId));
+        return FormatResponseUtil.formatResponse(JSON.toJSON(timeService.getFreeTimeByUid(uid, eventId)));
     }
 
 }

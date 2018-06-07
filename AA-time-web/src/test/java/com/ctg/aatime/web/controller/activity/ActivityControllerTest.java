@@ -161,4 +161,19 @@ public class ActivityControllerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    @Rollback(false)
+    public void updateActivity(){
+        String requestBody = "{\"eventId\":\"54\",\"eventBrief\":\"hello world\"}";
+        try {
+            String responseString = mvc.perform(MockMvcRequestBuilders.post("/activity/activityInfo").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)//数据的格式
+                    .content(requestBody)    //请求的url,请求的方法是post
+            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
+                    .andDo(print())         //打印出请求和相应的内容
+                    .andReturn().getResponse().getContentAsString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

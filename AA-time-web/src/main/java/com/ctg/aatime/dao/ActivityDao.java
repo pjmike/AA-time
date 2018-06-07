@@ -18,6 +18,13 @@ public interface ActivityDao {
     int createActivity(Activity activity);
 
     /**
+     * 更新活动信息
+     * @param activity
+     * @return
+     */
+    int updateActivity(Activity activity);
+
+    /**
      * 从活动信息表通过event_id查询活动
      *
      * @return
@@ -64,4 +71,5 @@ public interface ActivityDao {
      * 通过uId在活动信息表查询该用户创建的未发布的活动，按统计截止时间的升序排序
      */
     List<Activity> selectEstablishedActivitiesByUid(@Param("uId")int uId);
+
 }
