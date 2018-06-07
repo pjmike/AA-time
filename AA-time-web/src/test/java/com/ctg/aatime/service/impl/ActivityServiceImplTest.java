@@ -67,4 +67,12 @@ public class ActivityServiceImplTest {
         System.out.println("结果是:"+activity);
     }
 
+    @Test
+    public void updateActivity() {
+        Activity activity = new Activity();
+        activity.setEventId(54);
+        activity.setEventBrief("wwwello");
+        activityService.updateActivity(activity);
+    }
+
 }

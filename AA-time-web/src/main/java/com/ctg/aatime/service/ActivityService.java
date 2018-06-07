@@ -20,6 +20,12 @@ public interface ActivityService {
     Activity createActivity(Activity activity);
 
     /**
+     * 更新活动信息
+     * @param activity
+     */
+    void updateActivity(Activity activity);
+
+    /**
      * 查询该用户所有仅参与（不包含创建）的未发布未过期活动
      */
     List<Activity> selectJoinActivitiesByUid(int uid);

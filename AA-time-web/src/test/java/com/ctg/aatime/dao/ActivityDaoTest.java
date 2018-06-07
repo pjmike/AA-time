@@ -67,6 +67,14 @@ public class ActivityDaoTest {
         System.out.println(activityDao.updateLaunchInfo(activity));
     }
 
+    @Test
+    public void updateActivity(){
+        Activity activity = new Activity();
+        activity.setEventId(54);
+        activity.setEventBrief("hello");
+        System.out.println(activityDao.updateActivity(activity));
+    }
+
 
 
 }

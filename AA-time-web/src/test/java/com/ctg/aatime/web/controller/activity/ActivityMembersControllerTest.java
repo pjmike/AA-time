@@ -61,7 +61,7 @@ public class ActivityMembersControllerTest {
     @Test
     public void findFree() {
        try{
-           String responseString = mvc.perform(MockMvcRequestBuilders.get("/activityMember/freeTime/2/34")    //请求的url,请求的方法是get
+           String responseString = mvc.perform(MockMvcRequestBuilders.get("/activityMember/freeTime/2/36")    //请求的url,请求的方法是get
            ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                    .andDo(print())         //打印出请求和相应的内容
                    .andReturn().getResponse().getContentAsString();

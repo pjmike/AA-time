@@ -95,6 +95,20 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
+    @Override
+    public void updateActivity(Activity activity) {
+        if (activity.getEventPlace()==null && activity.getEventName()==null && activity.getEventBrief()==null &&
+                activity.getMinTime()==null){
+            log.info("修改活动失败，修改内容为空");
+            throw new CascadeException("修改活动失败，修改内容为空");
+        }
+        else if (activityDao.updateActivity(activity) < 1){
+            log.info("修改活动失败，连接数据库失败");
+            throw new CascadeException("修改活动失败，服务器未响应");
+        }
+        return;
+    }
+
     //查询该用户所有仅参与（不包含创建）的未发布未过期活动
     @Override
     public List<Activity> selectJoinActivitiesByUid(int uId) {
