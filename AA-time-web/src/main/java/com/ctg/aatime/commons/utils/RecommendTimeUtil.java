@@ -172,8 +172,8 @@ public class RecommendTimeUtil {
         int timeSize = getTimeSize(activity.getStartTime(), activity.getEndTime());
         //活动最少持续时间
         int minTime = getTimeSize(activity.getMinTime());
-        //返回的推荐时间信息
-        RecommendTimeInfo recommendTimeInfo = new RecommendTimeInfo(bestTimes, activity.getStartTime(), activity.getEndTime(), members.size());
+        //返回的推荐时间信息,membersNum加1，因为参与人列表和创建者是分开的，所以需要加上创建者
+        RecommendTimeInfo recommendTimeInfo = new RecommendTimeInfo(bestTimes, activity.getStartTime(), activity.getEndTime(), members.size()+1);
         if (user.getFreeTimes() == null || timeSize < minTime){
             //如果创建者未选择时间 或 活动可选范围小于活动最小时限，直接返回空列表
             return recommendTimeInfo;
