@@ -1,5 +1,6 @@
 package com.ctg.aatime.commons.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.BeanMapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import org.springframework.web.socket.config.annotation.*;
  */
 @Configuration
 @EnableWebSocketMessageBroker
+@Slf4j
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     /**
      * 首先要连接stomp端点
@@ -27,8 +29,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         //注册一个STOMP的endpoint端点，并指定使用SockJS协议,前端通过这个端点与服务器建立websocket连接
         stompEndpointRegistry.addEndpoint("/websocket")
                 //解决跨域问题
-                .setAllowedOrigins("*")
-                .withSockJS().setInterceptors(webSocketInterceptor());
+                .setAllowedOrigins("*");
+//                .withSockJS().setInterceptors(webSocketInterceptor());
     }
 
     /**

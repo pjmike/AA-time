@@ -1,6 +1,8 @@
 package com.ctg.aatime.commons.config;
 
 import com.ctg.aatime.commons.utils.Constants;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -18,6 +20,7 @@ import java.util.Map;
  * @create 2018-06-05 11:29
  */
 @Component
+@Slf4j
 public class WebSocketInterceptor extends HttpSessionHandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
@@ -29,16 +32,22 @@ public class WebSocketInterceptor extends HttpSessionHandshakeInterceptor {
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
             HttpSession session = serverHttpRequest.getServletRequest().getSession(false);
-            String userId = (String) session.getAttribute("userId");
-            //把session和userId存放起来
-            attributes.put(Constants.SESSIONID, session.getId());
-            attributes.put(Constants.KEY_USER_ID, userId);
+            if (session != null) {
+                String userId = (String) session.getAttribute("userId");
+                log.info("userId : {}",userId);
+                if (StringUtils.isEmpty(userId)) {
+                    userId = "USERID_IS_NULL";
+                }
+                //把session和userId存放起来
+                attributes.put(Constants.SESSIONID, session.getId());
+                attributes.put(Constants.KEY_USER_ID, userId);
+            }
         }
-        return super.beforeHandshake(request, response, wsHandler, attributes);
+        return true;
     }
-
-    @Override
-    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
-        super.afterHandshake(request, response, wsHandler, ex);
-    }
+//
+//    @Override
+//    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
+//        super.afterHandshake(request, response, wsHandler, ex);
+//    }
 }

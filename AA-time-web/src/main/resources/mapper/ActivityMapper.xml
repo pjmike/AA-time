@@ -135,6 +135,7 @@
             event_tag,
             event_place,
             uid,
+            image_url,
             username,
             avatar,
             start_time,
