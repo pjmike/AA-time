@@ -44,7 +44,7 @@ public class ActivityControllerTest {
     public void joinListByUid() throws Exception {
         //表示测试根目录+该url能否成功被访问
 
-        String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/joinList/2")    //请求的url,请求的方法是get
+        String responseString = mvc.perform(MockMvcRequestBuilders.get("/activity/joinList/5")    //请求的url,请求的方法是get
         ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                 .andDo(print())         //打印出请求和相应的内容
                 .andReturn().getResponse().getContentAsString();
@@ -77,7 +77,7 @@ public class ActivityControllerTest {
     @Test
     public void delActivity(){
         try {
-            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activity/38")    //请求的url,请求的方法是post
+            String responseString = mvc.perform(MockMvcRequestBuilders.delete("/activity/54")    //请求的url,请求的方法是post
             ).andExpect(MockMvcResultMatchers.status().isOk())    //返回的状态是200
                     .andDo(print())         //打印出请求和相应的内容
                     .andReturn().getResponse().getContentAsString();
