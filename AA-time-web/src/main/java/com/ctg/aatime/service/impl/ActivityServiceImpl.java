@@ -113,7 +113,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> selectJoinActivitiesByUid(int uId) {
         List<Activity> activities = selectLiveActivitiesByUid(uId);
-        for (int i = 0;i<activities.size();i++) {
+        for (int i = 0;i<activities.size();) {
             Activity a = activities.get(i);
             if (a.getLaunchTime() != 0) {
                 //如果该活动已发布，remove
@@ -123,6 +123,7 @@ public class ActivityServiceImpl implements ActivityService {
                 //如果该活动是该用户创建的，remove
                 activities.remove(a);
             }
+            else i++;
         }
         return activities;
     }
